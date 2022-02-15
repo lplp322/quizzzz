@@ -8,9 +8,10 @@ Add your own name (do not add the names for others!) to the section below.
 
 ## Group members
 
-| Profile Picture | Name | Email |
-|---|---|---|
+| Profile Picture                                                                                         | Name           | Email                         |
+| ------------------------------------------------------------------------------------------------------- | -------------- | ----------------------------- |
 | ![](https://eu.ui-avatars.com/api/?name=OOPP&length=4&size=50&color=DDD&background=777&font-size=0.325) | Your Name Here | Y.NameHere@student.tudelft.nl |
+|                                                                                                         | Ivans Kravcevs | I.Kravcevs@student.tudelft.nl |
 | ![](https://eu.ui-avatars.com/api/?name=OOPP&length=4&size=50&color=DDD&background=777&font-size=0.325) | Christopher Charlesworth | c.charlesworth@student.tudelft.nl |
 |  | Shashwat Sahay | S.Sahay-1@student.tudelft.nl |
 | ![](https://eu.ui-avatars.com/api/?name=OOPP&length=4&size=50&color=DDD&background=777&font-size=0.325) | Stefan Stoicescu | Stoicescu@student.tudelft.nl |
@@ -21,7 +22,7 @@ Add your own name (do not add the names for others!) to the section below.
 <!-- - Add (only!) your own name to the table above (use Markdown formatting) -->
 <!-- - Mention your *student* email address -->
 <!-- - Preferably add a recognizable photo, otherwise add your GitLab photo -->
-<!-- - (please make sure the photos have the same size) --> 
+<!-- - (please make sure the photos have the same size) -->
 
 ## How to run it
 
