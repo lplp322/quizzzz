@@ -17,12 +17,6 @@ Add your own name (do not add the names for others!) to the section below.
 | ![](https://secure.gravatar.com/avatar/b3a317591b97355176020231cc7bd700?s=800&d=identicon&size=90) | Borislav Semerdzhiev | B.N.Semerdzhiev@student.tudelft.nl |
 | ![](https://secure.gravatar.com/avatar/6386037151e662128163e89a3db2ab7d?s=800&d=identicon&size=90) | Maosheng Jiang | M.Jiang-5@student.tudelft.nl |
 
-<!-- Instructions (remove once assignment has been completed -->
-<!-- - Add (only!) your own name to the table above (use Markdown formatting) -->
-<!-- - Mention your *student* email address -->
-<!-- - Preferably add a recognizable photo, otherwise add your GitLab photo -->
-<!-- - (please make sure the photos have the same size) -->
-
 ## How to run it
 
 ## How to contribute to it
