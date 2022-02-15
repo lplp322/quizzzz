@@ -10,7 +10,7 @@ Add your own name (do not add the names for others!) to the section below.
 
 | Profile Picture                                                                                         | Name           | Email                         |
 | ------------------------------------------------------------------------------------------------------- | -------------- | ----------------------------- |
-|                                                                                                         | Ivans Kravcevs | I.Kravcevs@student.tudelft.nl |
+| ![](https://secure.gravatar.com/avatar/e8e43f8832d6d03746c1c9644317f365?s=800&d=identicon&size=90) | Ivans Kravcevs | I.Kravcevs@student.tudelft.nl |
 | ![](https://secure.gravatar.com/avatar/5a4eb763d5e1286181bc6d4c55d55c85?s=800&d=identicon&size=90) | Christopher Charlesworth | c.charlesworth@student.tudelft.nl |
 | ![](https://gitlab.ewi.tudelft.nl/uploads/-/system/user/avatar/3755/avatar.png?width=90=90x90)| Shashwat Sahay | S.Sahay-1@student.tudelft.nl |
 | ![](https://secure.gravatar.com/avatar/483a0106d11c81b5e1af6b4a3fd65787?s=800&d=identicon&size=90) | Stefan Stoicescu | Stoicescu@student.tudelft.nl |
