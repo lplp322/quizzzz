@@ -15,9 +15,12 @@
  */
 package server;
 
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
+import org.springframework.context.annotation.Bean;
+import server.database.ActivityRepository;
 
 @SpringBootApplication
 @EntityScan(basePackages = { "commons", "server" })
@@ -25,5 +28,13 @@ public class Main {
 
     public static void main(String[] args) {
         SpringApplication.run(Main.class, args);
+    }
+
+
+    CommandLineRunner commandLineRunner(ActivityRepository activityRepository) {
+        return args -> {
+            activityRepository.save(new Activity("Ironing", 200));
+
+        };
     }
 }
