@@ -1,9 +1,12 @@
 package server;
 
+import server.database.ActivityRepository;
+
 import javax.persistence.*;
+import java.util.Comparator;
 
 @Entity
-public class Activity {
+public class Activity implements Comparable {
     @Id
     @SequenceGenerator(
             name = "activity_sequence",
@@ -41,5 +44,11 @@ public class Activity {
 
     public int getEnergy() {
         return energy;
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        Activity otherActivity = (Activity)o;
+        return (getEnergy() < otherActivity.getEnergy()?-1:1);
     }
 }
