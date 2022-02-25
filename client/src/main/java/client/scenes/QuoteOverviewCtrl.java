@@ -17,9 +17,7 @@ package client.scenes;
 
 import java.net.URL;
 import java.util.ResourceBundle;
-
 import com.google.inject.Inject;
-
 import client.utils.ServerUtils;
 import commons.Quote;
 import javafx.beans.property.SimpleStringProperty;
