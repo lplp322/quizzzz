@@ -1,10 +1,8 @@
 package server;
 
 import server.database.ActivityRepository;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Random;
+
+import java.util.*;
 
 public class Question {
     // the actual question
@@ -22,12 +20,10 @@ public class Question {
 
     public Question(ActivityRepository dt) {
         this.dt = dt;
-        //type = (new Random()).nextInt(3);
-        type = 2;
+        type = (new Random()).nextInt(3);
         List<Activity> allActivities = dt.getAllActivities();
         Collections.shuffle(allActivities);
         activities = new ArrayList<>();
-
         answers = new ArrayList<>();
 
         for(int i = 0; i < 4; i++) {
@@ -47,8 +43,21 @@ public class Question {
         }
     }
 
-    public Question() {
-        type = (new Random()).nextInt(3);
+    public Question(List<Activity> activities, int type) {
+        this.activities = activities;
+        this.type = type;
+        answers = new ArrayList<>();
+        switch (type) {
+            case 0:
+                generateTypeOne();
+                break;
+            case 1:
+                generateTypeTwo();
+                break;
+            case 2:
+                generateTypeThree();
+                break;
+        }
     }
 
     /** Generates a question in the following format: Open-ended questions (estimating the answer) that are randomised.
@@ -62,7 +71,8 @@ public class Question {
         answers.add(act.getEnergy()+"");
         answer = act.getEnergy()+"";
 
-        List<Integer> deviations = List.of(1, -1, 2, -2, 3, -3, 4, -4, 5, -5);
+        Integer[] types = {1, -1, 2, -2, 3, -3, 4, -4, 5, -5};
+        List<Integer> deviations = Arrays.asList(types);
         Collections.shuffle(deviations);
 
         for(int i = 0; i < 3; i++) {
@@ -77,7 +87,7 @@ public class Question {
      */
     private void generateTypeTwo() {
         //Activity act = dt.getActivities(1);
-
+        //TO BE IMPLEMENTED
     }
 
     /** Generates a question in the following format: Comparing the energy usage of one activity to three other activities:
@@ -94,6 +104,10 @@ public class Question {
                 answers.add(activities.get(i).getName()+"");
         }
         Collections.shuffle(answers);
+    }
+
+    public String getAnswer() {
+        return answer;
     }
 
     public String getQuestion() {
