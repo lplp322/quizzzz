@@ -21,7 +21,6 @@ import javafx.stage.Stage;
 import javafx.util.Pair;
 
 public class MainCtrl {
-
     private Stage primaryStage;
 
     private QuoteOverviewCtrl overviewCtrl;
@@ -30,8 +29,11 @@ public class MainCtrl {
     private AddQuoteCtrl addCtrl;
     private Scene add;
 
+    private SplashCtrl splashCtrl;
+    private Scene splash;
+
     public void initialize(Stage primaryStage, Pair<QuoteOverviewCtrl, Parent> overview,
-            Pair<AddQuoteCtrl, Parent> add) {
+            Pair<AddQuoteCtrl, Parent> add, Pair<SplashCtrl, Parent> splash) {
         this.primaryStage = primaryStage;
         this.overviewCtrl = overview.getKey();
         this.overview = new Scene(overview.getValue());
@@ -39,7 +41,10 @@ public class MainCtrl {
         this.addCtrl = add.getKey();
         this.add = new Scene(add.getValue());
 
-        showOverview();
+        this.splashCtrl = splash.getKey();
+        this.splash = new Scene(splash.getValue());
+
+        showSplash();
         primaryStage.show();
     }
 
@@ -53,5 +58,10 @@ public class MainCtrl {
         primaryStage.setTitle("Quotes: Adding Quote");
         primaryStage.setScene(add);
         add.setOnKeyPressed(e -> addCtrl.keyPressed(e));
+    }
+
+    public void showSplash() {
+        primaryStage.setTitle("Quizzz");
+        primaryStage.setScene(splash);
     }
 }
