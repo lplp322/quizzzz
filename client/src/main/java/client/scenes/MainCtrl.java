@@ -21,7 +21,6 @@ import javafx.stage.Stage;
 import javafx.util.Pair;
 
 public class MainCtrl {
-
     private Stage primaryStage;
 
     private QuoteOverviewCtrl overviewCtrl;
@@ -29,18 +28,29 @@ public class MainCtrl {
 
     private AddQuoteCtrl addCtrl;
     private Scene add;
+
     private MostPowerCtrl mostPowerCtrl;
+    private Scene mostPower;
+
+    private SplashCtrl splashCtrl;
+    private Scene splash;
 
     public void initialize(Stage primaryStage, Pair<QuoteOverviewCtrl, Parent> overview,
-            Pair<AddQuoteCtrl, Parent> add, Pair<MostPowerCtrl, Parent> mostPowerQuestion) {
+        Pair<AddQuoteCtrl, Parent> add, Pair<SplashCtrl, Parent> splash, Pair<MostPowerCtrl, Parent> mostPowerQuestion) {
         this.primaryStage = primaryStage;
         this.overviewCtrl = overview.getKey();
-        this.overview = new Scene(mostPowerQuestion.getValue());
+        this.overview = new Scene(overview.getValue());
+
         this.addCtrl = add.getKey();
         this.add = new Scene(add.getValue());
 
+        this.splashCtrl = splash.getKey();
+        this.splash = new Scene(splash.getValue());
 
-        showOverview();
+        this.mostPowerCtrl = mostPowerQuestion.getKey();
+        this.mostPower = new Scene(mostPowerQuestion.getValue());
+
+        showSplash();
         primaryStage.show();
     }
 
@@ -54,5 +64,15 @@ public class MainCtrl {
         primaryStage.setTitle("Quotes: Adding Quote");
         primaryStage.setScene(add);
         add.setOnKeyPressed(e -> addCtrl.keyPressed(e));
+    }
+
+    public void showSplash() {
+        primaryStage.setTitle("Quizzz");
+        primaryStage.setScene(splash);
+    }
+
+    public void showMostPowerQuestion() {
+        primaryStage.setTitle("Quizzz");
+        primaryStage.setScene(mostPower);
     }
 }
