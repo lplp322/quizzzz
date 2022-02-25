@@ -1,23 +1,17 @@
 package client.scenes;
 
-import jakarta.ws.rs.core.MediaType;
+
 import javafx.fxml.FXML;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
+
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
-import javafx.stage.Stage;
-import javafx.util.Pair;
 
 import java.io.IOException;
-import java.io.OutputStream;
+
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.ProtocolException;
+
 import java.net.URL;
-import java.net.http.HttpHeaders;
-import java.nio.charset.StandardCharsets;
-import java.util.Collections;
+
 
 public class MostPowerCtrl {
 
