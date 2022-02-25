@@ -1,9 +1,6 @@
 package server;
 
-import server.database.ActivityRepository;
-
 import javax.persistence.*;
-import java.util.Comparator;
 
 @Entity
 public class Activity implements Comparable {
