@@ -48,4 +48,13 @@ public class Activity implements Comparable {
         Activity otherActivity = (Activity)o;
         return (getEnergy() < otherActivity.getEnergy()?-1:1);
     }
+
+    @Override
+    public String toString() {
+        return "Activity{" +
+                "Id=" + Id +
+                ", name='" + name + '\'' +
+                ", energy=" + energy +
+                '}';
+    }
 }
