@@ -84,6 +84,7 @@ public class MainCtrl {
     }
 
     public void showPrompt() {
+        primaryStage.setTitle("Enter your name");
         primaryStage.setScene(prompt);
     }
 }
