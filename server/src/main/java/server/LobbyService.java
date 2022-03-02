@@ -50,4 +50,27 @@ public class LobbyService {
     public int getIdCounter() {
         return idCounter;
     }
+
+    /**
+     * Creating a game for one player
+     * @param name - name of the player
+     * @return id of the game
+     */
+    public int createSinglePlayerGame(String name) {
+        Player person = new Player(name);
+        List<Player> players = new ArrayList<>();
+        players.add(person);
+        Game newGame = new Game(players, idCounter, 0, dtBase);
+        games.put(idCounter++, newGame);
+        return idCounter-1;
+    }
+
+    /**
+     * Return game object by this id
+     * @param id - id of the game
+     * @return game object with this id
+     */
+    public Game getGameByID(int id){
+        return games.get(id);
+    }
 }
