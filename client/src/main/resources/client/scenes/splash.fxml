@@ -40,7 +40,7 @@
                         <Font name="Franklin Gothic Medium" size="29.0" />
                      </font>
                   </Button>
-                  <Button fx:id="singleplayerButton" alignment="CENTER" contentDisplay="CENTER" layoutX="17.0" layoutY="14.0" mnemonicParsing="false" opacity="0.94" prefHeight="86.0" prefWidth="347.0" text="Play Singleplayer" textAlignment="CENTER">
+                  <Button fx:id="singleplayerButton" alignment="CENTER" contentDisplay="CENTER" layoutX="17.0" layoutY="14.0" mnemonicParsing="false" onAction="#singlePlayer" opacity="0.94" prefHeight="86.0" prefWidth="347.0" text="Play Singleplayer" textAlignment="CENTER">
                      <font>
                         <Font name="Franklin Gothic Medium" size="29.0" />
                      </font>

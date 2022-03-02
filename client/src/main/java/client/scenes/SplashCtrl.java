@@ -17,4 +17,10 @@ public class SplashCtrl {
     public SplashCtrl(MainCtrl mainCtrl) {
         this.mainCtrl = mainCtrl;
     }
+
+    public void singlePlayer() {
+        this.mainCtrl.showPrompt();
+    }
+
+
 }

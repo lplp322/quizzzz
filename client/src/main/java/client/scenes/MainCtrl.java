@@ -35,8 +35,12 @@ public class MainCtrl {
     private SplashCtrl splashCtrl;
     private Scene splash;
 
+    private PromptCtrl promptCtrl;
+    private Scene prompt;
+
     public void initialize(Stage primaryStage, Pair<QuoteOverviewCtrl, Parent> overview,
-        Pair<AddQuoteCtrl, Parent> add, Pair<SplashCtrl, Parent> splash, Pair<MostPowerCtrl, Parent> mostPowerQuestion) {
+        Pair<AddQuoteCtrl, Parent> add, Pair<SplashCtrl, Parent> splash, Pair<MostPowerCtrl, Parent> mostPowerQuestion,
+                           Pair<PromptCtrl, Parent> prompt) {
         this.primaryStage = primaryStage;
         this.overviewCtrl = overview.getKey();
         this.overview = new Scene(overview.getValue());
@@ -49,6 +53,9 @@ public class MainCtrl {
 
         this.mostPowerCtrl = mostPowerQuestion.getKey();
         this.mostPower = new Scene(mostPowerQuestion.getValue());
+
+        this.promptCtrl = prompt.getKey();
+        this.prompt = new Scene(prompt.getValue());
 
         showSplash();
         primaryStage.show();
@@ -74,5 +81,9 @@ public class MainCtrl {
     public void showMostPowerQuestion() {
         primaryStage.setTitle("Quizzz");
         primaryStage.setScene(mostPower);
+    }
+
+    public void showPrompt() {
+        primaryStage.setScene(prompt);
     }
 }
