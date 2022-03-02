@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 @RequestMapping("/")
 public class SomeController {
-    private int gameId = 0;
+    private int gameId=0;
 
     /**
      * Answering to the first client response, when new user is connecting to the game
