@@ -20,12 +20,12 @@
             <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
         </columnConstraints>
         <rowConstraints>
-          <RowConstraints maxHeight="245.33333333333334" minHeight="10.0" prefHeight="245.33333333333334" vgrow="SOMETIMES" />
-          <RowConstraints fillHeight="false" maxHeight="501.33333333333337" minHeight="10.0" prefHeight="356.66666666666663" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="245.33333333333334" minHeight="10.0" prefHeight="168.66666666666666" vgrow="SOMETIMES" />
+          <RowConstraints fillHeight="false" maxHeight="501.33333333333337" minHeight="10.0" prefHeight="434.0" vgrow="SOMETIMES" />
           <RowConstraints maxHeight="146.33333333333337" minHeight="0.0" prefHeight="77.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label alignment="CENTER" blendMode="HARD_LIGHT" contentDisplay="CENTER" prefHeight="167.0" prefWidth="321.0" text="Quizzz!" GridPane.columnIndex="1">
+            <Label alignment="BOTTOM_CENTER" blendMode="HARD_LIGHT" contentDisplay="BOTTOM" prefHeight="232.0" prefWidth="321.0" text="Quizzz!" GridPane.columnIndex="1">
                <font>
                   <Font name="Century Gothic Bold" size="96.0" />
                </font>
