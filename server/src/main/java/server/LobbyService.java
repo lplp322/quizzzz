@@ -4,10 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import server.database.ActivityRepository;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 public class LobbyService {
@@ -15,6 +12,7 @@ public class LobbyService {
     private Map<Integer, Game> games;
     private int idCounter;
     private List<Player> tempPlayers;
+    private Set<String> names;
 
     @Autowired
     public LobbyService(ActivityRepository dtBase) {
@@ -23,6 +21,7 @@ public class LobbyService {
         games = new HashMap<>();
         idCounter = 0;
         tempPlayers = new ArrayList<>();
+        names = new HashSet<>();
     }
 
     /**
@@ -41,10 +40,15 @@ public class LobbyService {
     /**
      * Adds the person with name {name} to the list of waiting players in the queue
      * @param name
+     * @return true if player succesfully added
      */
-    public void addPlayer(String name) {
-        Player person = new Player(name);
-        tempPlayers.add(person);
+    public boolean addPlayer(String name) {
+        if(names.add(name)) {
+            Player person = new Player(name);
+            tempPlayers.add(person);
+            return true;
+        }
+        return false;
     }
 
     public int getIdCounter() {
