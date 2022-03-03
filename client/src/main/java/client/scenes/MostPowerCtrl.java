@@ -1,6 +1,6 @@
 package client.scenes;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
