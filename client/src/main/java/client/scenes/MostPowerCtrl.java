@@ -3,6 +3,7 @@ package client.scenes;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 
@@ -21,7 +22,7 @@ public class MostPowerCtrl {
     private Button choiceA;
 
     @FXML
-    private TextField questionText;
+    private Label questionLabel;
 
     @FXML
     private Button choiceB;
@@ -49,6 +50,14 @@ public class MostPowerCtrl {
 
     @FXML
     private Button submitButton;
+
+    @FXML
+    private Label currentRoundLabel;
+
+    @FXML
+    private Label timerLabel;
+
+    
 
 
 //    public MostPowerCtrl(MainCtrl mainCtrl) {
