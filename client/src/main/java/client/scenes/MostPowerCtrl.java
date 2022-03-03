@@ -57,7 +57,7 @@ public class MostPowerCtrl {
     @FXML
     private Label timerLabel;
 
-    
+
 
 
 //    public MostPowerCtrl(MainCtrl mainCtrl) {
@@ -122,7 +122,6 @@ public class MostPowerCtrl {
 
             //print result
             System.out.println(response.toString());
-            this.questionText.setText(response.toString());
 
         }
 
