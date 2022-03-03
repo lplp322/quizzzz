@@ -5,11 +5,12 @@ import server.database.ActivityRepository;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Game {
+public class Game implements Runnable{
     private List<Player> players;
     private int lobbyId;
     private List<Question> questions;
     private int gameType;
+    private Round round;
 
     //The number of rounds in a game
     private final int gameRounds = 20;
@@ -18,11 +19,26 @@ public class Game {
         this.players = players;
         this.lobbyId = lobbyId;
         this.gameType = gameType;
+        round = new Round();
 
         questions = new ArrayList<>();
         for(int i = 0; i < gameRounds; i++) {
             Question tempQuestion = new Question(dtBase);
             questions.add(tempQuestion);
+        }
+    }
+
+    @Override
+    public void run() {
+        try {
+            while(round.getGameStatus() == 1) {
+                round.tickDown();
+                Thread.sleep(1000);
+                System.out.println(round);
+            }
+        }
+        catch (Exception e) {
+            System.out.println(e.getStackTrace());
         }
     }
 
