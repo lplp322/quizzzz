@@ -33,6 +33,7 @@ public class LobbyService {
 
         games.put(idCounter++, tempGame);
         tempPlayers = new ArrayList<>();
+        names = new HashSet<>();
 
         System.out.println(tempGame);
     }

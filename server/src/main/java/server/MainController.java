@@ -1,10 +1,7 @@
 package server;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/")
@@ -53,5 +50,11 @@ public class MainController {
             return lobbyService.getIdCounter();
         }
         return -1;
+    }
+
+    @PutMapping("/startGame")
+    public Game startGame(){
+        lobbyService.startGame(1);
+        return lobbyService.getGameByID(lobbyService.getIdCounter()-1);
     }
 }
