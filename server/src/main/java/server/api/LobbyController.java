@@ -1,5 +1,6 @@
 package server.api;
 
+import commons.TrimmedGame;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import server.Game;
@@ -36,8 +37,8 @@ public class LobbyController {
      * @return game info object
      */
     @GetMapping("{gameID}/getGameInfo")
-    public Game getGameInfo(@PathVariable int gameID){
-        return lobbyService.getGameByID(gameID);
+    public TrimmedGame getGameInfo(@PathVariable int gameID){
+        return lobbyService.getGameByID(gameID).trim();
     }
 
     /**
@@ -59,8 +60,8 @@ public class LobbyController {
      * @return - return trimmed game object !!!(Game will be changed to TrimmedGame later)
      */
     @PutMapping("/startGame")
-    public Game startGame(){
+    public TrimmedGame startGame(){
         lobbyService.startGame(1);
-        return lobbyService.getGameByID(lobbyService.getIdCounter()-1);
+        return lobbyService.getGameByID(lobbyService.getIdCounter()-1).trim();
     }
 }

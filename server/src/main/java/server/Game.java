@@ -59,7 +59,7 @@ public class Game {
     }
 
     public TrimmedGame trim() {
-        return new TrimmedGame(lobbyId, "Question 1", 19, 20);
+        return new TrimmedGame(lobbyId, "Question 1", 19, 20, 1);
     }
 
 }
