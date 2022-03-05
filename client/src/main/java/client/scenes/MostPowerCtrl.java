@@ -1,6 +1,9 @@
 package client.scenes;
 
 
+
+
+import commons.TrimmedGame;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -95,35 +98,34 @@ public class MostPowerCtrl {
 
     public void getGameInfo() throws IOException {
 
-        String url = "localhost:8080/";
+        boolean gameFinished = false;
 
-        HttpURLConnection httpClient =
-                (HttpURLConnection) new URL(url).openConnection();
+        while (gameFinished!= true) {
+            URL url = new URL("https:localhost:8080/1/getGameInfo");
+            HttpURLConnection http = (HttpURLConnection)url.openConnection();
+            commons.TrimmedGame trimmedGame = (TrimmedGame) http.getContent();
 
-        // optional default is GET
-        httpClient.setRequestMethod("GET");
+            currentRoundLabel.setText("currentRound" + trimmedGame.getRoundsLeft());
+            timerLabel.setText("Time: " + trimmedGame.getTimer());
+            questionLabel.setText(trimmedGame.getCurrentQuestion());
 
-        //add request header
-        httpClient.setRequestProperty("User-Agent", "Mozilla/5.0");
-
-        int responseCode = httpClient.getResponseCode();
-        System.out.println("\nSending 'GET' request to URL : " + url);
-        System.out.println("Response Code : " + responseCode);
-
-        try (BufferedReader in = new BufferedReader(
-                new InputStreamReader(httpClient.getInputStream()))) {
-
-            StringBuilder response = new StringBuilder();
-            String line;
-
-            while ((line = in.readLine()) != null) {
-                response.append(line);
+            if (trimmedGame.getQuestionType() == 1) {
+                this.threeChoicesEnable();
             }
 
-            //print result
-            System.out.println(response.toString());
+            else if (trimmedGame.getQuestionType() == 2) {
+                this.guessEnable();
+            }
 
+            http.disconnect();
+
+            if (trimmedGame.getRoundsLeft() == 0) {
+                gameFinished = true;
+            }
         }
+
+
+
 
     }
 //    public void getRequest() throws IOException {

@@ -10,8 +10,9 @@ public class TrimmedGame {
     private boolean timeJoker;
     private String jokerUser;
     private int timerJoker;
+    private int questionType;
 
-    public TrimmedGame(int id, String currentQuestion, int roundsLeft, int timer) {
+    public TrimmedGame(int id, String currentQuestion, int roundsLeft, int timer, int questionType) {
         this.id = id;
         this.currentQuestion = currentQuestion;
         this.roundsLeft = roundsLeft;
@@ -19,6 +20,7 @@ public class TrimmedGame {
         this.timeJoker = false;
         this.jokerUser = null;
         this.timerJoker = -1;
+        this.questionType = questionType;
     }
 
     public TrimmedGame(int id, String currentQuestion, int roundsLeft, int timer, String jokerUser, int timerJoker) {
@@ -58,6 +60,11 @@ public class TrimmedGame {
     public int getTimerJoker() {
         return timerJoker;
     }
+
+    public int getQuestionType() {
+        return questionType;
+    }
+
 
     @Override
     public boolean equals(Object o) {
