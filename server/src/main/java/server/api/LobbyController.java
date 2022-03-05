@@ -38,6 +38,7 @@ public class LobbyController {
      */
     @GetMapping("{gameID}/getGameInfo")
     public TrimmedGame getGameInfo(@PathVariable int gameID){
+        System.out.println( gameID + " connected");
         return lobbyService.getGameByID(gameID).trim();
     }
 

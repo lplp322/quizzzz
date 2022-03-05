@@ -3,6 +3,10 @@ package client.scenes;
 
 
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
+import com.fasterxml.jackson.databind.util.JSONPObject;
+import com.google.gson.JsonElement;
 import commons.TrimmedGame;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -10,13 +14,14 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 
-import java.io.BufferedReader;
-import java.io.IOException;
+import java.io.*;
 
-import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 
 import java.net.URL;
+import java.net.URLConnection;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 
 public class MostPowerCtrl {
 //    private final MainCtrl mainCtrl;
@@ -101,9 +106,29 @@ public class MostPowerCtrl {
         boolean gameFinished = false;
 
         while (gameFinished!= true) {
-            URL url = new URL("https:localhost:8080/1/getGameInfo");
+            URL url = new URL("http://localhost:8080/1/getGameInfo");
             HttpURLConnection http = (HttpURLConnection)url.openConnection();
-            commons.TrimmedGame trimmedGame = (TrimmedGame) http.getContent();
+//            URLConnection http = (HttpURLConnection)url.openConnection();
+
+            Gson g = new Gson();
+//            Player p = g.fromJson(jsonString, Player.class)
+            System.out.println("asdfasdfasdf");
+            System.out.println(http.getContent().toString());
+
+            StringBuilder textBuilder = new StringBuilder();
+            try (Reader reader = new BufferedReader(new InputStreamReader
+                    (http.getInputStream(), Charset.forName(StandardCharsets.UTF_8.name())))) {
+                int c = 0;
+                while ((c = reader.read()) != -1) {
+                    textBuilder.append((char) c);
+                }
+            }
+            String jsonString = textBuilder.toString();
+
+            System.out.println(jsonString);
+
+
+            commons.TrimmedGame trimmedGame = g.fromJson( jsonString, commons.TrimmedGame.class);
 
             currentRoundLabel.setText("currentRound" + trimmedGame.getRoundsLeft());
             timerLabel.setText("Time: " + trimmedGame.getTimer());
@@ -122,6 +147,7 @@ public class MostPowerCtrl {
             if (trimmedGame.getRoundsLeft() == 0) {
                 gameFinished = true;
             }
+            gameFinished = true;
         }
 
 

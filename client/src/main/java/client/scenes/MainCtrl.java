@@ -66,7 +66,8 @@ public class MainCtrl {
         this.promptCtrl = prompt.getKey();
         this.prompt = new Scene(prompt.getValue());
 
-        showSplash();
+//        showSplash();
+        showMostPowerQuestion();
         primaryStage.show();
     }
     //Shows placeholder
