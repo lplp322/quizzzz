@@ -62,6 +62,16 @@ public class Game implements Runnable{
         return gameRounds;
     }
 
+    public TrimmedGame trim() {
+        if(round.isHalfTimerUsed()) {
+            return new TrimmedGame(lobbyId, questions.get(0), questions.size(),
+                    round.getTimer(), round.getPlayerWhoUsedJoker().getName(), round.getHalvedTimer());
+        }
+
+        return new TrimmedGame(lobbyId, questions.get(0), questions.size(),
+                round.getTimer());
+    }
+
     @Override
     public String toString() {
         return "Game{" +
