@@ -3,11 +3,7 @@ package client.scenes;
 
 
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
-import com.fasterxml.jackson.databind.util.JSONPObject;
-import com.google.gson.JsonElement;
-import commons.TrimmedGame;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -18,8 +14,9 @@ import java.io.*;
 
 import java.net.HttpURLConnection;
 
+
 import java.net.URL;
-import java.net.URLConnection;
+
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 
@@ -101,35 +98,21 @@ public class MostPowerCtrl {
     }
 
 
+    /**
+     * This is the method that will continously poll the server in order to update game information
+     * @throws IOException
+     */
     public void getGameInfo() throws IOException {
 
         boolean gameFinished = false;
 
         while (gameFinished!= true) {
             URL url = new URL("http://localhost:8080/1/getGameInfo");
+            //for now all gameID's are set to 1 but these need to be changed once the gameID is stored from the sever
             HttpURLConnection http = (HttpURLConnection)url.openConnection();
-//            URLConnection http = (HttpURLConnection)url.openConnection();
-
             Gson g = new Gson();
-//            Player p = g.fromJson(jsonString, Player.class)
-            System.out.println("asdfasdfasdf");
-            System.out.println(http.getContent().toString());
-
-            StringBuilder textBuilder = new StringBuilder();
-            try (Reader reader = new BufferedReader(new InputStreamReader
-                    (http.getInputStream(), Charset.forName(StandardCharsets.UTF_8.name())))) {
-                int c = 0;
-                while ((c = reader.read()) != -1) {
-                    textBuilder.append((char) c);
-                }
-            }
-            String jsonString = textBuilder.toString();
-
-            System.out.println(jsonString);
-
-
+            String jsonString = httpToJSONString(http);
             commons.TrimmedGame trimmedGame = g.fromJson( jsonString, commons.TrimmedGame.class);
-
             currentRoundLabel.setText("currentRound" + trimmedGame.getRoundsLeft());
             timerLabel.setText("Time: " + trimmedGame.getTimer());
             questionLabel.setText(trimmedGame.getCurrentQuestion());
@@ -142,37 +125,75 @@ public class MostPowerCtrl {
                 this.guessEnable();
             }
 
-            http.disconnect();
-
             if (trimmedGame.getRoundsLeft() == 0) {
                 gameFinished = true;
             }
-            gameFinished = true;
+            gameFinished = true; //this is hardcoded to make the code stop
+            http.disconnect();
         }
 
+    }
 
 
+    /**
+     * @param http this is a http connection that the response of which will be turned into a string
+     * @return
+     */
+    public static String httpToJSONString(HttpURLConnection http) {
+        StringBuilder textBuilder = new StringBuilder();
+        try (Reader reader = new BufferedReader(new InputStreamReader
+                (http.getInputStream(), Charset.forName(StandardCharsets.UTF_8.name())))) {
+            int c = 0;
+            while ((c = reader.read()) != -1) {
+                textBuilder.append((char) c);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        String jsonString = textBuilder.toString();
+        return jsonString;
+    }
+
+
+    /**
+     * @param joker this is a string related to which joker is being passed to the server
+     * @throws IOException
+     */
+    public static void jokerMessage(String joker) throws IOException {
+        URL url = new URL("http://localhost:8080/1/getGameInfo");
+        HttpURLConnection http = (HttpURLConnection)url.openConnection();
+        http.setRequestMethod("PUT");
+        http.setDoOutput(true);
+        http.setRequestProperty("Content-Type", "application/json");
+
+        String data = "{\n  \"Joker\": \"Halve time\"\n}";
+        //need to fix this to take as input a joker, but I can't figure out the string manipulation
+
+        byte[] out = data.getBytes(StandardCharsets.UTF_8);
+
+        OutputStream stream = http.getOutputStream();
+        stream.write(out);
+
+        System.out.println(http.getResponseCode() + " " + http.getResponseMessage());
+        http.disconnect();
 
     }
-//    public void getRequest() throws IOException {
-//        URL url = new URL("https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY");
-//
-//// Open a connection(?) on the URL(??) and cast the response(???)
-//        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-//
-//// Now it's "open", we can set the request method, headers etc.
-//        connection.setRequestProperty("accept", "application/json");
-//
-//// This line makes the request
-//        InputStream responseStream = connection.getInputStream();
-//
-//// Manually converting the response body InputStream to APOD using Jackson
-//        ObjectMapper mapper = new ObjectMapper();
-//        APOD apod = mapper.readValue(responseStream, APOD.class);
-//
-//// Finally we have the response
-//        System.out.println(apod.title);
-//    }
+
+    /**
+     * @param correct this is a boolean that relates if the question was answered correctly 
+     * @throws IOException
+     */
+    public static void correctMessage(boolean correct) throws IOException {
+        URL url = new URL("http://localhost:8080/1/correctness/" + correct);
+        //for now all gameID's are set to 1 but these need to be changed once the gameID is stored from the sever
+        HttpURLConnection http = (HttpURLConnection)url.openConnection();
+        http.disconnect();
+    }
+
+
+
+
+
 }
 
 
