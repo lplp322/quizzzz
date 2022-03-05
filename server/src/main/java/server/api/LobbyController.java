@@ -51,9 +51,13 @@ public class LobbyController {
         if(lobbyService.addPlayer(name)){
             return lobbyService.getIdCounter();
         }
-        return -1;
+        return 0;
     }
 
+    /**
+     * PUT request to start game, that is currently in lobby
+     * @return - return trimmed game object !!!(Game will be changed to TrimmedGame later)
+     */
     @PutMapping("/startGame")
     public Game startGame(){
         lobbyService.startGame(1);
