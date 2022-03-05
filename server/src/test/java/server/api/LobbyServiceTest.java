@@ -34,10 +34,10 @@ class LobbyServiceTest {
         lobbyService.addPlayer("P2");
         lobbyService.addPlayer("P3");
         lobbyService.startGame(1);
-        assertEquals(1, lobbyService.getIdCounter());
+        assertEquals(2, lobbyService.getIdCounter());
         lobbyService.addPlayer("P1");
         lobbyService.startGame(0);
-        assertEquals(2, lobbyService.getIdCounter());
+        assertEquals(3, lobbyService.getIdCounter());
     }
 
     @Test
@@ -49,7 +49,7 @@ class LobbyServiceTest {
         lobbyService.createSinglePlayerGame("Ivan");
         lobbyService.startGame(1);
         String check = "Ivan";
-        assertTrue(check.equals(lobbyService.getGameByID(0).getPlayers().get(0).getName()));
+        assertTrue(check.equals(lobbyService.getGameByID(-1).getPlayers().get(0).getName()));
         assertEquals(3, lobbyService.getGameByID(1).getPlayers().size());
     }
 

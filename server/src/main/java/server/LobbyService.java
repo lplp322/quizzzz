@@ -13,15 +13,16 @@ public class LobbyService {
     private int idCounter;
     private List<Player> tempPlayers;
     private Set<String> names;
+    private int singlePlayerID;
 
     @Autowired
     public LobbyService(ActivityRepository dtBase) {
-        //System.out.println("ASDSADASDSA");
         this.dtBase = dtBase;
         games = new HashMap<>();
-        idCounter = 0;
+        idCounter = 1;
         tempPlayers = new ArrayList<>();
         names = new HashSet<>();
+        singlePlayerID = -1;
     }
 
     /**
@@ -65,9 +66,9 @@ public class LobbyService {
         Player person = new Player(name);
         List<Player> players = new ArrayList<>();
         players.add(person);
-        Game newGame = new Game(players, idCounter, 0, dtBase);
-        games.put(idCounter++, newGame);
-        return idCounter-1;
+        Game newGame = new Game(players, singlePlayerID, 0, dtBase);
+        games.put(singlePlayerID--, newGame);
+        return singlePlayerID+1;
     }
 
     /**
