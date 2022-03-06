@@ -1,6 +1,7 @@
 package server;
 
 import server.database.ActivityRepository;
+import commons.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -56,4 +57,9 @@ public class Game {
                 ", gameRounds=" + gameRounds +
                 '}';
     }
+
+    public TrimmedGame trim() {
+        return new TrimmedGame(lobbyId, "Question 1", 19, 20,1);
+    }
+
 }
