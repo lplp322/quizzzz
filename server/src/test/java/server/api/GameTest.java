@@ -2,11 +2,9 @@ package server.api;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import server.Activity;
 import server.Game;
 import server.Player;
-import server.database.ActivityRepository;
 
 import java.util.ArrayList;
 import java.util.List;
