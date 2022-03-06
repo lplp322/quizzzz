@@ -43,10 +43,18 @@ public class Question {
         }
     }
 
-    public Question(List<Activity> activities, int type) {
-        this.activities = activities;
+    public Question(ActivityRepository dt, int type) {
+        this.dt = dt;
         this.type = type;
+        List<Activity> allActivities = dt.getAllActivities();
+        Collections.shuffle(allActivities);
+        activities = new ArrayList<>();
         answers = new ArrayList<>();
+
+        for(int i = 0; i < 4; i++) {
+            activities.add(allActivities.get(i));
+        }
+
         switch (type) {
             case 0:
                 generateTypeOne();
