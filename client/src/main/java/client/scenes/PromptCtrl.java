@@ -12,7 +12,7 @@ import javafx.scene.layout.AnchorPane;
 
 public class PromptCtrl {
     private final MainCtrl mainCtrl;
-    private boolean isSingleplayer;
+    private boolean isSingleplayer; //Holds information about the mode of the game
     @FXML
     private AnchorPane mainWindow;
     @FXML
@@ -27,6 +27,7 @@ public class PromptCtrl {
     public PromptCtrl(MainCtrl mainCtrl) {
         this.mainCtrl = mainCtrl;
     }
+
     /**
      * Changes the size of the AnchorPlane
      * @param w - preferred width
@@ -37,10 +38,14 @@ public class PromptCtrl {
         mainWindow.setPrefSize(w,h);
     }
 
+    /**
+     * Is executed when clickng on the start button, checks the name and initiates connection to server
+     * @throws MalformedURLException
+     */
     @FXML
     public void onClickStart() throws MalformedURLException {
-        if(nameField.getText().matches("[a-zA-Z0-9]+")){
-            errorLabel.setVisible(false);
+        if(nameField.getText().matches("[a-zA-Z0-9]+")){    //regex for checking name
+            errorLabel.setVisible(false);   //makes the errorLabel visible
             if(isSingleplayer){
                 URL singleplayerGame = new URL("http://localhost:8080/singleplayer/"+nameField.getText());
                 try {
@@ -48,8 +53,8 @@ public class PromptCtrl {
                     BufferedReader in = new BufferedReader(new InputStreamReader(nameVerify.getInputStream()));
                     String inputLine = in.readLine();
                     int ID = Integer.parseInt(inputLine);
-                    this.mainCtrl.setCurrentGameID(ID);
-                    this.mainCtrl.showMostPowerQuestion();
+                    this.mainCtrl.setCurrentGameID(ID); //sets the gameID of the MainCtrl to the one received
+                    this.mainCtrl.showMostPowerQuestion();  //shows the game screen
                 } catch (IOException e) {
                     errorLabel.setVisible(true);
                     errorLabel.setText("Could not connect to server!");
@@ -61,12 +66,24 @@ public class PromptCtrl {
             errorLabel.setText("Name can only contain letters/numbers!");
         }
     }
+
+    /**
+     * Is executed when clicking on the menu button
+     */
     public void onClickMenu(){
         this.mainCtrl.showSplashResied();
     }
+
+    /**
+     * Sets the mode to Singleplayer
+     */
     public void setSingleplayer(){
         isSingleplayer = true;
     }
+
+    /**
+     * Sets the mode to Multiplayer
+     */
     public void setMultiplayer(){
         isSingleplayer = false;
     }

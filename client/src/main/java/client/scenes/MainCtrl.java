@@ -21,7 +21,7 @@ import javafx.stage.Stage;
 import javafx.util.Pair;
 
 public class MainCtrl {
-    private int currentGameID;
+    private int currentGameID;  //the ID of the ongoing game
     private Stage primaryStage;
 
     private QuoteOverviewCtrl overviewCtrl;
@@ -68,7 +68,6 @@ public class MainCtrl {
         this.prompt = new Scene(prompt.getValue());
 
         showSplash();
-//        showMostPowerQuestion();
         primaryStage.show();
     }
     //Shows placeholder
@@ -121,10 +120,18 @@ public class MainCtrl {
         primaryStage.setScene(prompt);
     }
 
+    /**
+     * A getter for the current gameID
+     * @return gameID
+     */
     public int getCurrentID(){
-        return currentGameID;
+        return this.currentGameID;
     }
 
+    /**
+     * Sets the ID of the ongoing game
+     * @param ID - number received from server
+     */
     public void setCurrentGameID(int ID){
         this.currentGameID = ID;
     }
