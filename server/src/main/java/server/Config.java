@@ -17,13 +17,28 @@ package server;
 
 import java.util.Random;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import server.database.ActivityRepository;
 
 @Configuration
 public class Config {
+    @Autowired
+    private ActivityRepository dtBase;
+
     @Bean
     public Random getRandom() {
         return new Random();
+    }
+    @Bean
+    public void addTempActivities() {
+        if(dtBase.getAllActivities().size() < 4) {
+            dtBase.save(new Activity("A", 101));
+            dtBase.save(new Activity("B", 102));
+            dtBase.save(new Activity("C", 103));
+            dtBase.save(new Activity("D", 104));
+        }
+        //System.out.println(dtBase.getAllActivities().size());
     }
 }

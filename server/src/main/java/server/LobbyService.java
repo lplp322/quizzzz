@@ -31,6 +31,8 @@ public class LobbyService {
      */
     public void startGame(int gameType) {
         Game tempGame = new Game(List.copyOf(tempPlayers), idCounter, gameType, dtBase);
+        Thread t = new Thread(tempGame);
+        t.start();
 
         games.put(idCounter++, tempGame);
         tempPlayers = new ArrayList<>();

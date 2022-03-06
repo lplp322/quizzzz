@@ -6,24 +6,38 @@ import commons.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Game {
+public class Game implements Runnable{
     private List<Player> players;
     private int lobbyId;
     private List<Question> questions;
     private int gameType;
-
-    //The number of rounds in a game
-    private final int gameRounds = 20;
+    private Round round;
 
     public Game(List<Player> players, int lobbyId, int gameType, ActivityRepository dtBase) {
         this.players = players;
         this.lobbyId = lobbyId;
         this.gameType = gameType;
+        round = new Round();
 
         questions = new ArrayList<>();
-        for(int i = 0; i < gameRounds; i++) {
+        for(int i = 0; i < round.getTotalRounds(); i++) {
             Question tempQuestion = new Question(dtBase);
             questions.add(tempQuestion);
+        }
+
+    }
+
+    @Override
+    public void run() {
+        try {
+            while(round.getGameStatus() == 1) {
+                round.tickDown();
+                Thread.sleep(1000);
+                System.out.println(round);
+            }
+        }
+        catch (Exception e) {
+            System.out.println(e.getStackTrace());
         }
     }
 
@@ -43,9 +57,7 @@ public class Game {
         return gameType;
     }
 
-    public int getGameRounds() {
-        return gameRounds;
-    }
+    public Round getRound() { return round; }
 
     @Override
     public String toString() {
@@ -54,7 +66,6 @@ public class Game {
                 ", lobbyId=" + lobbyId +
                 ", questions=" + questions +
                 ", gameType=" + gameType +
-                ", gameRounds=" + gameRounds +
                 '}';
     }
 
