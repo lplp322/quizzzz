@@ -42,12 +42,12 @@
                         <Font size="18.0" />
                      </font>
                   </TextField>
-                  <Button fx:id="startButton" layoutX="278.0" layoutY="214.0" mnemonicParsing="false" prefHeight="62.0" prefWidth="174.0" style="-fx-background-color: linear-gradient(#baff70, #5bb000);" text="Start" textFill="#000000df">
+                  <Button fx:id="startButton" layoutX="278.0" layoutY="214.0" mnemonicParsing="false" onAction="#onClickStart" prefHeight="62.0" prefWidth="174.0" style="-fx-background-color: linear-gradient(#baff70, #5bb000);" text="Start" textFill="#000000df">
                      <font>
                         <Font name="Century Gothic" size="29.0" />
                      </font>
                   </Button>
-                  <Button fx:id="menuButton" layoutX="48.0" layoutY="214.0" mnemonicParsing="false" prefHeight="62.0" prefWidth="174.0" style="-fx-background-color: linear-gradient(#ff5400, #be1d00);" text="Back to menu" textFill="#000000df">
+                  <Button fx:id="menuButton" layoutX="48.0" layoutY="214.0" mnemonicParsing="false" onAction="#onClickMenu" prefHeight="62.0" prefWidth="174.0" style="-fx-background-color: linear-gradient(#ff5400, #be1d00);" text="Back to menu" textFill="#000000df">
                      <font>
                         <Font name="Century Gothic" size="19.0" />
                      </font>
