@@ -19,13 +19,10 @@ import static com.google.inject.Guice.createInjector;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
-import client.scenes.MostPowerCtrl;
-import client.scenes.SplashCtrl;
+
+import client.scenes.*;
 import com.google.inject.Injector;
 
-import client.scenes.AddQuoteCtrl;
-import client.scenes.MainCtrl;
-import client.scenes.QuoteOverviewCtrl;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
@@ -44,8 +41,9 @@ public class Main extends Application {
         var add = FXML.load(AddQuoteCtrl.class, "client", "scenes", "AddQuote.fxml");
         var splash = FXML.load(SplashCtrl.class, "client","scenes", "splash.fxml");
         var mostPowerControl = FXML.load(MostPowerCtrl.class, "client", "scenes", "MostPowerQuestion.fxml");
+        var prompt = FXML.load(PromptCtrl.class, "client", "scenes", "Prompt.fxml");
 
         var mainCtrl = INJECTOR.getInstance(MainCtrl.class);
-        mainCtrl.initialize(primaryStage, overview, add, splash, mostPowerControl);
+        mainCtrl.initialize(primaryStage, overview, add, splash, mostPowerControl, prompt);
     }
 }

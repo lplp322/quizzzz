@@ -4,10 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import server.database.ActivityRepository;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 public class LobbyService {
@@ -15,13 +12,17 @@ public class LobbyService {
     private Map<Integer, Game> games;
     private int idCounter;
     private List<Player> tempPlayers;
+    private Set<String> names;
+    private int singlePlayerID;
 
     @Autowired
     public LobbyService(ActivityRepository dtBase) {
         this.dtBase = dtBase;
         games = new HashMap<>();
-        idCounter = 0;
+        idCounter = 1;
         tempPlayers = new ArrayList<>();
+        names = new HashSet<>();
+        singlePlayerID = -1;
     }
 
     /**
@@ -35,6 +36,7 @@ public class LobbyService {
 
         games.put(idCounter++, tempGame);
         tempPlayers = new ArrayList<>();
+        names = new HashSet<>();
 
         System.out.println(tempGame);
     }
@@ -42,13 +44,41 @@ public class LobbyService {
     /**
      * Adds the person with name {name} to the list of waiting players in the queue
      * @param name
+     * @return true if player succesfully added
      */
-    public void addPlayer(String name) {
-        Player person = new Player(name);
-        tempPlayers.add(person);
+    public boolean addPlayer(String name) {
+        if(names.add(name)) {
+            Player person = new Player(name);
+            tempPlayers.add(person);
+            return true;
+        }
+        return false;
     }
 
     public int getIdCounter() {
         return idCounter;
+    }
+
+    /**
+     * Creating a game for one player
+     * @param name - name of the player
+     * @return id of the game
+     */
+    public int createSinglePlayerGame(String name) {
+        Player person = new Player(name);
+        List<Player> players = new ArrayList<>();
+        players.add(person);
+        Game newGame = new Game(players, singlePlayerID, 0, dtBase);
+        games.put(singlePlayerID--, newGame);
+        return singlePlayerID+1;
+    }
+
+    /**
+     * Return game object by this id
+     * @param id - id of the game
+     * @return game object with this id
+     */
+    public Game getGameByID(int id){
+        return games.get(id);
     }
 }

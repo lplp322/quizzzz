@@ -2,6 +2,7 @@
 
 <?import javafx.scene.control.Accordion?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TextField?>
@@ -18,34 +19,32 @@
                <children>
                   <Accordion layoutX="17.0" layoutY="66.0" prefHeight="26.0" prefWidth="121.0" />
                   <ListView fx:id="playerList" layoutX="22.0" layoutY="92.0" prefHeight="278.0" prefWidth="121.0" />
-                  <TextField fx:id="playerTitle" layoutX="34.0" layoutY="53.0" prefHeight="26.0" prefWidth="96.0" text="Players" />
                   <Button fx:id="quitGameButton" layoutX="51.0" layoutY="378.0" mnemonicParsing="false" text="Quit Game" />
+                  <Label layoutX="39.0" layoutY="53.0" prefHeight="26.0" prefWidth="77.0" text="Players" />
                </children>
             </AnchorPane>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="534.0" prefWidth="657.0">
                <children>
-                  <Button fx:id="choiceA" layoutX="70.0" layoutY="229.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="270.0" text="ExampleChoice" />
+                  <Button fx:id="choiceA" layoutX="70.0" layoutY="229.0" mnemonicParsing="false" onAction="#guessEnable" prefHeight="26.0" prefWidth="270.0" text="ExampleChoice" />
                   <Button fx:id="choiceB" layoutX="70.0" layoutY="263.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="270.0" text="ExampleChoice" />
                   <Button fx:id="choiceC" layoutX="70.0" layoutY="301.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="270.0" text="ExampleChoice" />
                   <ImageView fx:id="QuestionImage" fitHeight="106.0" fitWidth="111.0" layoutX="15.0" layoutY="104.0" pickOnBounds="true" preserveRatio="true" />
-                  <TextField fx:id="questionText" layoutX="142.0" layoutY="137.0" prefHeight="41.0" prefWidth="295.0" text="Example Question">
-                     <font>
-                        <Font size="21.0" />
-                     </font>
-                  </TextField>
                   <ToolBar layoutY="23.0" prefHeight="40.0" prefWidth="451.0">
                      <items>
-                        <TextField fx:id="currentRound" prefHeight="26.0" prefWidth="96.0" text="Current Round: ">
-                           <font>
-                              <Font size="10.0" />
-                           </font>
-                        </TextField>
-                        <TextField fx:id="timer" prefHeight="26.0" prefWidth="77.0" text="Time:" />
+                        <Label fx:id="currentRoundLabel" text="Current Round:" />
+                        <Label fx:id="timerLabel" text="Timer: " />
                      </items>
                   </ToolBar>
-                  <Button fx:id="halfTimeJokerButton" layoutX="63.0" layoutY="363.0" mnemonicParsing="false" text="Halve Time" />
+                  <Button fx:id="halfTimeJokerButton" layoutX="63.0" layoutY="363.0" mnemonicParsing="false" onAction="#getGameInfo" text="Halve Time" />
                   <Button fx:id="doublePointsJokerButton" layoutX="166.0" layoutY="363.0" mnemonicParsing="false" text="Double Points" />
                   <Button fx:id="eliminateWrongButton" layoutX="278.0" layoutY="364.0" mnemonicParsing="false" text="Eliminate Answer" />
+                  <TextField fx:id="guessText" layoutX="130.0" layoutY="263.0" promptText="Enter Your Guess " />
+                  <Button fx:id="submitButton" layoutX="361.0" layoutY="264.0" mnemonicParsing="false" onAction="#threeChoicesEnable" text="Submit" />
+                  <Label fx:id="questionLabel" layoutX="84.0" layoutY="151.0" prefHeight="33.0" prefWidth="322.0" text="Example Question">
+                     <font>
+                        <Font size="28.0" />
+                     </font>
+                  </Label>
                </children>
             </AnchorPane>
         </items>

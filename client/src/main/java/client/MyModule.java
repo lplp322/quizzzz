@@ -15,15 +15,10 @@
  */
 package client;
 
-import client.scenes.MostPowerCtrl;
-import client.scenes.SplashCtrl;
+import client.scenes.*;
 import com.google.inject.Binder;
 import com.google.inject.Module;
 import com.google.inject.Scopes;
-
-import client.scenes.AddQuoteCtrl;
-import client.scenes.MainCtrl;
-import client.scenes.QuoteOverviewCtrl;
 
 public class MyModule implements Module {
 
@@ -34,5 +29,6 @@ public class MyModule implements Module {
         binder.bind(QuoteOverviewCtrl.class).in(Scopes.SINGLETON);
         binder.bind(MostPowerCtrl.class).in(Scopes.SINGLETON);
         binder.bind(SplashCtrl.class).in(Scopes.SINGLETON);
+        binder.bind(PromptCtrl.class).in(Scopes.SINGLETON);
     }
 }

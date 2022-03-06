@@ -1390,10 +1390,9 @@ java.sql.SQLClientInfoException: Client info name 'ApplicationName' not supporte
 	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)
 	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
 	at java.base/java.lang.Thread.run(Thread.java:829)
-2022-03-02 12:59:15 jdbc[13]: exception
-org.h2.jdbc.JdbcSQLSyntaxErrorException: Column "Totally random" not found; SQL statement:
-INSERT INTO ACTIVITY (ID, ENERGY, NAME)
-VALUES (6, 130, "Totally random") [42122-200]
+2022-03-02 11:59:18 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Column "Somethink" not found; SQL statement:
+INSERT INTO ACTIVITY (ID, NAME, ENERGY) VALUES(0, "Somethink", 350) [42122-200]
 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:453)
 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:429)
 	at org.h2.message.DbException.get(DbException.java:205)
@@ -1448,11 +1447,10 @@ VALUES (6, 130, "Totally random") [42122-200]
 	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191)
 	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
 	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
-	at java.base/java.lang.Thread.run(Thread.java:833)
-2022-03-02 12:59:27 jdbc[13]: exception
-org.h2.jdbc.JdbcSQLSyntaxErrorException: Column "YRANDOM" not found; SQL statement:
-INSERT INTO ACTIVITY (ID, ENERGY, NAME)
-VALUES (6, 130, YRANDOM) [42122-200]
+	at java.base/java.lang.Thread.run(Thread.java:831)
+2022-03-02 11:59:32 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Column "SOMETHINK" not found; SQL statement:
+INSERT INTO ACTIVITY (ID, NAME, ENERGY) VALUES(0, Somethink, 350) [42122-200]
 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:453)
 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:429)
 	at org.h2.message.DbException.get(DbException.java:205)
@@ -1507,4 +1505,4 @@ VALUES (6, 130, YRANDOM) [42122-200]
 	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191)
 	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
 	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
-	at java.base/java.lang.Thread.run(Thread.java:833)
+	at java.base/java.lang.Thread.run(Thread.java:831)
