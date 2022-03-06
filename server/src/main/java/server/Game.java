@@ -12,9 +12,6 @@ public class Game implements Runnable{
     private int gameType;
     private Round round;
 
-    //The number of rounds in a game
-    private final int gameRounds = 20;
-
     public Game(List<Player> players, int lobbyId, int gameType, ActivityRepository dtBase) {
         this.players = players;
         this.lobbyId = lobbyId;
@@ -22,7 +19,7 @@ public class Game implements Runnable{
         round = new Round();
 
         questions = new ArrayList<>();
-        for(int i = 0; i < gameRounds; i++) {
+        for(int i = 0; i < round.getTotalRounds(); i++) {
             Question tempQuestion = new Question(dtBase);
             questions.add(tempQuestion);
         }
@@ -58,10 +55,6 @@ public class Game implements Runnable{
         return gameType;
     }
 
-    public int getGameRounds() {
-        return gameRounds;
-    }
-
     @Override
     public String toString() {
         return "Game{" +
@@ -69,7 +62,6 @@ public class Game implements Runnable{
                 ", lobbyId=" + lobbyId +
                 ", questions=" + questions +
                 ", gameType=" + gameType +
-                ", gameRounds=" + gameRounds +
                 '}';
     }
 }

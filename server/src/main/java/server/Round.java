@@ -12,12 +12,15 @@ public class Round {
     // 1 - game running, 2 - game has ended
     private int gameStatus;
 
+    private final int totalRounds = 20;
+    private final int roundTimer = 20;
+
     /**
      * By default, first round is 0 and timer counts down from 20
      */
     public Round() {
         this.round = 0;
-        this.timer = 20;
+        this.timer = roundTimer;
         this.halfTimerUsed = false;
         this.gameStatus = 1;
     }
@@ -32,7 +35,7 @@ public class Round {
             round++;
             timer = 20;
         }
-        if(round == 20) {
+        if(round == totalRounds) {
             gameStatus = 2;
         }
     }
@@ -79,6 +82,14 @@ public class Round {
 
     public Player getPlayerWhoUsedJoker() {
         return playerWhoUsedJoker;
+    }
+
+    public int getTotalRounds() {
+        return totalRounds;
+    }
+
+    public int getRoundTimer() {
+        return roundTimer;
     }
 
     @Override
