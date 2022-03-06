@@ -4,6 +4,9 @@ import server.database.ActivityRepository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 public class Game implements Runnable{
     private List<Player> players;
@@ -23,6 +26,7 @@ public class Game implements Runnable{
             Question tempQuestion = new Question(dtBase);
             questions.add(tempQuestion);
         }
+
     }
 
     @Override
@@ -54,6 +58,8 @@ public class Game implements Runnable{
     public int getGameType() {
         return gameType;
     }
+
+    public Round getRound() { return round; }
 
     @Override
     public String toString() {

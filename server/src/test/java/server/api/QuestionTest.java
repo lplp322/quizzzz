@@ -25,9 +25,9 @@ public class QuestionTest {
     public void testTypeOne() {
         List<Activity> activities = new ArrayList<>();
         activities.add(a);
-        activities.add(a);
-        activities.add(a);
-        activities.add(a);
+        activities.add(b);
+        activities.add(c);
+        activities.add(d);
         dtBase = new TestActivityRepository(activities);
 
         Question q = new Question(dtBase, 0);
