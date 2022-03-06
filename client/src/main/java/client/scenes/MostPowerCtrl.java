@@ -1,8 +1,5 @@
 package client.scenes;
 
-
-
-
 import com.google.gson.Gson;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;

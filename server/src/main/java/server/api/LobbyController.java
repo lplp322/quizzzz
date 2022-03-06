@@ -3,7 +3,6 @@ package server.api;
 import commons.TrimmedGame;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import server.Game;
 import server.LobbyService;
 
 @RestController
