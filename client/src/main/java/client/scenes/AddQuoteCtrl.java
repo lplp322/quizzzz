@@ -27,6 +27,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Modality;
 
+//CHECKSTYLE:OFF
 public class AddQuoteCtrl {
 
     private final ServerUtils server;

@@ -5,7 +5,8 @@ public class Round {
     private int round;
     // how many seconds are left
     private int timer;
-    // there is a joker that halves the timer for everyone but him, so we must keep the player who has used it and whether someone has
+    // there is a joker that halves the timer for everyone but him,
+    // so we must keep the player who has used it and whether someone has
     private Player playerWhoUsedJoker;
     private boolean halfTimerUsed;
     private int halvedTimer;

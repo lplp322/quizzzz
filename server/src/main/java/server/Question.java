@@ -2,7 +2,12 @@ package server;
 
 import server.database.ActivityRepository;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.Random;
+
 
 public class Question {
     // the actual question
@@ -98,7 +103,8 @@ public class Question {
         //TO BE IMPLEMENTED
     }
 
-    /** Generates a question in the following format: Comparing the energy usage of one activity to three other activities:
+    /** Generates a question in the following format:
+     * Comparing the energy usage of one activity to three other activities:
      *
      */
     private void generateTypeThree() {

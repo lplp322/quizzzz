@@ -1,7 +1,7 @@
 package server;
 
+import commons.TrimmedGame;
 import server.database.ActivityRepository;
-import commons.*;
 
 import java.util.ArrayList;
 import java.util.List;

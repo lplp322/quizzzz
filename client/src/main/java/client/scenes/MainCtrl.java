@@ -70,18 +70,19 @@ public class MainCtrl {
 //        showMostPowerQuestion();
         primaryStage.show();
     }
-    //Shows placeholder
+    //CHECKSTYLE:OFF
     public void showOverview() {
         primaryStage.setTitle("Quotes: Overview");
         primaryStage.setScene(overview);
         overviewCtrl.refresh();
     }
-    //Shows placeholder
+
     public void showAdd() {
         primaryStage.setTitle("Quotes: Adding Quote");
         primaryStage.setScene(add);
         add.setOnKeyPressed(e -> addCtrl.keyPressed(e));
     }
+    //CHECKSTYLE:ON
 
     /**
      * Changes the current scene to the splash screen
@@ -103,9 +104,12 @@ public class MainCtrl {
      * Changes the current scene to Prompt.fxml
      */
     public void showPrompt() {
-        Scene currentScene = primaryStage.getScene();   //Gets current scene
+        //Gets current scene
+        Scene currentScene = primaryStage.getScene();
         primaryStage.setTitle("Enter your name");
-        promptCtrl.setWindowSize(currentScene.getWidth(),currentScene.getHeight());     //Resizes new scene by calling the setWindowSize method
+
+        //Resizes new scene by calling the setWindowSize method
+        promptCtrl.setWindowSize(currentScene.getWidth(),currentScene.getHeight());
         primaryStage.setScene(prompt);
     }
 }
