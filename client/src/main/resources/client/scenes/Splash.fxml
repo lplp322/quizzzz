@@ -3,6 +3,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.effect.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
 <?import javafx.scene.text.*?>
 
 <AnchorPane fx:id="mainWindow" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="610.0" prefWidth="1009.0" style="-fx-background-image: url(https://i0.wp.com/electrek.co/wp-content/uploads/sites/3/2021/04/Irene-Vorrink-wind-farm-Netherlands.jpg); -fx-background-size: cover; -fx-background-color: black;" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.SplashCtrl">
@@ -24,9 +25,12 @@
           <RowConstraints maxHeight="131.0" minHeight="10.0" prefHeight="131.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Pane opacity="0.47" prefHeight="198.0" prefWidth="377.0" style="-fx-background-color: black;" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <Pane opacity="0.79" prefHeight="198.0" prefWidth="377.0" style="-fx-background-color: white;" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <effect>
-                  <DropShadow offsetX="5.0" offsetY="5.0" />
+                  <DropShadow offsetX="5.0" offsetY="5.0">
+                     <color>
+                        <Color opacity="0.5213674902915955" />
+                     </color></DropShadow>
                </effect>
                <children>
                   <Button fx:id="multiplayerButton" alignment="CENTER" contentDisplay="CENTER" layoutX="17.0" layoutY="107.0" mnemonicParsing="false" opacity="0.96" prefHeight="80.0" prefWidth="347.0" text="Play Multiplayer" textAlignment="CENTER">
