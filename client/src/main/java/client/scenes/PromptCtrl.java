@@ -71,7 +71,7 @@ public class PromptCtrl {
      * Is executed when clicking on the menu button
      */
     public void onClickMenu(){
-        this.mainCtrl.showSplashResied();
+        this.mainCtrl.showSplash();
     }
 
     /**

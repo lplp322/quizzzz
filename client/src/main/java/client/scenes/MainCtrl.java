@@ -84,22 +84,17 @@ public class MainCtrl {
     }
 
     /**
-     * Changes the current scene to the splash screen
+     * Changes the current scene to the splash screen, resizes scene windows is already open
      */
     public void showSplash() {
-        primaryStage.setTitle("Quizzz");
-        primaryStage.setScene(splash);
+        if(primaryStage.getScene()!=null){
+            Scene currentScene = primaryStage.getScene();   //Gets current scene
+            splashCtrl.setWindowSize(currentScene.getWidth(),currentScene.getHeight());
+        }
+            primaryStage.setTitle("Quizzz");
+            primaryStage.setScene(splash);
     }
 
-    /**
-     * Changes the current scene to the splash screen, with resizing enabled
-     */
-    public void showSplashResied() {
-        Scene currentScene = primaryStage.getScene();   //Gets current scene
-        primaryStage.setTitle("Quizzz");
-        splashCtrl.setWindowSize(currentScene.getWidth(),currentScene.getHeight());
-        primaryStage.setScene(splash);
-    }
 
     /**
      * Changes the current scene to the questions screen
