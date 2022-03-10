@@ -64,4 +64,20 @@ public class LobbyController {
         lobbyService.startGame(1);
         return lobbyService.getGameByID(lobbyService.getIdCounter()-1).trim();
     }
+
+    /**
+     * Check for the current player answer to this round question
+     * @param gameID
+     * @param name
+     * @param round
+     * @param answer
+     * @return
+     */
+    @PutMapping("/{gameID}/{name}/checkAnswer/{round}/{answer}")
+    public String checkAnswer(@PathVariable int gameID, @PathVariable String name, @PathVariable int round, @PathVariable String answer){
+        if(lobbyService.getGameByID(gameID).checkPlayerAnswer(name, round, answer)){
+            return "correct";
+        }
+        return "incorrect";
+    }
 }
