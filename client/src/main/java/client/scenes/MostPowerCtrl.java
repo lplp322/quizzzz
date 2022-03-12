@@ -62,6 +62,7 @@ public class MostPowerCtrl {
 
 
 
+
 //    public MostPowerCtrl(MainCtrl mainCtrl) {
 //        this.mainCtrl = mainCtrl;
 //        this.threeChoicesEnable();
@@ -177,16 +178,32 @@ public class MostPowerCtrl {
     }
 
     /**
-     * @param correct this is a boolean that relates if the question was answered correctly 
+     * @param answer is a string related to which answer the user has chosen.
      * @throws IOException
      */
-    public static void correctMessage(boolean correct) throws IOException {
-        URL url = new URL("http://localhost:8080/1/correctness/" + correct);
+    public void sendAnswer(String answer) throws IOException {
+        URL url = new URL("http://localhost:8080/1/P1/checkAnswer/" + currentRoundLabel.getText() + "/" + answer);
         //for now all gameID's are set to 1 but these need to be changed once the gameID is stored from the sever
+        // also the round and the name
         HttpURLConnection http = (HttpURLConnection)url.openConnection();
+        http.setRequestMethod("PUT");
+        System.out.println(http.getResponseCode());
         http.disconnect();
+
     }
 
+
+    public void choiceASend () throws IOException {
+        this.sendAnswer(choiceA.getText());
+    }
+
+    public void choiceBSend() throws IOException {
+        this.sendAnswer(choiceB.getText());
+    }
+
+    public void choiceCSend() throws IOException {
+        this.sendAnswer(choiceC.getText());
+    }
 
 
 

@@ -75,6 +75,7 @@ public class LobbyController {
      */
     @PutMapping("/{gameID}/{name}/checkAnswer/{round}/{answer}")
     public String checkAnswer(@PathVariable int gameID, @PathVariable String name, @PathVariable int round, @PathVariable String answer){
+        System.out.println(answer);
         if(lobbyService.getGameByID(gameID).checkPlayerAnswer(name, round, answer)){
             return "correct";
         }
