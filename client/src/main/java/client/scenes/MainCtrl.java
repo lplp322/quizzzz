@@ -21,6 +21,7 @@ import javafx.stage.Stage;
 import javafx.util.Pair;
 
 public class MainCtrl {
+    private int currentGameID;  //the ID of the ongoing game
     private Stage primaryStage;
 
     private QuoteOverviewCtrl overviewCtrl;
@@ -67,7 +68,6 @@ public class MainCtrl {
         this.prompt = new Scene(prompt.getValue());
 
         showSplash();
-//        showMostPowerQuestion();
         primaryStage.show();
     }
     //Shows placeholder
@@ -84,12 +84,17 @@ public class MainCtrl {
     }
 
     /**
-     * Changes the current scene to the splash screen
+     * Changes the current scene to the splash screen, resizes scene windows is already open
      */
     public void showSplash() {
-        primaryStage.setTitle("Quizzz");
-        primaryStage.setScene(splash);
+        if(primaryStage.getScene()!=null){
+            Scene currentScene = primaryStage.getScene();   //Gets current scene
+            splashCtrl.setWindowSize(currentScene.getWidth(),currentScene.getHeight());
+        }
+            primaryStage.setTitle("Quizzz");
+            primaryStage.setScene(splash);
     }
+
 
     /**
      * Changes the current scene to the questions screen
@@ -100,12 +105,29 @@ public class MainCtrl {
     }
 
     /**
-     * Changes the current scene to Prompt.fxml
+     * Changes the current scene to Prompt.fxml, sets mode to Singleplayer
      */
-    public void showPrompt() {
+    public void showSinglePlayerPrompt() {
         Scene currentScene = primaryStage.getScene();   //Gets current scene
         primaryStage.setTitle("Enter your name");
+        promptCtrl.setSingleplayer();
         promptCtrl.setWindowSize(currentScene.getWidth(),currentScene.getHeight());     //Resizes new scene by calling the setWindowSize method
         primaryStage.setScene(prompt);
+    }
+
+    /**
+     * A getter for the current gameID
+     * @return gameID
+     */
+    public int getCurrentID(){
+        return this.currentGameID;
+    }
+
+    /**
+     * Sets the ID of the ongoing game
+     * @param ID - number received from server
+     */
+    public void setCurrentGameID(int ID){
+        this.currentGameID = ID;
     }
 }
