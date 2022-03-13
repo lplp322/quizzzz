@@ -62,8 +62,10 @@ public class PromptCtrl {
             }
         }
         else{
+            if(nameField.getText().equals(""))      //checks if name is empty
+                errorLabel.setText("Name cannot be empty!");
+            else errorLabel.setText("Name can only contain letters/numbers!");
             errorLabel.setVisible(true);
-            errorLabel.setText("Name can only contain letters/numbers!");
         }
     }
 
