@@ -25,8 +25,8 @@ public class Activity implements Comparable {
 
     /**
      * Constructor for activity
-     * @param name
-     * @param energy
+     * @param name the name of the activity
+     * @param energy the energy usage of the activity
      */
     public Activity(String name, int energy) {
         this.name = name;
@@ -42,7 +42,7 @@ public class Activity implements Comparable {
 
     /**
      * sets the name of the activity
-     * @param name
+     * @param name the name of the activity
      */
     public void setName(String name) {
         this.name = name;
@@ -50,7 +50,7 @@ public class Activity implements Comparable {
 
     /**
      * sets the energy of the activity
-     * @param energy
+     * @param energy the energy of the activity
      */
     public void setEnergy(int energy) {
         this.energy = energy;

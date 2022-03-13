@@ -83,7 +83,7 @@ public class Round {
 
     /**
      * returns on which round we are
-     * @return
+     * @return the current round
      */
     public int getRound() {
         return round;
@@ -91,7 +91,7 @@ public class Round {
 
     /**
      * returns how many seconds are left
-     * @return
+     * @return the seconds left
      */
     public int getTimer() {
         return timer;
@@ -99,7 +99,7 @@ public class Round {
 
     /**
      * returns the status of the game
-     * @return
+     * @return the status of the game
      */
     public int getGameStatus() {
         return gameStatus;
@@ -107,7 +107,7 @@ public class Round {
 
     /**
      * returns the halved timer
-     * @return
+     * @return the galved timer
      */
     public int getHalvedTimer() {
         return halvedTimer;
@@ -115,7 +115,7 @@ public class Round {
 
     /**
      * returns whether the half-timer is used
-     * @return
+     * @return whether the half-timer is used
      */
     public boolean isHalfTimerUsed() {
         return halfTimerUsed;
@@ -123,7 +123,7 @@ public class Round {
 
     /**
      * returns the player who has used the half-time joker
-     * @return
+     * @return the player who has used the half-time joker
      */
     public Player getPlayerWhoUsedJoker() {
         return playerWhoUsedJoker;
@@ -131,7 +131,7 @@ public class Round {
 
     /**
      * returns the total number of rounds
-     * @return
+     * @return the total number of rounds
      */
     public int getTotalRounds() {
         return totalRounds;
@@ -139,7 +139,7 @@ public class Round {
 
     /**
      * returns the time one round takes
-     * @return
+     * @return the time one round takes
      */
     public int getRoundTimer() {
         return roundTimer;

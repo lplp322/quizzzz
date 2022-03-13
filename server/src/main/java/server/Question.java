@@ -23,6 +23,10 @@ public class Question {
     //Correct answer
     private String answer;
 
+    /**
+     * Creates a new question
+     * @param dt the ActivityRepository with the activities
+     */
     public Question(ActivityRepository dt) {
         this.dt = dt;
         type = (new Random()).nextInt(3);
@@ -48,6 +52,11 @@ public class Question {
         }
     }
 
+    /**
+     * Creates a question of a given type
+     * @param dt the ActivityRepository with the activities
+     * @param type the type of the question
+     */
     public Question(ActivityRepository dt, int type) {
         this.dt = dt;
         this.type = type;
@@ -122,7 +131,7 @@ public class Question {
 
     /**
      * returns the answer
-     * @return
+     * @return the answer
      */
     public String getAnswer() {
         return answer;
@@ -130,7 +139,7 @@ public class Question {
 
     /**
      * returns the question
-     * @return
+     * @return the queston
      */
     public String getQuestion() {
         return question;
@@ -138,7 +147,7 @@ public class Question {
 
     /**
      * returns all the possible answers
-     * @return
+     * @return a list of all the possible answers
      */
     public List<String> getAnswers() {
         return answers;
@@ -146,7 +155,7 @@ public class Question {
 
     /**
      * returns the type of the question(0, 1, 2)
-     * @return
+     * @return the type of the question
      */
     public int getType() {
         return type;
@@ -154,7 +163,7 @@ public class Question {
 
     /**
      * returns the 4 activities we fetched from the database
-     * @return
+     * @return the 4 activities from the database
      */
     public List<Activity> getActivities() {
         return activities;

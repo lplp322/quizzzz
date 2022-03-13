@@ -70,7 +70,7 @@ public class LobbyService {
 
     /**
      * returns the idCounter
-     * @return
+     * @return the idCounter
      */
     public int getIdCounter() {
         return idCounter;

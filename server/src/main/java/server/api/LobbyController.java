@@ -14,6 +14,10 @@ import server.LobbyService;
 public class LobbyController {
     private LobbyService lobbyService;
 
+    /**
+     * Creates a new LobbyController
+     * @param lobbyService the lobbyService instance
+     */
     @Autowired
     public LobbyController(LobbyService lobbyService) {
         this.lobbyService = lobbyService;

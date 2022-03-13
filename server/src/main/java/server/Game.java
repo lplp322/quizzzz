@@ -53,7 +53,7 @@ public class Game implements Runnable{
 
     /**
      * returns list of players
-     * @return
+     * @return the list of players
      */
     public List<Player> getPlayers() {
         return players;
@@ -61,7 +61,7 @@ public class Game implements Runnable{
 
     /**
      * returns lobby-id
-     * @return
+     * @return the lobby-id
      */
     public int getLobbyId() {
         return lobbyId;
@@ -69,7 +69,7 @@ public class Game implements Runnable{
 
     /**
      * returns list of all the questions
-     * @return
+     * @return the list of all the questions
      */
     public List<Question> getQuestions() {
         return questions;
@@ -77,7 +77,7 @@ public class Game implements Runnable{
 
     /**
      * returns the type of the game(multi-player, single-player)
-     * @return
+     * @return the type of the game
      */
     public int getGameType() {
         return gameType;
@@ -85,13 +85,13 @@ public class Game implements Runnable{
 
     /**
      * returns the round object
-     * @return
+     * @return the round object
      */
     public Round getRound() { return round; }
 
     /**
      * returns the object as a string
-     * @return
+     * @return the object as a string
      */
     @Override
     public String toString() {
@@ -105,7 +105,7 @@ public class Game implements Runnable{
 
     /**
      * trims the current object
-     * @return
+     * @return the current object as TrimmedGame
      */
     public TrimmedGame trim() {
         return new TrimmedGame(lobbyId, "Question 1", 19, 20,1);
