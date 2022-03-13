@@ -18,37 +18,70 @@ public class Activity implements Comparable {
     private String name;
     private int energy;
 
+    /**
+     * Constructor for activity
+     * @param name
+     * @param energy
+     */
     public Activity(String name, int energy) {
         this.name = name;
         this.energy = energy;
     }
 
+    /**
+     * Empty constructor
+     */
     public Activity() {
 
     }
 
+    /**
+     * sets the name of the activity
+     * @param name
+     */
     public void setName(String name) {
         this.name = name;
     }
 
+    /**
+     * sets the energy of the activity
+     * @param energy
+     */
     public void setEnergy(int energy) {
         this.energy = energy;
     }
 
+    /**
+     * returns the name of the activity
+     * @return
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * returns the energy of the activity
+     * @return
+     */
     public int getEnergy() {
         return energy;
     }
 
+    /**
+     * compares it to another object
+     * @param o
+     * @return
+     */
     @Override
     public int compareTo(Object o) {
         Activity otherActivity = (Activity)o;
         return (getEnergy() < otherActivity.getEnergy()?-1:1);
     }
 
+    /**
+     * returns to string
+     * @return
+     */
     @Override
     public String toString() {
         return "Activity{" +
