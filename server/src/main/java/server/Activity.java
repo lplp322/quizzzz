@@ -58,7 +58,7 @@ public class Activity implements Comparable {
 
     /**
      * returns the name of the activity
-     * @return
+     * @return the name of the activity
      */
     public String getName() {
         return name;
@@ -66,7 +66,7 @@ public class Activity implements Comparable {
 
     /**
      * returns the energy of the activity
-     * @return
+     * @return the evergy of the activity
      */
     public int getEnergy() {
         return energy;
