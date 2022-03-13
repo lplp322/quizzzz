@@ -13,6 +13,13 @@ public class Game implements Runnable{
     private int gameType;
     private Round round;
 
+    /**
+     * constructor for game
+     * @param players
+     * @param lobbyId
+     * @param gameType
+     * @param dtBase
+     */
     public Game(List<Player> players, int lobbyId, int gameType, ActivityRepository dtBase) {
         this.players = players;
         this.lobbyId = lobbyId;
@@ -27,6 +34,9 @@ public class Game implements Runnable{
 
     }
 
+    /**
+     * method which handles simulating the game rounds
+     */
     @Override
     public void run() {
         try {
@@ -41,24 +51,48 @@ public class Game implements Runnable{
         }
     }
 
+    /**
+     * returns list of players
+     * @return
+     */
     public List<Player> getPlayers() {
         return players;
     }
 
+    /**
+     * returns lobby-id
+     * @return
+     */
     public int getLobbyId() {
         return lobbyId;
     }
 
+    /**
+     * returns list of all the questions
+     * @return
+     */
     public List<Question> getQuestions() {
         return questions;
     }
 
+    /**
+     * returns the type of the game(multi-player, single-player)
+     * @return
+     */
     public int getGameType() {
         return gameType;
     }
 
+    /**
+     * returns the round object
+     * @return
+     */
     public Round getRound() { return round; }
 
+    /**
+     * returns the object as a string
+     * @return
+     */
     @Override
     public String toString() {
         return "Game{" +
@@ -69,6 +103,10 @@ public class Game implements Runnable{
                 '}';
     }
 
+    /**
+     * trims the current object
+     * @return
+     */
     public TrimmedGame trim() {
         return new TrimmedGame(lobbyId, "Question 1", 19, 20,1);
     }

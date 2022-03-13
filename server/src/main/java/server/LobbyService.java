@@ -21,6 +21,13 @@ public class LobbyService {
     private Set<String> names;
     private int singlePlayerID;
 
+    /**
+     * constructor for the lobby-service class
+     * there are two types of id - idCounter and singlePlayerID
+     * idCounter is for multiplayer and is > 0
+     * singlePlayerID is for singlePlayer and goes from -1 to -INF
+     * @param dtBase
+     */
     @Autowired
     public LobbyService(ActivityRepository dtBase) {
         this.dtBase = dtBase;
@@ -50,7 +57,7 @@ public class LobbyService {
     /**
      * Adds the person with name {name} to the list of waiting players in the queue
      * @param name
-     * @return true if player succesfully added
+     * @return true if player successfully added
      */
     public boolean addPlayer(String name) {
         if(names.add(name)) {
@@ -61,6 +68,10 @@ public class LobbyService {
         return false;
     }
 
+    /**
+     * returns the idCounter
+     * @return
+     */
     public int getIdCounter() {
         return idCounter;
     }

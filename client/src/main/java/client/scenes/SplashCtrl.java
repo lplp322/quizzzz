@@ -3,9 +3,13 @@ package client.scenes;
 import com.google.inject.Inject;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.layout.AnchorPane;
 
 public class SplashCtrl {
     private final MainCtrl mainCtrl;
+
+    @FXML
+    private AnchorPane mainWindow;
 
     @FXML
     private Button singleplayerButton;
@@ -26,8 +30,12 @@ public class SplashCtrl {
      * Function to be executed when the singlePlayer button is pressed
      */
     public void singlePlayer() {
-        this.mainCtrl.showPrompt();
+        this.mainCtrl.showSinglePlayerPrompt();
     }
 
+    @FXML
+    public void setWindowSize(double w, double h){
+        mainWindow.setPrefSize(w,h);
+    }
 
 }

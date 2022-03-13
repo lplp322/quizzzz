@@ -120,26 +120,50 @@ public class Question {
         Collections.shuffle(answers);
     }
 
+    /**
+     * returns the answer
+     * @return
+     */
     public String getAnswer() {
         return answer;
     }
 
+    /**
+     * returns the question
+     * @return
+     */
     public String getQuestion() {
         return question;
     }
 
+    /**
+     * returns all the possible answers
+     * @return
+     */
     public List<String> getAnswers() {
         return answers;
     }
 
+    /**
+     * returns the type of the question(0, 1, 2)
+     * @return
+     */
     public int getType() {
         return type;
     }
 
+    /**
+     * returns the 4 activities we fetched from the database
+     * @return
+     */
     public List<Activity> getActivities() {
         return activities;
     }
 
+    /**
+     * returns the object as a string
+     * @return
+     */
     @Override
     public String toString() {
         return "Question{" +
