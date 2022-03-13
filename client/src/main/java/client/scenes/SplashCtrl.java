@@ -33,6 +33,11 @@ public class SplashCtrl {
         this.mainCtrl.showSinglePlayerPrompt();
     }
 
+    /**
+     * Changes the size of the AnchorPlane
+     * @param w - preferred width
+     * @param h - preferred height
+     */
     @FXML
     public void setWindowSize(double w, double h){
         mainWindow.setPrefSize(w,h);

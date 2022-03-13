@@ -112,7 +112,9 @@ public class MainCtrl {
         Scene currentScene = primaryStage.getScene();   //Gets current scene
         primaryStage.setTitle("Enter your name");
         promptCtrl.setSingleplayer();
-        promptCtrl.setWindowSize(currentScene.getWidth(),currentScene.getHeight());     //Resizes new scene by calling the setWindowSize method
+
+        //Resizes new scene by calling the setWindowSize method
+        promptCtrl.setWindowSize(currentScene.getWidth(),currentScene.getHeight());
         primaryStage.setScene(prompt);
     }
 

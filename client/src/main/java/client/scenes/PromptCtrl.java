@@ -2,7 +2,9 @@ package client.scenes;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.net.*;
+import java.net.MalformedURLException;
+import java.net.URLConnection;
+import java.net.URL;
 import com.google.inject.Inject;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -23,6 +25,11 @@ public class PromptCtrl {
     private TextField nameField;
     @FXML
     private Label errorLabel;
+
+    /**
+     * Create a new Prompt controller
+     * @param mainCtrl - the Main controller
+     */
     @Inject
     public PromptCtrl(MainCtrl mainCtrl) {
         this.mainCtrl = mainCtrl;
