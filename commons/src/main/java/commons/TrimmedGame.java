@@ -8,31 +8,81 @@ public class TrimmedGame {
     private String currentQuestion;
     private int roundsLeft;
     private int timer;
+    private int questionType;
     private List<String> possibleAnswers;
 
-    public TrimmedGame(int id, String currentQuestion, int roundsLeft, int timer, List<String> answers) {
+    /**
+     * Constructor for creating a new TrimmedGame object, given all fields
+     * @param id The lobby ID
+     * @param currentQuestion The current Question (as a String)
+     * @param roundsLeft How many rounds left in the game
+     * @param timer The remaining timer in the round (adjusted depending on requester)
+     * @param answers The possible answers to the question
+     * @param questionType The question type
+     */
+    public TrimmedGame(int id, String currentQuestion, int roundsLeft, int timer, List<String> answers,
+                       int questionType) {
         this.id = id;
         this.currentQuestion = currentQuestion;
         this.roundsLeft = roundsLeft;
         this.timer = timer;
+        this.possibleAnswers = answers;
+        this.questionType = questionType;
     }
 
+    /**
+     * Getter for the game id
+     * @return the game id
+     */
     public int getId() {
         return id;
     }
 
+    /**
+     * Getter for the current question
+     * @return the current question
+     */
     public String getCurrentQuestion() {
         return currentQuestion;
     }
 
+    /**
+     * Getter for the rounds left
+     * @return the rounds left
+     */
     public int getRoundsLeft() {
         return roundsLeft;
     }
 
+    /**
+     * Getter for the time left
+     * @return the time left
+     */
     public int getTimer() {
         return timer;
     }
 
+    /**
+     * Getter for the question type
+     * @return the question type
+     */
+    public int getQuestionType() {
+        return questionType;
+    }
+
+    /**
+     * Getter for the possible answers
+     * @return the list of possible answers
+     */
+    public List<String> getPossibleAnswers() {
+        return possibleAnswers;
+    }
+
+    /**
+     * Equals method for TrimmedGame
+     * @param o the object to compare with
+     * @return true iff the other object is equal to this
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

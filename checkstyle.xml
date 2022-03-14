@@ -5,8 +5,43 @@
 
 <module name = "Checker">
     <module name="TreeWalker">
+<!--    Checks for unused imports-->
         <module name="UnusedImports" />
+
+<!--    Check all variables and identifiers (including ones with the static modifier) and enforce no abbreviations (essentially camel case) except for words like 'XML' and 'URL'.-->
+        <module name="AbbreviationAsWordInName">
+            <property name="tokens" value="VARIABLE_DEF,CLASS_DEF"/>
+            <property name="ignoreStatic" value="false"/>
+            <property name="allowedAbbreviationLength" value="0"/>
+            <property name="allowedAbbreviations" value="XML,URL,FXML,ID"/>
+        </module>
+
+<!--    Checks for missing Javadoc comments for a method or constructor. -->
+        <module name="MissingJavadocMethod">
+            <property name="ignoreMethodNamesRegex" value="^main.*$"/>
+        </module>
+
+<!--    Checks the Javadoc of a method or constructor.-->
+        <module name="JavadocMethod"/>
+
+<!--    Checks if method contains more than 50 lines.-->
+        <module name="MethodLength">
+            <property name="tokens" value="METHOD_DEF"/>
+            <property name="max" value="50"/>
+        </module>
+
+<!--    Checks that there are no import statements that use the * notation.-->
+        <module name="AvoidStarImport"/>
+
+        <module name="SuppressionCommentFilter">
+            <property name="offCommentFormat" value="CHECKSTYLE:OFF"/>
+            <property name="onCommentFormat" value="CHECKSTYLE:ON"/>
+        </module>
     </module>
-    <!-- TODO: decide in your team with other checkers to add! -->
+
+    <!--Checks for lines longer than 120 characters.-->
+    <module name="LineLength">
+        <property name="max" value="120"/>
+    </module>
 
 </module>
