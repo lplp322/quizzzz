@@ -9,7 +9,7 @@ import org.mockito.MockitoAnnotations;
 import server.Activity;
 import server.Game;
 import server.Player;
-import server.TrimmedGame;
+import commons.TrimmedGame;
 import server.database.ActivityRepository;
 
 import java.util.ArrayList;
@@ -38,7 +38,7 @@ public class GameTest {
 
     @Test
     public void noJokerTrim() {
-        TrimmedGame trim = new TrimmedGame(0, game.getQuestions().get(0), 20, 20);
-        assertEquals(trim, game.trim());
+        TrimmedGame trim = new TrimmedGame(0, game.getQuestions().get(0).getQuestion(), 20, 20, game.getQuestions().get(0).getAnswers());
+        assertEquals(trim, game.trim(new Player("test")));
     }
 }

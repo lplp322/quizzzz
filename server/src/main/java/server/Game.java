@@ -1,5 +1,6 @@
 package server;
 
+import commons.TrimmedGame;
 import server.database.ActivityRepository;
 
 import java.util.ArrayList;
@@ -62,14 +63,15 @@ public class Game implements Runnable{
         return gameRounds;
     }
 
-    public TrimmedGame trim() {
-        if(round.isHalfTimerUsed()) {
-            return new TrimmedGame(lobbyId, questions.get(0), questions.size(),
-                    round.getTimer(), round.getPlayerWhoUsedJoker().getName(), round.getHalvedTimer());
+    public TrimmedGame trim(Player requester) {
+        Question currQuestion = questions.get(0);
+        if (round.isHalfTimerUsed()){
+            if (!requester.equals(round.getPlayerWhoUsedJoker())) {
+                return new TrimmedGame(lobbyId, currQuestion.getQuestion(), questions.size(), round.getHalvedTimer(), currQuestion.getAnswers());
+            }
         }
+        return new TrimmedGame(lobbyId, currQuestion.getQuestion(), questions.size(), round.getTimer(), currQuestion.getAnswers());
 
-        return new TrimmedGame(lobbyId, questions.get(0), questions.size(),
-                round.getTimer());
     }
 
     @Override
