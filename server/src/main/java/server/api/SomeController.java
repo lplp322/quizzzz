@@ -1,12 +1,19 @@
-package server;
+package server.api;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 @RequestMapping("/")
 public class SomeController {
-    private int gameId = 0;
+    private int gameId=0;
 
     /**
      * Answering to the first client response, when new user is connecting to the game
@@ -50,7 +57,7 @@ public class SomeController {
     /**
      * Deleting player with provided ID, if the player left game
      * @param id - id of this player
-     * @return
+     * @return Response from the server
      */
     @DeleteMapping("deletePlayer/{id}")
     @ResponseBody

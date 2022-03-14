@@ -21,6 +21,7 @@ import javafx.stage.Stage;
 import javafx.util.Pair;
 
 public class MainCtrl {
+    private int currentGameID;  //the ID of the ongoing game
     private Stage primaryStage;
 
     private QuoteOverviewCtrl overviewCtrl;
@@ -35,8 +36,21 @@ public class MainCtrl {
     private SplashCtrl splashCtrl;
     private Scene splash;
 
+    private PromptCtrl promptCtrl;
+    private Scene prompt;
+
+    /**
+     * Initializes all scenes via pairs of controllers and fxml files
+     * @param primaryStage
+     * @param overview
+     * @param add
+     * @param splash
+     * @param mostPowerQuestion
+     * @param prompt
+     */
     public void initialize(Stage primaryStage, Pair<QuoteOverviewCtrl, Parent> overview,
-        Pair<AddQuoteCtrl, Parent> add, Pair<SplashCtrl, Parent> splash, Pair<MostPowerCtrl, Parent> mostPowerQuestion) {
+        Pair<AddQuoteCtrl, Parent> add, Pair<SplashCtrl, Parent> splash, Pair<MostPowerCtrl, Parent> mostPowerQuestion,
+                           Pair<PromptCtrl, Parent> prompt) {
         this.primaryStage = primaryStage;
         this.overviewCtrl = overview.getKey();
         this.overview = new Scene(overview.getValue());
@@ -50,10 +64,13 @@ public class MainCtrl {
         this.mostPowerCtrl = mostPowerQuestion.getKey();
         this.mostPower = new Scene(mostPowerQuestion.getValue());
 
+        this.promptCtrl = prompt.getKey();
+        this.prompt = new Scene(prompt.getValue());
+
         showSplash();
         primaryStage.show();
     }
-
+    //CHECKSTYLE:OFF
     public void showOverview() {
         primaryStage.setTitle("Quotes: Overview");
         primaryStage.setScene(overview);
@@ -65,14 +82,55 @@ public class MainCtrl {
         primaryStage.setScene(add);
         add.setOnKeyPressed(e -> addCtrl.keyPressed(e));
     }
+    //CHECKSTYLE:ON
 
+    /**
+     * Changes the current scene to the splash screen, resizes scene windows is already open
+     */
     public void showSplash() {
-        primaryStage.setTitle("Quizzz");
-        primaryStage.setScene(splash);
+        if(primaryStage.getScene()!=null){
+            Scene currentScene = primaryStage.getScene();   //Gets current scene
+            splashCtrl.setWindowSize(currentScene.getWidth(),currentScene.getHeight());
+        }
+            primaryStage.setTitle("Quizzz");
+            primaryStage.setScene(splash);
     }
 
+
+    /**
+     * Changes the current scene to the questions screen
+     */
     public void showMostPowerQuestion() {
         primaryStage.setTitle("Quizzz");
         primaryStage.setScene(mostPower);
+    }
+
+    /**
+     * Changes the current scene to Prompt.fxml, sets mode to Singleplayer
+     */
+    public void showSinglePlayerPrompt() {
+        Scene currentScene = primaryStage.getScene();   //Gets current scene
+        primaryStage.setTitle("Enter your name");
+        promptCtrl.setSingleplayer();
+
+        //Resizes new scene by calling the setWindowSize method
+        promptCtrl.setWindowSize(currentScene.getWidth(),currentScene.getHeight());
+        primaryStage.setScene(prompt);
+    }
+
+    /**
+     * A getter for the current gameID
+     * @return gameID
+     */
+    public int getCurrentID(){
+        return this.currentGameID;
+    }
+
+    /**
+     * Sets the ID of the ongoing game
+     * @param ID - number received from server
+     */
+    public void setCurrentGameID(int ID){
+        this.currentGameID = ID;
     }
 }
