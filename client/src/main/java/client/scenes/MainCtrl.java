@@ -70,18 +70,19 @@ public class MainCtrl {
         showSplash();
         primaryStage.show();
     }
-    //Shows placeholder
+    //CHECKSTYLE:OFF
     public void showOverview() {
         primaryStage.setTitle("Quotes: Overview");
         primaryStage.setScene(overview);
         overviewCtrl.refresh();
     }
-    //Shows placeholder
+
     public void showAdd() {
         primaryStage.setTitle("Quotes: Adding Quote");
         primaryStage.setScene(add);
         add.setOnKeyPressed(e -> addCtrl.keyPressed(e));
     }
+    //CHECKSTYLE:ON
 
     /**
      * Changes the current scene to the splash screen, resizes scene windows is already open
@@ -111,7 +112,9 @@ public class MainCtrl {
         Scene currentScene = primaryStage.getScene();   //Gets current scene
         primaryStage.setTitle("Enter your name");
         promptCtrl.setSingleplayer();
-        promptCtrl.setWindowSize(currentScene.getWidth(),currentScene.getHeight());     //Resizes new scene by calling the setWindowSize method
+
+        //Resizes new scene by calling the setWindowSize method
+        promptCtrl.setWindowSize(currentScene.getWidth(),currentScene.getHeight());
         primaryStage.setScene(prompt);
     }
 

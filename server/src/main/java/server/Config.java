@@ -29,7 +29,7 @@ public class Config {
 
     /**
      * returns random
-     * @return
+     * @return a Random object
      */
     @Bean
     public Random getRandom() {

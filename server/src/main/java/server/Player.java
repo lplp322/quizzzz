@@ -31,7 +31,7 @@ public class Player {
 
     /**
      * returns the name of the player
-     * @return
+     * @return the name of the player
      */
     public String getName() {
         return name;
@@ -39,7 +39,7 @@ public class Player {
 
     /**
      * returns the score of the player
-     * @return
+     * @return the score of the player
      */
     public int getScore() {
         return score;
@@ -47,7 +47,7 @@ public class Player {
 
     /**
      * returns a list of the jokes available to the player
-     * @return
+     * @return the list of the jokers available to the player
      */
     public List<Joker> getJokerList() {
         return jokerList;

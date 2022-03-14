@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 package server.api;
-
+//CHECKSTYLE:OFF
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.http.HttpStatus.BAD_REQUEST;

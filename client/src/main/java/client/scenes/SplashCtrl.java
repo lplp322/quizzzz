@@ -17,15 +17,27 @@ public class SplashCtrl {
     @FXML
     private Button multiplayerButton;
 
+    /**
+     * Instantiates a Splash Controller
+     * @param mainCtrl The Main Controller
+     */
     @Inject
     public SplashCtrl(MainCtrl mainCtrl) {
         this.mainCtrl = mainCtrl;
     }
 
+    /**
+     * Function to be executed when the singlePlayer button is pressed
+     */
     public void singlePlayer() {
         this.mainCtrl.showSinglePlayerPrompt();
     }
 
+    /**
+     * Changes the size of the AnchorPlane
+     * @param w - preferred width
+     * @param h - preferred height
+     */
     @FXML
     public void setWindowSize(double w, double h){
         mainWindow.setPrefSize(w,h);

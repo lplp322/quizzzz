@@ -10,7 +10,7 @@ import java.util.List;
 public interface ActivityRepository extends JpaRepository<Activity, String> {
     /**
      * query to return all the activities in the database as a list of activity
-     * @return
+     * @return all the activities in the database
      */
     @Query("SELECT a FROM Activity a")
     List<Activity> getAllActivities();
