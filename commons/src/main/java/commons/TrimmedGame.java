@@ -6,7 +6,7 @@ import java.util.Objects;
 public class TrimmedGame {
     private int id;
     private String currentQuestion;
-    private int roundsLeft;
+    private int roundNum;
     private int timer;
     private int questionType;
     private List<String> possibleAnswers;
@@ -15,16 +15,16 @@ public class TrimmedGame {
      * Constructor for creating a new TrimmedGame object, given all fields
      * @param id The lobby ID
      * @param currentQuestion The current Question (as a String)
-     * @param roundsLeft How many rounds left in the game
+     * @param roundNum The current round number
      * @param timer The remaining timer in the round (adjusted depending on requester)
      * @param answers The possible answers to the question
      * @param questionType The question type
      */
-    public TrimmedGame(int id, String currentQuestion, int roundsLeft, int timer, List<String> answers,
+    public TrimmedGame(int id, String currentQuestion, int roundNum, int timer, List<String> answers,
                        int questionType) {
         this.id = id;
         this.currentQuestion = currentQuestion;
-        this.roundsLeft = roundsLeft;
+        this.roundNum = roundNum;
         this.timer = timer;
         this.possibleAnswers = answers;
         this.questionType = questionType;
@@ -47,11 +47,11 @@ public class TrimmedGame {
     }
 
     /**
-     * Getter for the rounds left
-     * @return the rounds left
+     * Getter for the round number
+     * @return the round number
      */
-    public int getRoundsLeft() {
-        return roundsLeft;
+    public int getRoundNum() {
+        return roundNum;
     }
 
     /**
@@ -88,7 +88,7 @@ public class TrimmedGame {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         TrimmedGame that = (TrimmedGame) o;
-        return id == that.id && roundsLeft == that.roundsLeft && timer == that.timer &&
+        return id == that.id && roundNum == that.roundNum && timer == that.timer &&
                 Objects.equals(currentQuestion, that.currentQuestion) &&
                 Objects.equals(possibleAnswers, that.possibleAnswers);
     }

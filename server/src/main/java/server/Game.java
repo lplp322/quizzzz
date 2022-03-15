@@ -90,6 +90,13 @@ public class Game implements Runnable{
     public Round getRound() { return round; }
 
     /**
+     * returns the current round number
+     * @return the current round number
+     */
+    public int roundNumber() {
+        return round.getTotalRounds() - questions.size() + 1;
+    }
+    /**
      * Trims game for generic purposes, not for a given player
      * @return the current object as TrimmedGame, with full timer
      */
@@ -105,14 +112,17 @@ public class Game implements Runnable{
      * @return the current object as TrimmedGame
      */
     public TrimmedGame trim(String requester) {
+        if (questions.size() == 0) {
+            return new TrimmedGame(lobbyId, null, -1, 0, new ArrayList<String>(), 0);
+        }
         Question currQuestion = questions.get(0);
         if (round.isHalfTimerUsed()){
             if (!requester.equals(round.getPlayerWhoUsedJoker().getName())) {
-                return new TrimmedGame(lobbyId, currQuestion.getQuestion(), questions.size(), round.getHalvedTimer(),
+                return new TrimmedGame(lobbyId, currQuestion.getQuestion(), roundNumber(), round.getHalvedTimer(),
                         currQuestion.getAnswers(), currQuestion.getType());
             }
         }
-        return new TrimmedGame(lobbyId, currQuestion.getQuestion(), questions.size(), round.getTimer(),
+        return new TrimmedGame(lobbyId, currQuestion.getQuestion(), roundNumber(), round.getTimer(),
                 currQuestion.getAnswers(), currQuestion.getType());
 
     }

@@ -112,7 +112,7 @@ public class MostPowerCtrl {
             Gson g = new Gson();
             String jsonString = httpToJSONString(http);
             commons.TrimmedGame trimmedGame = g.fromJson( jsonString, commons.TrimmedGame.class);
-            currentRoundLabel.setText("currentRound" + trimmedGame.getRoundsLeft());
+            currentRoundLabel.setText("currentRound" + trimmedGame.getRoundNum());
             timerLabel.setText("Time: " + trimmedGame.getTimer());
             questionLabel.setText(trimmedGame.getCurrentQuestion());
 
@@ -124,7 +124,7 @@ public class MostPowerCtrl {
                 this.guessEnable();
             }
 
-            if (trimmedGame.getRoundsLeft() == 0) {
+            if (trimmedGame.getRoundNum() < 0) {
                 gameFinished = true;
             }
             gameFinished = true; //this is hardcoded to make the code stop
