@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 package client.scenes;
-
+//CHECKSTYLE:OFF
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import org.junit.jupiter.api.BeforeEach;
