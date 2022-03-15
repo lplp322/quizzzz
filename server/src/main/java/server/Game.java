@@ -43,7 +43,7 @@ public class Game implements Runnable{
             while(round.getGameStatus() == 1) {
                 round.tickDown();
                 Thread.sleep(1000);
-                System.out.println(round);
+                //System.out.println(round);
             }
         }
         catch (Exception e) {
@@ -90,18 +90,11 @@ public class Game implements Runnable{
     public Round getRound() { return round; }
 
     /**
-     * returns the current round number
-     * @return the current round number
-     */
-    public int roundNumber() {
-        return round.getTotalRounds() - questions.size() + 1;
-    }
-    /**
      * Trims game for generic purposes, not for a given player
      * @return the current object as TrimmedGame, with full timer
      */
     public TrimmedGame trim(){
-        Question currQuestion = questions.get(0);
+        Question currQuestion = questions.get(round.getRound());
         return new TrimmedGame(lobbyId, currQuestion.getQuestion(), questions.size(), round.getTimer(),
                 currQuestion.getAnswers(), currQuestion.getType());
 
@@ -112,17 +105,17 @@ public class Game implements Runnable{
      * @return the current object as TrimmedGame
      */
     public TrimmedGame trim(String requester) {
-        if (questions.size() == 0) {
+        if (round.getGameStatus() == 2) {
             return new TrimmedGame(lobbyId, null, -1, 0, new ArrayList<String>(), 0);
         }
-        Question currQuestion = questions.get(0);
+        Question currQuestion = questions.get(round.getRound());
         if (round.isHalfTimerUsed()){
             if (!requester.equals(round.getPlayerWhoUsedJoker().getName())) {
-                return new TrimmedGame(lobbyId, currQuestion.getQuestion(), roundNumber(), round.getHalvedTimer(),
+                return new TrimmedGame(lobbyId, currQuestion.getQuestion(), round.getRound(), round.getHalvedTimer(),
                         currQuestion.getAnswers(), currQuestion.getType());
             }
         }
-        return new TrimmedGame(lobbyId, currQuestion.getQuestion(), roundNumber(), round.getTimer(),
+        return new TrimmedGame(lobbyId, currQuestion.getQuestion(), round.getRound(), round.getTimer(),
                 currQuestion.getAnswers(), currQuestion.getType());
 
     }
