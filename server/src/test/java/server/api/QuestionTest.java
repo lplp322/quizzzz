@@ -15,10 +15,10 @@ public class QuestionTest {
     private TestActivityRepository dtBase;
     @BeforeEach
     public void init() {
-        a = new Activity("A", 100);
-        b = new Activity("B", 99);
-        c = new Activity("C", 103);
-        d = new Activity("D", 104);
+        a = new Activity("A", 100, "DAS", "DAS");
+        b = new Activity("B", 99, "DAS", "DAS");
+        c = new Activity("C", 103, "ASD", "DAS");
+        d = new Activity("D", 104, "DAS", "ADS");
 
     }
     @Test
