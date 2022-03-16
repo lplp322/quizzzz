@@ -76,9 +76,18 @@ public class LobbyController {
     @PutMapping("/{gameID}/{name}/checkAnswer/{round}/{answer}")
     public String checkAnswer(@PathVariable int gameID, @PathVariable String name, @PathVariable int round, @PathVariable String answer){
         System.out.println(answer);
+
         if(lobbyService.getGameByID(gameID).checkPlayerAnswer(name, round, answer)){
             return "correct";
         }
         return "incorrect";
+    }
+
+
+    @GetMapping("/{gameID}/{name}/joker/{round}/{joker}")
+    public String receiveJoker(@PathVariable int gameID, @PathVariable String name, @PathVariable int round, @PathVariable String joker) {
+        System.out.println(joker);
+
+        return "joker received";
     }
 }

@@ -4,6 +4,7 @@ import server.database.ActivityRepository;
 import commons.*;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class Game implements Runnable{
@@ -12,6 +13,7 @@ public class Game implements Runnable{
     private List<Question> questions;
     private int gameType;
     private Round round;
+//    private HashMap<String, Integer> playerScore;
 
     public Game(List<Player> players, int lobbyId, int gameType, ActivityRepository dtBase) {
         this.players = players;
@@ -24,6 +26,10 @@ public class Game implements Runnable{
             Question tempQuestion = new Question(dtBase);
             questions.add(tempQuestion);
         }
+//
+//        for (int i =0; i < players.size(); i ++) {
+//            this.playerScore.put(players.get(i).getName(), 0);
+//        }
 
     }
 
