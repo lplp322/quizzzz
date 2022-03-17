@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import server.LobbyService;
 
 import java.util.LinkedList;
-import java.util.List;
+
 
 @RestController
 @RequestMapping("/")
@@ -124,6 +124,10 @@ public class LobbyController {
         return "joker received";
     }
 
+    /**
+     * @return returns a linked list of entries that store the information
+     * of the leaderboard
+     */
     @GetMapping("leaderboard")
     public LinkedList<LeaderboardEntry> getGameInfo(){
         LinkedList<LeaderboardEntry> leaderboardList = new LinkedList();

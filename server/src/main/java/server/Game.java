@@ -137,6 +137,12 @@ public class Game implements Runnable{
         }
     }
 
+    /**
+     * @param name name of the player that the score is being updated for
+     * @param round the round of the question
+     * @param answer the users answer to the question
+     * @return returns the users current score or -1 it is not the current round
+     */
     public int updatePlayerScore(String name, int round, String answer) {
         System.out.println(getRound().getRound());
         System.out.println(getQuestions().get(round).getAnswer());
