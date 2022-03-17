@@ -1,7 +1,7 @@
 package server;
 
+import commons.TrimmedGame;
 import server.database.ActivityRepository;
-import commons.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,6 +32,9 @@ public class Game implements Runnable{
 
     }
 
+    /**
+     * method which handles simulating the game rounds
+     */
     @Override
     public void run() {
         try {
@@ -50,20 +53,40 @@ public class Game implements Runnable{
         return players;
     }
 
+    /**
+     * returns lobby-id
+     * @return the lobby-id
+     */
     public int getLobbyId() {
         return lobbyId;
     }
 
+    /**
+     * returns list of all the questions
+     * @return the list of all the questions
+     */
     public List<Question> getQuestions() {
         return questions;
     }
 
+    /**
+     * returns the type of the game(multi-player, single-player)
+     * @return the type of the game
+     */
     public int getGameType() {
         return gameType;
     }
 
+    /**
+     * returns the round object
+     * @return the round object
+     */
     public Round getRound() { return round; }
 
+    /**
+     * returns the object as a string
+     * @return the object as a string
+     */
     @Override
     public String toString() {
         return "Game{" +
@@ -75,8 +98,8 @@ public class Game implements Runnable{
     }
 
     /**
-     * Will return trim object of the game class, that will be sent to the client
-     * @return TrimmedGame object of this game
+     * trims the current object
+     * @return the current object as TrimmedGame
      */
     public TrimmedGame trim() {
         return new TrimmedGame(lobbyId, "Question 1", 19, 20,1);

@@ -33,10 +33,21 @@ public class MyFXML {
 
     private Injector injector;
 
+    /**
+     * Create new custom FXML loader
+     * @param injector
+     */
     public MyFXML(Injector injector) {
         this.injector = injector;
     }
 
+    /**
+     * Loads a fxml file
+     * @param c Class of the controller
+     * @param parts Path to the fxml file
+     * @param <T> Type of the Controller
+     * @return A pair containing the Controller with its associated Parent
+     */
     public <T> Pair<T, Parent> load(Class<T> c, String... parts) {
         try {
             var loader = new FXMLLoader(getLocation(parts), null, null, new MyFactory(), StandardCharsets.UTF_8);

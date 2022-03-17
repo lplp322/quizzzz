@@ -1,5 +1,5 @@
 package server.api;
-
+//CHECKSTYLE:OFF
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -165,7 +165,8 @@ public class TestActivityRepository implements ActivityRepository {
     }
 
     @Override
-    public <S extends Activity, R> R findBy(Example<S> example, Function<FluentQuery.FetchableFluentQuery<S>, R> queryFunction) {
+    public <S extends Activity, R> R findBy(Example<S> example,
+                                            Function<FluentQuery.FetchableFluentQuery<S>, R> queryFunction) {
         return null;
     }
 }

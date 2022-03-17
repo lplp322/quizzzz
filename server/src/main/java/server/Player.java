@@ -29,18 +29,34 @@ public class Player {
         this.jokerList = jokerList;
     }
 
+    /**
+     * returns the name of the player
+     * @return the name of the player
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * returns the score of the player
+     * @return the score of the player
+     */
     public int getScore() {
         return score;
     }
 
+    /**
+     * returns a list of the jokes available to the player
+     * @return the list of the jokers available to the player
+     */
     public List<Joker> getJokerList() {
         return jokerList;
     }
 
+    /**
+     * returns the object as a string
+     * @return
+     */
     @Override
     public String toString() {
         return "Player{" +

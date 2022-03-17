@@ -4,7 +4,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import server.database.ActivityRepository;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
 
 @Service
 public class LobbyService {
@@ -15,6 +21,13 @@ public class LobbyService {
     private Set<String> names;
     private int singlePlayerID;
 
+    /**
+     * constructor for the lobby-service class
+     * there are two types of id - idCounter and singlePlayerID
+     * idCounter is for multiplayer and is > 0
+     * singlePlayerID is for singlePlayer and goes from -1 to -INF
+     * @param dtBase
+     */
     @Autowired
     public LobbyService(ActivityRepository dtBase) {
         this.dtBase = dtBase;
@@ -44,7 +57,7 @@ public class LobbyService {
     /**
      * Adds the person with name {name} to the list of waiting players in the queue
      * @param name
-     * @return true if player succesfully added
+     * @return true if player successfully added
      */
     public boolean addPlayer(String name) {
         if(names.add(name)) {
@@ -55,6 +68,10 @@ public class LobbyService {
         return false;
     }
 
+    /**
+     * returns the idCounter
+     * @return the idCounter
+     */
     public int getIdCounter() {
         return idCounter;
     }

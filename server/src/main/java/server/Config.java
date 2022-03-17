@@ -27,10 +27,18 @@ public class Config {
     @Autowired
     private ActivityRepository dtBase;
 
+    /**
+     * returns random
+     * @return a Random object
+     */
     @Bean
     public Random getRandom() {
         return new Random();
     }
+
+    /**
+     * Adds 4 activities in case the database is empty
+     */
     @Bean
     public void addTempActivities() {
         if(dtBase.getAllActivities().size() < 4) {

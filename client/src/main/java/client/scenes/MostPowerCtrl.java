@@ -7,10 +7,12 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 
-import java.io.*;
-
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.Reader;
 import java.net.HttpURLConnection;
-
 
 import java.net.URL;
 
@@ -138,7 +140,7 @@ public class MostPowerCtrl {
 
     /**
      * @param http this is a http connection that the response of which will be turned into a string
-     * @return
+     * @return The http response in JSON format
      */
     public static String httpToJSONString(HttpURLConnection http) {
         StringBuilder textBuilder = new StringBuilder();

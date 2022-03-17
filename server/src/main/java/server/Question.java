@@ -2,7 +2,12 @@ package server;
 
 import server.database.ActivityRepository;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.Random;
+
 
 public class Question {
     // the actual question
@@ -18,6 +23,10 @@ public class Question {
     //Correct answer
     private String answer;
 
+    /**
+     * Creates a new question
+     * @param dt the ActivityRepository with the activities
+     */
     public Question(ActivityRepository dt) {
         this.dt = dt;
         type = (new Random()).nextInt(3);
@@ -43,6 +52,11 @@ public class Question {
         }
     }
 
+    /**
+     * Creates a question of a given type
+     * @param dt the ActivityRepository with the activities
+     * @param type the type of the question
+     */
     public Question(ActivityRepository dt, int type) {
         this.dt = dt;
         this.type = type;
@@ -98,7 +112,8 @@ public class Question {
         //TO BE IMPLEMENTED
     }
 
-    /** Generates a question in the following format: Comparing the energy usage of one activity to three other activities:
+    /** Generates a question in the following format:
+     * Comparing the energy usage of one activity to three other activities:
      *
      */
     private void generateTypeThree() {
@@ -114,26 +129,50 @@ public class Question {
         Collections.shuffle(answers);
     }
 
+    /**
+     * returns the answer
+     * @return the answer
+     */
     public String getAnswer() {
         return answer;
     }
 
+    /**
+     * returns the question
+     * @return the queston
+     */
     public String getQuestion() {
         return question;
     }
 
+    /**
+     * returns all the possible answers
+     * @return a list of all the possible answers
+     */
     public List<String> getAnswers() {
         return answers;
     }
 
+    /**
+     * returns the type of the question(0, 1, 2)
+     * @return the type of the question
+     */
     public int getType() {
         return type;
     }
 
+    /**
+     * returns the 4 activities we fetched from the database
+     * @return the 4 activities from the database
+     */
     public List<Activity> getActivities() {
         return activities;
     }
 
+    /**
+     * returns the object as a string
+     * @return
+     */
     @Override
     public String toString() {
         return "Question{" +
