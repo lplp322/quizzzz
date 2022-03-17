@@ -30,8 +30,8 @@ public class MainCtrl {
     private AddQuoteCtrl addCtrl;
     private Scene add;
 
-    private MostPowerCtrl mostPowerCtrl;
-    private Scene mostPower;
+    private GameCtrl gameCtrl;
+    private Scene game;
 
     private SplashCtrl splashCtrl;
     private Scene splash;
@@ -45,11 +45,11 @@ public class MainCtrl {
      * @param overview
      * @param add
      * @param splash
-     * @param mostPowerQuestion
+     * @param gameCtrl
      * @param prompt
      */
     public void initialize(Stage primaryStage, Pair<QuoteOverviewCtrl, Parent> overview,
-        Pair<AddQuoteCtrl, Parent> add, Pair<SplashCtrl, Parent> splash, Pair<MostPowerCtrl, Parent> mostPowerQuestion,
+        Pair<AddQuoteCtrl, Parent> add, Pair<SplashCtrl, Parent> splash, Pair<GameCtrl, Parent> gameCtrl,
                            Pair<PromptCtrl, Parent> prompt) {
         this.primaryStage = primaryStage;
         this.overviewCtrl = overview.getKey();
@@ -61,8 +61,8 @@ public class MainCtrl {
         this.splashCtrl = splash.getKey();
         this.splash = new Scene(splash.getValue());
 
-        this.mostPowerCtrl = mostPowerQuestion.getKey();
-        this.mostPower = new Scene(mostPowerQuestion.getValue());
+        this.gameCtrl = gameCtrl.getKey();
+        this.game = new Scene(gameCtrl.getValue());
 
         this.promptCtrl = prompt.getKey();
         this.prompt = new Scene(prompt.getValue());
@@ -100,9 +100,9 @@ public class MainCtrl {
     /**
      * Changes the current scene to the questions screen
      */
-    public void showMostPowerQuestion() {
+    public void showGame() {
         primaryStage.setTitle("Quizzz");
-        primaryStage.setScene(mostPower);
+        primaryStage.setScene(game);
     }
 
     /**

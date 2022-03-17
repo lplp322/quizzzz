@@ -35,7 +35,12 @@ public class LobbyController {
      */
     @GetMapping("/singleplayer/{name}")
     public int startSinglePlayer(@PathVariable String name){
-        return lobbyService.createSinglePlayerGame(name);
+        int id = lobbyService.createSinglePlayerGame(name);
+
+        // Hardcoded to start directly
+        Thread t1 = new Thread(lobbyService.getGameByID(id));
+        t1.start();
+        return id;
     }
 
     /**

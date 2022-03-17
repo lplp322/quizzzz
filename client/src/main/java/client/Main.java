@@ -21,7 +21,7 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import client.scenes.AddQuoteCtrl;
 import client.scenes.MainCtrl;
-import client.scenes.MostPowerCtrl;
+import client.scenes.GameCtrl;
 import client.scenes.PromptCtrl;
 import client.scenes.QuoteOverviewCtrl;
 import client.scenes.SplashCtrl;
@@ -50,11 +50,11 @@ public class Main extends Application {
                 "QuoteOverview.fxml");
         var add = FXML.load(AddQuoteCtrl.class, "client", "scenes", "AddQuote.fxml");
         var splash = FXML.load(SplashCtrl.class, "client","scenes", "splash.fxml");
-        var mostPowerControl = FXML.load(MostPowerCtrl.class, "client", "scenes",
-                "MostPowerQuestion.fxml");
+        var game = FXML.load(GameCtrl.class, "client", "scenes",
+                "Game.fxml");
         var prompt = FXML.load(PromptCtrl.class, "client", "scenes", "Prompt.fxml");
 
         var mainCtrl = INJECTOR.getInstance(MainCtrl.class);
-        mainCtrl.initialize(primaryStage, overview, add, splash, mostPowerControl, prompt);
+        mainCtrl.initialize(primaryStage, overview, add, splash, game, prompt);
     }
 }

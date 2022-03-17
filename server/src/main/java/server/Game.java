@@ -108,7 +108,7 @@ public class Game implements Runnable{
      * @return the current object as TrimmedGame
      */
     public TrimmedGame trim() {
-        return new TrimmedGame(lobbyId, "Question 1", 19, 20,1);
+        return new TrimmedGame(lobbyId, "Question 1", round.getTotalRounds() - round.getRound(), round.getTimer(),1);
     }
 
 }
