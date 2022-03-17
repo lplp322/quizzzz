@@ -10,7 +10,7 @@ import javafx.scene.control.TextField;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.OutputStream;
+//import java.io.OutputStream;
 import java.io.Reader;
 import java.net.HttpURLConnection;
 
@@ -192,22 +192,27 @@ public class MostPowerCtrl {
     }
 
 
+    /**
+     * @throws IOException
+     */
     public void choiceASend () throws IOException {
         this.sendAnswer(choiceA.getText());
     }
 
+    /**
+     * @throws IOException
+     */
     public void choiceBSend() throws IOException {
         this.sendAnswer(choiceB.getText());
     }
 
+    /**
+     * @throws IOException
+     */
     public void choiceCSend() throws IOException {
         this.sendAnswer(choiceC.getText());
     }
-
-
-
-
-
+    
 
 }
 
