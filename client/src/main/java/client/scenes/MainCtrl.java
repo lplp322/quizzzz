@@ -48,9 +48,11 @@ public class MainCtrl {
      * @param gameCtrl
      * @param prompt
      */
+    //CHECKSTYLE:OFF
     public void initialize(Stage primaryStage, Pair<QuoteOverviewCtrl, Parent> overview,
                            Pair<AddQuoteCtrl, Parent> add, Pair<SplashCtrl, Parent> splash, Pair<MostPowerCtrl, Parent> gameCtrl,
                            Pair<PromptCtrl, Parent> prompt) {
+    //CHECKSTYLE:ON
         this.primaryStage = primaryStage;
         this.overviewCtrl = overview.getKey();
         this.overview = new Scene(overview.getValue());
