@@ -41,6 +41,7 @@ public class LobbyService {
     /**
      * Start the game by creating a game instance and adding it to the map of games
      * @param gameType Single-player or multi-player
+     * @return false if no players there
      */
     public boolean startGame(int gameType) {
         if(names.size() == 0) return false;
