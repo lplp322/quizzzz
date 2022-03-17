@@ -144,10 +144,16 @@ public class MainCtrl {
         this.currentGameID = ID;
     }
 
+    /**
+     * @param name is the name of the player that they have inputted.
+     */
     public void setName(String name) {
         this.name = name;
     }
 
+    /**
+     * @return the name of the player
+     */
     public String getName() {
         return this.name;
     }
