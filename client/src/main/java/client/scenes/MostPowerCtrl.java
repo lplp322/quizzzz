@@ -1,6 +1,5 @@
 package client.scenes;
 
-import client.Main;
 import com.google.gson.Gson;
 import com.google.inject.Inject;
 import javafx.application.Platform;
@@ -79,6 +78,10 @@ public class MostPowerCtrl {
 //        this.threeChoicesEnable();
 //    }
 
+    /**
+     * Injecting mostpowercontroller
+     * @param mainCtrl
+     */
     @Inject
     public MostPowerCtrl(MainCtrl mainCtrl) {
         this.mainCtrl = mainCtrl;
