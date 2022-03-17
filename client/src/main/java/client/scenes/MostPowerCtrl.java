@@ -1,6 +1,8 @@
 package client.scenes;
 
+import client.Main;
 import com.google.gson.Gson;
+import com.google.inject.Inject;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -64,6 +66,10 @@ public class MostPowerCtrl {
     @FXML
     private Label timerLabel;
 
+    private MainCtrl mainCtrl;
+
+    private static String link = "http://localhost:8080/";
+
 
 
 
@@ -72,6 +78,11 @@ public class MostPowerCtrl {
 //        this.mainCtrl = mainCtrl;
 //        this.threeChoicesEnable();
 //    }
+
+    @Inject
+    public MostPowerCtrl(MainCtrl mainCtrl) {
+        this.mainCtrl = mainCtrl;
+    }
 
 
     /**
@@ -106,7 +117,8 @@ public class MostPowerCtrl {
             while(true) {
                 Platform.runLater(() -> {
                             try {
-                                URL url = new URL("http://localhost:8080/-1/getGameInfo");
+//                                URL url = new URL("http://localhost:8080/-1/getGameInfo");
+                                URL url = new URL(link + this.mainCtrl.getCurrentID()+ "/getGameInfo" );
                                 //for now all gameID's are set to 1,
                                 //but these need to be changed once the gameID is stored from the sever
                                 HttpURLConnection http = (HttpURLConnection) url.openConnection();
@@ -177,7 +189,11 @@ public class MostPowerCtrl {
         //for now all gameID's are set to 1 but these need to be changed once the gameID is stored from the sever
         // also the round and the name
 
-        URL url = new URL("http://localhost:8080/1/P1/checkAnswer/" + currentround + "/" + answer);
+//        URL url = new URL("http://localhost:8080/1/P1/checkAnswer/" + currentround + "/" + answer);
+        URL url = new URL(link + this.mainCtrl.getCurrentID() + "/"
+                + this.mainCtrl.getName() + "/checkAnswer/" +
+                currentround + "/" + answer);
+        System.out.println(this.mainCtrl.getName());
         HttpURLConnection http = (HttpURLConnection)url.openConnection();
         http.setRequestMethod("PUT");
         System.out.println(http.getResponseCode());
