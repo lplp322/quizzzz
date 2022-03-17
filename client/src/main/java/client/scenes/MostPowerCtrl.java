@@ -212,7 +212,7 @@ public class MostPowerCtrl {
     public void choiceCSend() throws IOException {
         this.sendAnswer(choiceC.getText());
     }
-    
+
 
 }
 

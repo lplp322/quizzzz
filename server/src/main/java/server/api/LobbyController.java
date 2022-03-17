@@ -79,11 +79,15 @@ public class LobbyController {
      * @param name
      * @param round
      * @param answer
-     * @return
+     * @return returns a string based on wether or not the answer was correct or not
      */
     @PutMapping("/{gameID}/{name}/checkAnswer/{round}/{answer}")
-    public String checkAnswer(@PathVariable int gameID, @PathVariable String name, @PathVariable int round, @PathVariable String answer){
+    //CHECKSTYLE:OFF
+    public String checkAnswer(@PathVariable int gameID, @PathVariable String name,
+                              @PathVariable int round, @PathVariable String answer){
         System.out.println(answer);
+
+        //CHECKSTYLE:ON
 
         if(lobbyService.getGameByID(gameID).checkPlayerAnswer(name, round, answer)){
             return "correct";
@@ -92,8 +96,18 @@ public class LobbyController {
     }
 
 
+    /**
+     * @param gameID The id of the game
+     * @param name name of the player
+     * @param round round of the game
+     * @param joker which joker was used (string)
+     * @return returns a string hardcoded for now that says it has been received
+     */
     @GetMapping("/{gameID}/{name}/joker/{round}/{joker}")
-    public String receiveJoker(@PathVariable int gameID, @PathVariable String name, @PathVariable int round, @PathVariable String joker) {
+    //CHECKSTYLE:OFF
+    public String receiveJoker(@PathVariable int gameID, @PathVariable String name,
+                               @PathVariable int round, @PathVariable String joker) {
+        //CHECKSTYLE:ON
         System.out.println(joker);
 
         return "joker received";

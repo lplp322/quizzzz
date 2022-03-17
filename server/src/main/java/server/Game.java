@@ -14,6 +14,12 @@ public class Game implements Runnable{
     private int gameType;
     private Round round;
 
+    /**
+     * @param players map of players that are in the game
+     * @param lobbyId the ID of the lobby that they were in before
+     * @param gameType the type of game that is being played (single or multiplayer)
+     * @param dtBase the database for the activities
+     */
     public Game(Map<String, Player> players, int lobbyId, int gameType, ActivityRepository dtBase) {
         this.players = players;
         this.lobbyId = lobbyId;
@@ -102,6 +108,7 @@ public class Game implements Runnable{
      * @return the current object as TrimmedGame
      */
     public TrimmedGame trim() {
+
         return new TrimmedGame(lobbyId, "Question 1", 19, 20,1);
     }
 
@@ -117,7 +124,6 @@ public class Game implements Runnable{
         System.out.println(getQuestions().get(round).getAnswer());
         if(getRound().getRound() == round){
             if(getQuestions().get(round).getAnswer().equals(answer)){
-                //!!!!!!!!Need to be implemented - player score increase(create map of <name, player> not list of players)
                 return true;
             }
 
