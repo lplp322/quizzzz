@@ -10,7 +10,7 @@ import javafx.scene.control.TextField;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-//import java.io.OutputStream;
+import java.io.OutputStream;
 import java.io.Reader;
 import java.net.HttpURLConnection;
 
@@ -33,8 +33,6 @@ public class MostPowerCtrl {
 
     @FXML
     private Button choiceC;
-
-    private int currentround;
 
     @FXML
     private Button halfTimeJokerButton;
@@ -62,7 +60,6 @@ public class MostPowerCtrl {
 
     @FXML
     private Label timerLabel;
-
 
 
 
@@ -116,7 +113,6 @@ public class MostPowerCtrl {
             String jsonString = httpToJSONString(http);
             commons.TrimmedGame trimmedGame = g.fromJson( jsonString, commons.TrimmedGame.class);
             currentRoundLabel.setText("currentRound" + trimmedGame.getRoundsLeft());
-            currentround = trimmedGame.getRoundsLeft();
             timerLabel.setText("Time: " + trimmedGame.getTimer());
             questionLabel.setText(trimmedGame.getCurrentQuestion());
 
@@ -162,56 +158,39 @@ public class MostPowerCtrl {
      * @param joker this is a string related to which joker is being passed to the server
      * @throws IOException
      */
-    public  void jokerMessage(String joker) throws IOException {
-
-        URL url = new URL("http://localhost:8080/1/P1/checkAnswer/" + currentround + "/" + joker);
-        HttpURLConnection http = (HttpURLConnection)url.openConnection();
-//        http.setRequestMethod("PUT");
-        System.out.println(http.getResponseCode());
-        System.out.println(httpToJSONString(http));
-        http.disconnect();
-
-    }
-
-    /**
-     * @param answer is a string related to which answer the user has chosen.
-     * @throws IOException
-     */
-    public void sendAnswer(String answer) throws IOException {
-//        URL url = new URL("http://localhost:8080/1/P1/checkAnswer/" + currentRoundLabel.getText() + "/" + answer);
-        //for now all gameID's are set to 1 but these need to be changed once the gameID is stored from the sever
-        // also the round and the name
-
-        URL url = new URL("http://localhost:8080/1/P1/checkAnswer/" + currentround + "/" + answer);
+    public static void jokerMessage(String joker) throws IOException {
+        URL url = new URL("http://localhost:8080/1/getGameInfo");
         HttpURLConnection http = (HttpURLConnection)url.openConnection();
         http.setRequestMethod("PUT");
-        System.out.println(http.getResponseCode());
-        System.out.println(httpToJSONString(http));
+        http.setDoOutput(true);
+        http.setRequestProperty("Content-Type", "application/json");
+
+        String data = "{\n  \"Joker\": \"Halve time\"\n}";
+        //need to fix this to take as input a joker, but I can't figure out the string manipulation
+
+        byte[] out = data.getBytes(StandardCharsets.UTF_8);
+
+        OutputStream stream = http.getOutputStream();
+        stream.write(out);
+
+        System.out.println(http.getResponseCode() + " " + http.getResponseMessage());
         http.disconnect();
 
     }
 
-
     /**
+     * @param correct this is a boolean that relates if the question was answered correctly 
      * @throws IOException
      */
-    public void choiceASend () throws IOException {
-        this.sendAnswer(choiceA.getText());
+    public static void correctMessage(boolean correct) throws IOException {
+        URL url = new URL("http://localhost:8080/1/correctness/" + correct);
+        //for now all gameID's are set to 1 but these need to be changed once the gameID is stored from the sever
+        HttpURLConnection http = (HttpURLConnection)url.openConnection();
+        http.disconnect();
     }
 
-    /**
-     * @throws IOException
-     */
-    public void choiceBSend() throws IOException {
-        this.sendAnswer(choiceB.getText());
-    }
 
-    /**
-     * @throws IOException
-     */
-    public void choiceCSend() throws IOException {
-        this.sendAnswer(choiceC.getText());
-    }
+
 
 
 }
