@@ -13,7 +13,7 @@ public class Round {
     // 1 - game running, 2 - game has ended
     private int gameStatus;
     private boolean timeoutActive = false;
-    private final int totalRounds = 20;
+    private final int totalRounds = 19;
     private final int roundTimer = 20;
 
     /**
@@ -36,11 +36,11 @@ public class Round {
             timeoutActive = true;
         }
         else if(timer <= 0 && !timeoutActive) {
-            round++;
             timer = 20;
         }
         else if (timer == -5){
             timeoutActive = false;
+            round++;
         }
         if(round == totalRounds) {
             gameStatus = 2;
@@ -160,6 +160,7 @@ public class Round {
         return "Round{" +
                 "round=" + round +
                 ", timer=" + timer +
+                ", timeout=" + timeoutActive +
                 ", halvedTimer=" + halvedTimer +
                 ", halfTimerUsed=" + halfTimerUsed +
                 ", playerWhoUsedJoker=" + playerWhoUsedJoker +

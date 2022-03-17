@@ -123,6 +123,10 @@ public class GameCtrl {
                             currentRoundLabel.setText("currentRound" + trimmedGame.getRoundsLeft());
                             timerLabel.setText("Time: " + trimmedGame.getTimer());
                             questionLabel.setText(trimmedGame.getCurrentQuestion());
+                            if(trimmedGame.getQuestionType() == 1||trimmedGame.getQuestionType()==2){
+                                this.threeChoicesEnable();
+                            }
+                            else this.guessEnable();
                         }
                         System.out.println("ok");
                         http.disconnect();
