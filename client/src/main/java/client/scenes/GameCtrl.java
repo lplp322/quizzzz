@@ -114,9 +114,16 @@ public class GameCtrl {
                         Gson g = new Gson();
                         String jsonString = httpToJSONString(http);
                         commons.TrimmedGame trimmedGame = g.fromJson(jsonString, commons.TrimmedGame.class);
-                        currentRoundLabel.setText("currentRound" + trimmedGame.getRoundsLeft());
-                        timerLabel.setText("Time: " + trimmedGame.getTimer());
-                        questionLabel.setText(trimmedGame.getCurrentQuestion());
+                        if(trimmedGame.getTimer()<0){       //works for now, BUT NEEDS TO BE CHANGED IN TRIMMED GAME
+                            currentRoundLabel.setText("Round is over");
+                            timerLabel.setText("Timeout");
+                            questionLabel.setText(trimmedGame.getCurrentQuestion());
+                        }
+                        else {
+                            currentRoundLabel.setText("currentRound" + trimmedGame.getRoundsLeft());
+                            timerLabel.setText("Time: " + trimmedGame.getTimer());
+                            questionLabel.setText(trimmedGame.getCurrentQuestion());
+                        }
                         System.out.println("ok");
                         http.disconnect();
                         } catch (IOException e) {
