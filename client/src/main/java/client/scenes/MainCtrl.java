@@ -75,19 +75,24 @@ public class MainCtrl {
         showSplash();
         primaryStage.show();
     }
-    //CHECKSTYLE:OFF
+
+    /**
+     * Showing overview
+     */
     public void showOverview() {
         primaryStage.setTitle("Quotes: Overview");
         primaryStage.setScene(overview);
         overviewCtrl.refresh();
     }
 
+    /**
+     * Showing add
+     */
     public void showAdd() {
         primaryStage.setTitle("Quotes: Adding Quote");
         primaryStage.setScene(add);
         add.setOnKeyPressed(e -> addCtrl.keyPressed(e));
     }
-    //CHECKSTYLE:ON
 
     /**
      * Changes the current scene to the splash screen, resizes scene windows is already open
