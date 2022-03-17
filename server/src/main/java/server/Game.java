@@ -136,4 +136,23 @@ public class Game implements Runnable{
             return false;
         }
     }
+
+    public int updatePlayerScore(String name, int round, String answer) {
+        System.out.println(getRound().getRound());
+        System.out.println(getQuestions().get(round).getAnswer());
+        if(getRound().getRound() == round){
+            Player player = this.players.get(name);
+            int score = player.getScore();
+
+            if(getQuestions().get(round).getAnswer().equals(answer)){
+                score = score + 100;
+            }
+
+            return score;
+        }
+        else{
+            System.out.println("False round");
+            return -1;
+        }
+    }
 }

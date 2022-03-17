@@ -173,7 +173,9 @@ public class MostPowerCtrl {
      */
     public  void jokerMessage(String joker) throws IOException {
 
-        URL url = new URL("http://localhost:8080/1/P1/checkAnswer/" + currentround + "/" + joker);
+//        URL url = new URL("http://localhost:8080/1/P1/checkAnswer/" + currentround + "/" + joker);
+        URL url = new URL(link + this.mainCtrl.getCurrentID()
+                + "/" + this.mainCtrl.getName() + "/joker/" + currentround + "/" + joker);
         HttpURLConnection http = (HttpURLConnection)url.openConnection();
 //        http.setRequestMethod("PUT");
         System.out.println(http.getResponseCode());
