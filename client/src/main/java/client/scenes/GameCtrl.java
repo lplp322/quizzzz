@@ -107,7 +107,7 @@ public class GameCtrl {
             while(true) {
                 Platform.runLater(() -> {
                     try {
-                        URL url = new URL("http://localhost:8080/-1/getGameInfo");
+                        URL url = new URL("http://localhost:8080/"+ mainCtrl.getCurrentID()+ "/getGameInfo");
                         //for now all gameID's are set to 1,
                         //but these need to be changed once the gameID is stored from the sever
                         HttpURLConnection http = (HttpURLConnection) url.openConnection();
