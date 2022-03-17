@@ -147,7 +147,7 @@ public class Game implements Runnable{
             if(getQuestions().get(round).getAnswer().equals(answer)){
                 score = score + 100;
             }
-
+            player.setScore(score);
             return score;
         }
         else{

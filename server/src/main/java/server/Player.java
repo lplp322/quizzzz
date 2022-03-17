@@ -65,4 +65,8 @@ public class Player {
                 ", jokerList=" + jokerList +
                 '}';
     }
+
+    public void setScore(int score) {
+        this.score = score;
+    }
 }
