@@ -111,7 +111,9 @@ public class MostPowerCtrl {
 
     }
 
-
+    /**
+     * Getting game info in a new thread
+     */
     public void getGameInfo() {
         Thread t1 = new Thread(()-> {
             while(true) {

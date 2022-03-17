@@ -51,8 +51,10 @@ public class MainCtrl {
      * @param gameCtrl
      * @param prompt
      */
+
     public void initialize(Stage primaryStage, Pair<QuoteOverviewCtrl, Parent> overview,
-                           Pair<AddQuoteCtrl, Parent> add, Pair<SplashCtrl, Parent> splash, Pair<MostPowerCtrl, Parent> gameCtrl,
+                           Pair<AddQuoteCtrl, Parent> add, Pair<SplashCtrl, Parent> splash,
+                           Pair<MostPowerCtrl, Parent> gameCtrl,
                            Pair<PromptCtrl, Parent> prompt) {
         this.primaryStage = primaryStage;
         this.overviewCtrl = overview.getKey();
