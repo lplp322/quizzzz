@@ -111,7 +111,8 @@ public class Game implements Runnable{
     public TrimmedGame trim() {
         String question = questions.get(round.getRound()).getQuestion(); //only added for checkstyle
         int questionType = questions.get(round.getRound()).getType();
-        return new TrimmedGame(lobbyId, question, round.getTotalRounds() - round.getRound() + 1, round.getTimer(),questionType);
+        int roundsLeft = round.getTotalRounds() - round.getRound() + 1;
+        return new TrimmedGame(lobbyId, question, roundsLeft, round.getTimer(),questionType);
     }
 
 }
