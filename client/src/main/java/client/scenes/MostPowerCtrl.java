@@ -137,6 +137,7 @@ public class MostPowerCtrl {
                                 currentRoundLabel.setText("currentRound" + trimmedGame.getRoundsLeft());
                                 timerLabel.setText("Time: " + trimmedGame.getTimer());
                                 questionLabel.setText(trimmedGame.getCurrentQuestion());
+                                this.currentround = 20 - trimmedGame.getRoundsLeft();
                                 System.out.println("ok");
                                 http.disconnect();
                             } catch (IOException e) {
