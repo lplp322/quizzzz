@@ -4,18 +4,17 @@ import server.database.ActivityRepository;
 import commons.*;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Game implements Runnable{
-    private List<Player> players;
+    private Map<String, Player> players;
     private int lobbyId;
     private List<Question> questions;
     private int gameType;
     private Round round;
-//    private HashMap<String, Integer> playerScore;
 
-    public Game(List<Player> players, int lobbyId, int gameType, ActivityRepository dtBase) {
+    public Game(Map<String, Player> players, int lobbyId, int gameType, ActivityRepository dtBase) {
         this.players = players;
         this.lobbyId = lobbyId;
         this.gameType = gameType;
@@ -47,7 +46,7 @@ public class Game implements Runnable{
         }
     }
 
-    public List<Player> getPlayers() {
+    public Map<String, Player> getPlayers() {
         return players;
     }
 

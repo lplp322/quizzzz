@@ -7,7 +7,9 @@ import server.Game;
 import server.Player;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -24,11 +26,10 @@ public class GameTest {
         activities.add(new Activity("C", 4));
         activities.add(new Activity("D", 5));
         activityRepository = new TestActivityRepository(activities);
-        game = new Game(List.of(
-                    new Player("A"),
-                    new Player("B")
-                ),
-                1, 1, activityRepository);
+        Map<String, Player> map = new HashMap<>();
+        map.put("A", new Player("A"));
+        map.put("B", new Player("B"));
+        game = new Game(map, 1, 1, activityRepository);
     }
 
     @Test
@@ -37,7 +38,7 @@ public class GameTest {
     }
     @Test
     public void testPlayers() {
-        assertEquals("A", game.getPlayers().get(0).getName());
+        assertEquals("A", game.getPlayers().get("A").getName());
     }
     @Test
     public void testGameType() {

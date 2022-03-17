@@ -11,7 +11,7 @@ public class LobbyService {
     private ActivityRepository dtBase;
     private Map<Integer, Game> games;
     private int idCounter;
-    private List<Player> tempPlayers;
+    private Map<String, Player> tempPlayers;
     private Set<String> names;
     private int singlePlayerID;
 
@@ -20,7 +20,7 @@ public class LobbyService {
         this.dtBase = dtBase;
         games = new HashMap<>();
         idCounter = 1;
-        tempPlayers = new ArrayList<>();
+        tempPlayers = new HashMap<>();
         names = new HashSet<>();
         singlePlayerID = -1;
     }
@@ -30,12 +30,12 @@ public class LobbyService {
      * @param gameType Single-player or multi-player
      */
     public void startGame(int gameType) {
-        Game tempGame = new Game(List.copyOf(tempPlayers), idCounter, gameType, dtBase);
+        Game tempGame = new Game(Map.copyOf(tempPlayers), idCounter, gameType, dtBase);
         Thread t = new Thread(tempGame);
         t.start();
 
         games.put(idCounter++, tempGame);
-        tempPlayers = new ArrayList<>();
+        tempPlayers = new HashMap<>();
         names = new HashSet<>();
 
         System.out.println(tempGame);
@@ -49,7 +49,7 @@ public class LobbyService {
     public boolean addPlayer(String name) {
         if(names.add(name)) {
             Player person = new Player(name);
-            tempPlayers.add(person);
+            tempPlayers.put(name, person);
             return true;
         }
         return false;
@@ -66,8 +66,8 @@ public class LobbyService {
      */
     public int createSinglePlayerGame(String name) {
         Player person = new Player(name);
-        List<Player> players = new ArrayList<>();
-        players.add(person);
+        Map<String, Player> players = new HashMap<>();
+        players.put(name, person);
         Game newGame = new Game(players, singlePlayerID, 0, dtBase);
         games.put(singlePlayerID--, newGame);
         return singlePlayerID+1;
