@@ -1,6 +1,7 @@
 package client.scenes;
 
 import com.google.gson.Gson;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -100,41 +101,35 @@ public class MostPowerCtrl {
     }
 
 
-    /**
-     * This is the method that will continously poll the server in order to update game information
-     * @throws IOException
-     */
-    public void getGameInfo() throws IOException {
-
-        boolean gameFinished = false;
-
-        while (gameFinished!= true) {
-            URL url = new URL("http://localhost:8080/1/getGameInfo");
-            //for now all gameID's are set to 1 but these need to be changed once the gameID is stored from the sever
-            HttpURLConnection http = (HttpURLConnection)url.openConnection();
-            Gson g = new Gson();
-            String jsonString = httpToJSONString(http);
-            commons.TrimmedGame trimmedGame = g.fromJson( jsonString, commons.TrimmedGame.class);
-            currentRoundLabel.setText("currentRound" + trimmedGame.getRoundsLeft());
-            currentround = trimmedGame.getRoundsLeft();
-            timerLabel.setText("Time: " + trimmedGame.getTimer());
-            questionLabel.setText(trimmedGame.getCurrentQuestion());
-
-            if (trimmedGame.getQuestionType() == 1) {
-                this.threeChoicesEnable();
-            }
-
-            else if (trimmedGame.getQuestionType() == 2) {
-                this.guessEnable();
-            }
-
-            if (trimmedGame.getRoundsLeft() == 0) {
-                gameFinished = true;
-            }
-            gameFinished = true; //this is hardcoded to make the code stop
-            http.disconnect();
-        }
-
+    public void getGameInfo() {
+        Thread t1 = new Thread(()-> {
+            while(true) {
+                Platform.runLater(() -> {
+                            try {
+                                URL url = new URL("http://localhost:8080/-1/getGameInfo");
+                                //for now all gameID's are set to 1,
+                                //but these need to be changed once the gameID is stored from the sever
+                                HttpURLConnection http = (HttpURLConnection) url.openConnection();
+                                Gson g = new Gson();
+                                String jsonString = httpToJSONString(http);
+                                commons.TrimmedGame trimmedGame = g.fromJson(jsonString, commons.TrimmedGame.class);
+                                currentRoundLabel.setText("currentRound" + trimmedGame.getRoundsLeft());
+                                timerLabel.setText("Time: " + trimmedGame.getTimer());
+                                questionLabel.setText(trimmedGame.getCurrentQuestion());
+                                System.out.println("ok");
+                                http.disconnect();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                );
+                try {
+                    Thread.sleep(200);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }});
+        t1.start();
     }
 
 
