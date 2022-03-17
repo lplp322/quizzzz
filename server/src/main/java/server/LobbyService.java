@@ -42,7 +42,8 @@ public class LobbyService {
      * Start the game by creating a game instance and adding it to the map of games
      * @param gameType Single-player or multi-player
      */
-    public void startGame(int gameType) {
+    public boolean startGame(int gameType) {
+        if(names.size() == 0) return false;
         Game tempGame = new Game(Map.copyOf(tempPlayers), idCounter, gameType, dtBase);
         Thread t = new Thread(tempGame);
         t.start();
@@ -52,6 +53,7 @@ public class LobbyService {
         names = new HashSet<>();
 
         System.out.println(tempGame);
+        return true;
     }
 
     /**

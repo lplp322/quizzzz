@@ -74,8 +74,10 @@ public class LobbyController {
      */
     @PutMapping("/startGame")
     public TrimmedGame startGame(){
-        lobbyService.startGame(1);
-        return lobbyService.getGameByID(lobbyService.getIdCounter()-1).trim();
+        if(lobbyService.startGame(1) == true) {
+            return lobbyService.getGameByID(lobbyService.getIdCounter() - 1).trim();
+        }
+        else return null;
     }
 
     /**

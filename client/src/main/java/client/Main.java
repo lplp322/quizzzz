@@ -19,12 +19,8 @@ import static com.google.inject.Guice.createInjector;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
-import client.scenes.AddQuoteCtrl;
-import client.scenes.MainCtrl;
-import client.scenes.GameCtrl;
-import client.scenes.PromptCtrl;
-import client.scenes.QuoteOverviewCtrl;
-import client.scenes.SplashCtrl;
+
+import client.scenes.*;
 import com.google.inject.Injector;
 import javafx.application.Application;
 import javafx.stage.Stage;
@@ -50,7 +46,7 @@ public class Main extends Application {
                 "QuoteOverview.fxml");
         var add = FXML.load(AddQuoteCtrl.class, "client", "scenes", "AddQuote.fxml");
         var splash = FXML.load(SplashCtrl.class, "client","scenes", "splash.fxml");
-        var game = FXML.load(GameCtrl.class, "client", "scenes",
+        var game = FXML.load(MostPowerCtrl.class, "client", "scenes",
                 "Game.fxml");
         var prompt = FXML.load(PromptCtrl.class, "client", "scenes", "Prompt.fxml");
 
