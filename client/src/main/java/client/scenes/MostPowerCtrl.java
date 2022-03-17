@@ -71,7 +71,7 @@ public class MostPowerCtrl {
     private MainCtrl mainCtrl;
 
     private static String link = "http://localhost:8080/";
-    private static int lastRoundAnswered = 0;
+    private static int lastRoundAnswered = -1;
 
 
 

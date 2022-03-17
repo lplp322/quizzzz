@@ -129,7 +129,6 @@ public class LobbyController {
         LinkedList<LeaderboardEntry> leaderboardList = new LinkedList();
         LeaderboardEntry entry = new LeaderboardEntry("Ivan", 2000);
         LeaderboardEntry entry1 = new LeaderboardEntry("Chris", 10000);
-
         leaderboardList.add(entry);
         leaderboardList.add(entry1);
         return leaderboardList;
