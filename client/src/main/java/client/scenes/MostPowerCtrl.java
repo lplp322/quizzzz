@@ -12,16 +12,16 @@ import javafx.scene.control.TextField;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-//import java.io.OutputStream;
+
 import java.io.Reader;
 import java.net.HttpURLConnection;
 
-import java.net.MalformedURLException;
+
 import java.net.URL;
 
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
-import java.util.Collections;
+
 import java.util.LinkedList;
 
 public class MostPowerCtrl {
@@ -262,10 +262,10 @@ public class MostPowerCtrl {
         return leaderboardList;
     }
 
-    public void displayLeaderBoard(){
 
-    }
-
+    /**
+     * @return returns true if the user can still answer this question
+     */
     public boolean checkCanAnswer() {
         if (this.currentround > lastRoundAnswered) {
             return true;
