@@ -19,15 +19,15 @@
                <children>
                   <Accordion layoutX="17.0" layoutY="66.0" prefHeight="26.0" prefWidth="121.0" />
                   <ListView fx:id="playerList" layoutX="22.0" layoutY="92.0" prefHeight="278.0" prefWidth="121.0" />
-                  <Button fx:id="quitGameButton" layoutX="51.0" layoutY="378.0" mnemonicParsing="false" onAction="#guessEnable" text="Quit Game" />
+                  <Button fx:id="quitGameButton" layoutX="51.0" layoutY="378.0" mnemonicParsing="false" text="Quit Game" />
                   <Label layoutX="39.0" layoutY="53.0" prefHeight="26.0" prefWidth="77.0" text="Players" />
                </children>
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="534.0" prefWidth="657.0">
                <children>
-                  <Button fx:id="choiceA" layoutX="70.0" layoutY="229.0" mnemonicParsing="false" onAction="#choiceASend" prefHeight="26.0" prefWidth="270.0" text="ChoiceA" />
-                  <Button fx:id="choiceB" layoutX="70.0" layoutY="263.0" mnemonicParsing="false" onAction="#choiceBSend" prefHeight="26.0" prefWidth="270.0" text="ChoiceB" />
-                  <Button fx:id="choiceC" layoutX="70.0" layoutY="301.0" mnemonicParsing="false" onAction="#choiceCSend" prefHeight="26.0" prefWidth="270.0" text="ChoiceC" />
+                  <Button fx:id="choiceA" layoutX="70.0" layoutY="229.0" mnemonicParsing="false" onAction="#guessEnable" prefHeight="26.0" prefWidth="270.0" text="ExampleChoice" />
+                  <Button fx:id="choiceB" layoutX="70.0" layoutY="263.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="270.0" text="ExampleChoice" />
+                  <Button fx:id="choiceC" layoutX="70.0" layoutY="301.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="270.0" text="ExampleChoice" />
                   <ImageView fx:id="QuestionImage" fitHeight="106.0" fitWidth="111.0" layoutX="15.0" layoutY="104.0" pickOnBounds="true" preserveRatio="true" />
                   <ToolBar layoutY="23.0" prefHeight="40.0" prefWidth="451.0">
                      <items>
