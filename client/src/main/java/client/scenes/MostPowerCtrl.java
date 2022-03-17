@@ -17,10 +17,13 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.net.HttpURLConnection;
 
+import java.net.MalformedURLException;
 import java.net.URL;
 
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
+import java.util.Collections;
+import java.util.LinkedList;
 
 public class MostPowerCtrl {
 //    private final MainCtrl mainCtrl;
@@ -226,6 +229,17 @@ public class MostPowerCtrl {
      */
     public void choiceCSend() throws IOException {
         this.sendAnswer(choiceC.getText());
+    }
+
+
+    public void getLeaderboard() throws IOException {
+
+        URL url = new URL(link + "leaderboard" );
+        HttpURLConnection http = (HttpURLConnection) url.openConnection();
+        Gson g = new Gson();
+        String jsonString = httpToJSONString(http);
+        LinkedList<commons.LeaderboardEntry> leaderboardList = g.fromJson(jsonString, LinkedList.class);
+        http.disconnect();
     }
 
 

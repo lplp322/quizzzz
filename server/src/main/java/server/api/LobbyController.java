@@ -1,5 +1,6 @@
 package server.api;
 
+import commons.LeaderboardEntry;
 import commons.TrimmedGame;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -8,6 +9,9 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import server.LobbyService;
+
+import java.util.LinkedList;
+import java.util.List;
 
 @RestController
 @RequestMapping("/")
@@ -119,4 +123,17 @@ public class LobbyController {
 
         return "joker received";
     }
+
+    @GetMapping("leaderboard")
+    public LinkedList<LeaderboardEntry> getGameInfo(){
+        LinkedList<LeaderboardEntry> leaderboardList = new LinkedList();
+        LeaderboardEntry entry = new LeaderboardEntry("Ivan", 2000);
+        LeaderboardEntry entry1 = new LeaderboardEntry("Chris", 10000);
+
+        leaderboardList.add(entry);
+        leaderboardList.add(entry1);
+        return leaderboardList;
+
+    }
+
 }
