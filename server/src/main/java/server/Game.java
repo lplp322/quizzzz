@@ -55,6 +55,9 @@ public class Game implements Runnable{
         }
     }
 
+    /**
+     * @return returns the map of names to the players
+     */
     public Map<String, Player> getPlayers() {
         return players;
     }
