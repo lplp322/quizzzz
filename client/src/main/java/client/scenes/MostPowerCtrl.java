@@ -71,6 +71,7 @@ public class MostPowerCtrl {
     private MainCtrl mainCtrl;
 
     private static String link = "http://localhost:8080/";
+    private static int lastRoundAnswered = 0;
 
 
 
@@ -217,32 +218,58 @@ public class MostPowerCtrl {
      * @throws IOException
      */
     public void choiceASend () throws IOException {
-        this.sendAnswer(choiceA.getText());
+
+        if (this.checkCanAnswer()) {
+            this.sendAnswer(choiceA.getText());
+            lastRoundAnswered = this.currentround;
+        }
     }
 
     /**
      * @throws IOException
      */
     public void choiceBSend() throws IOException {
-        this.sendAnswer(choiceB.getText());
+        if (this.checkCanAnswer()) {
+            this.sendAnswer(choiceB.getText());
+            lastRoundAnswered = this.currentround;
+        }
     }
 
     /**
      * @throws IOException
      */
     public void choiceCSend() throws IOException {
-        this.sendAnswer(choiceC.getText());
+        if (this.checkCanAnswer()) {
+            this.sendAnswer(choiceC.getText());
+            lastRoundAnswered = this.currentround;
+
+        }
     }
 
 
-    public void getLeaderboard() throws IOException {
-
+    /**
+     * @return the list of entries in the leaderboard from the server
+     * @throws IOException if the link is not valid
+     */
+    public LinkedList<commons.LeaderboardEntry> getLeaderboard() throws IOException {
         URL url = new URL(link + "leaderboard" );
         HttpURLConnection http = (HttpURLConnection) url.openConnection();
         Gson g = new Gson();
         String jsonString = httpToJSONString(http);
         LinkedList<commons.LeaderboardEntry> leaderboardList = g.fromJson(jsonString, LinkedList.class);
         http.disconnect();
+        return leaderboardList;
+    }
+
+    public void displayLeaderBoard(){
+
+    }
+
+    public boolean checkCanAnswer() {
+        if (this.currentround > lastRoundAnswered) {
+            return true;
+        }
+        return false;
     }
 
 
