@@ -35,7 +35,7 @@ public class Round {
         if (timer == 0){
             timeoutActive = true;
         }
-        else if(timer <= 0 && (round == 0|| !timeoutActive)) {
+        else if(timer <= 0 && !timeoutActive) {
             round++;
             timer = 20;
         }
