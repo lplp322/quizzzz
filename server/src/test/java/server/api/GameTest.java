@@ -20,10 +20,10 @@ public class GameTest {
     @BeforeEach
     public void init() {
         List<Activity> activities = new ArrayList<>();
-        activities.add(new Activity("A", 2));
-        activities.add(new Activity("B", 3));
-        activities.add(new Activity("C", 4));
-        activities.add(new Activity("D", 5));
+        activities.add(new Activity("A", 2, "DAS", "DAS"));
+        activities.add(new Activity("B", 3, "DAS", "DAS"));
+        activities.add(new Activity("C", 4, "DAS", "DAS"));
+        activities.add(new Activity("D", 5, "DAS", "DAS"));
         activityRepository = new TestActivityRepository(activities);
         game = new Game(List.of(
                     new Player("A"),
