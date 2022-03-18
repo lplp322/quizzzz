@@ -30,6 +30,7 @@ public class Game implements Runnable{
         for(int i = 0; i < round.getTotalRounds(); i++) {
             Question tempQuestion = new Question(dtBase);
             questions.add(tempQuestion);
+            System.out.println(tempQuestion.getQuestion());
         }
 
     }
@@ -108,7 +109,11 @@ public class Game implements Runnable{
      * @return the current object as TrimmedGame
      */
     public TrimmedGame trim() {
-        return new TrimmedGame(lobbyId, "Question 1", round.getTotalRounds() - round.getRound(), round.getTimer(),1);
+        Question currentQuestion = questions.get(round.getRound());
+        String question = currentQuestion.getQuestion(); //only added for checkstyle
+        int questionType = currentQuestion.getType();
+        int roundsLeft = round.getRound()+1;
+        return new TrimmedGame(lobbyId, question, roundsLeft, round.getTimer(),questionType);
     }
 
 }
