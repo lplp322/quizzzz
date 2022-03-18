@@ -126,32 +126,31 @@ public class GameCtrl {
             while(true) {
                 Platform.runLater(() -> {
 
-                    try {
-                        URL url = new URL(link+ mainCtrl.getCurrentID()+ "/getGameInfo");
-                        //for now all gameID's are set to 1,
-                        //but these need to be changed once the gameID is stored from the sever
-                        HttpURLConnection http = (HttpURLConnection) url.openConnection();
-                        Gson g = new Gson();
-                        String jsonString = httpToJSONString(http);
-                        commons.TrimmedGame trimmedGame = g.fromJson(jsonString, commons.TrimmedGame.class);
-                        if(trimmedGame.getTimer()<0){       //works for now, BUT NEEDS TO BE CHANGED IN TRIMMED GAME
-                            currentRoundLabel.setText("Round is over");
-                            timerLabel.setText("Timeout");
-                            questionLabel.setText(trimmedGame.getCurrentQuestion());
-                        }
-                        else {
-                            currentRoundLabel.setText("currentRound " + trimmedGame.getRoundNum());
-                            timerLabel.setText("Time: " + trimmedGame.getTimer());
-                            questionLabel.setText(trimmedGame.getCurrentQuestion());
-                            if(trimmedGame.getQuestionType() == 1||trimmedGame.getQuestionType()==2){
-                                this.threeChoicesEnable();
+                            try {
+                                URL url = new URL(link + mainCtrl.getCurrentID() + "/getGameInfo");
+                                //for now all gameID's are set to 1,
+                                //but these need to be changed once the gameID is stored from the sever
+                                HttpURLConnection http = (HttpURLConnection) url.openConnection();
+                                Gson g = new Gson();
+                                String jsonString = httpToJSONString(http);
+                                commons.TrimmedGame trimmedGame = g.fromJson(jsonString, commons.TrimmedGame.class);
+                                if (trimmedGame.getTimer() < 0) {//works for now, BUT NEEDS TO BE CHANGED IN TRIMMEDGAME
+                                    currentRoundLabel.setText("Round is over");
+                                    timerLabel.setText("Timeout");
+                                    questionLabel.setText(trimmedGame.getCurrentQuestion());
+                                } else {
+                                    currentRoundLabel.setText("currentRound " + trimmedGame.getRoundNum());
+                                    timerLabel.setText("Time: " + trimmedGame.getTimer());
+                                    questionLabel.setText(trimmedGame.getCurrentQuestion());
+                                    if (trimmedGame.getQuestionType() == 1 || trimmedGame.getQuestionType() == 2) {
+                                        this.threeChoicesEnable();
+                                    } else this.guessEnable();
+                                }
+                                System.out.println("ok");
+                                http.disconnect();
+                            } catch (IOException e) {
+                                e.printStackTrace();
                             }
-                            else this.guessEnable();
-                        }
-                        System.out.println("ok");
-                        http.disconnect();
-                        } catch (IOException e) {
-                            e.printStackTrace();
                         }
                 );
                 try {

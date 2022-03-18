@@ -30,7 +30,7 @@ public class MainCtrl {
     private AddQuoteCtrl addCtrl;
     private Scene add;
 
-    private MostPowerCtrl gameCtrl;
+    private GameCtrl gameCtrl;
     private Scene game;
 
     private SplashCtrl splashCtrl;
@@ -54,7 +54,7 @@ public class MainCtrl {
 
     public void initialize(Stage primaryStage, Pair<QuoteOverviewCtrl, Parent> overview,
                            Pair<AddQuoteCtrl, Parent> add, Pair<SplashCtrl, Parent> splash,
-                           Pair<MostPowerCtrl, Parent> gameCtrl,
+                           Pair<GameCtrl, Parent> gameCtrl,
                            Pair<PromptCtrl, Parent> prompt) {
         this.primaryStage = primaryStage;
         this.overviewCtrl = overview.getKey();

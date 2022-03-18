@@ -134,10 +134,10 @@ public class MostPowerCtrl {
                                 Gson g = new Gson();
                                 String jsonString = httpToJSONString(http);
                                 commons.TrimmedGame trimmedGame = g.fromJson(jsonString, commons.TrimmedGame.class);
-                                currentRoundLabel.setText("currentRound" + trimmedGame.getRoundsLeft());
+                                currentRoundLabel.setText("currentRound" + trimmedGame.getRoundNum());
                                 timerLabel.setText("Time: " + trimmedGame.getTimer());
                                 questionLabel.setText(trimmedGame.getCurrentQuestion());
-                                this.currentround = 20 - trimmedGame.getRoundsLeft();
+                                this.currentround = trimmedGame.getRoundNum();
                                 System.out.println("ok");
                                 http.disconnect();
                             } catch (IOException e) {
