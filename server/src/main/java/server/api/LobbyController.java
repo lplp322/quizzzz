@@ -1,5 +1,6 @@
 package server.api;
 
+import commons.LeaderboardEntry;
 import commons.TrimmedGame;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -8,6 +9,9 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import server.LobbyService;
+
+import java.util.LinkedList;
+
 
 @RestController
 @RequestMapping("/")
@@ -75,7 +79,65 @@ public class LobbyController {
      */
     @PutMapping("/startGame")
     public TrimmedGame startGame(){
-        lobbyService.startGame(1);
-        return lobbyService.getGameByID(lobbyService.getIdCounter()-1).trim();
+        if(lobbyService.startGame(1) == true) {
+            return lobbyService.getGameByID(lobbyService.getIdCounter() - 1).trim();
+        }
+        else return null;
     }
+
+    /**
+     * Check for the current player answer to this round question
+     * @param gameID
+     * @param name
+     * @param round
+     * @param answer
+     * @return returns a string based on wether or not the answer was correct or not
+     */
+    @PutMapping("/{gameID}/{name}/checkAnswer/{round}/{answer}")
+    //CHECKSTYLE:OFF
+    public String checkAnswer(@PathVariable int gameID, @PathVariable String name,
+                              @PathVariable int round, @PathVariable String answer){
+        System.out.println(answer);
+
+        //CHECKSTYLE:ON
+
+        if(lobbyService.getGameByID(gameID).checkPlayerAnswer(name, round, answer)){
+            return "correct";
+        }
+        return "incorrect";
+    }
+
+
+    /**
+     * @param gameID The id of the game
+     * @param name name of the player
+     * @param round round of the game
+     * @param joker which joker was used (string)
+     * @return returns a string hardcoded for now that says it has been received
+     */
+    @GetMapping("/{gameID}/{name}/joker/{round}/{joker}")
+    //CHECKSTYLE:OFF
+    public String receiveJoker(@PathVariable int gameID, @PathVariable String name,
+                               @PathVariable int round, @PathVariable String joker) {
+        //CHECKSTYLE:ON
+        System.out.println(joker);
+
+        return "joker received";
+    }
+
+    /**
+     * @return returns a linked list of entries that store the information
+     * of the leaderboard
+     */
+    @GetMapping("leaderboard")
+    public LinkedList<LeaderboardEntry> getGameInfo(){
+        LinkedList<LeaderboardEntry> leaderboardList = new LinkedList();
+        LeaderboardEntry entry = new LeaderboardEntry("Ivan", 2000);
+        LeaderboardEntry entry1 = new LeaderboardEntry("Chris", 10000);
+        leaderboardList.add(entry);
+        leaderboardList.add(entry1);
+        return leaderboardList;
+
+    }
+
 }

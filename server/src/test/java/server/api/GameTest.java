@@ -13,7 +13,9 @@ import commons.TrimmedGame;
 import server.database.ActivityRepository;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 public class GameTest {
@@ -30,11 +32,10 @@ public class GameTest {
         activities.add(new Activity("C", 4, "DAS", "DAS"));
         activities.add(new Activity("D", 5, "DAS", "DAS"));
         activityRepository = new TestActivityRepository(activities);
-        game = new Game(List.of(
-                    new Player("A"),
-                    new Player("B")
-                ),
-                1, 1, activityRepository);
+        Map<String, Player> map = new HashMap<>();
+        map.put("A", new Player("A"));
+        map.put("B", new Player("B"));
+        game = new Game(map, 1, 1, activityRepository);
     }
 
     @Test
@@ -44,7 +45,7 @@ public class GameTest {
 
     @Test
     public void testPlayers() {
-        assertEquals("A", game.getPlayers().get(0).getName());
+        assertEquals("A", game.getPlayers().get("A").getName());
     }
 
     @Test

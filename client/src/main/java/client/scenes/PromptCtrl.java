@@ -55,6 +55,7 @@ public class PromptCtrl {
             errorLabel.setVisible(false);   //makes the errorLabel visible
             if(isSingleplayer){
                 URL singleplayerGame = new URL("http://localhost:8080/singleplayer/"+nameField.getText());
+                this.mainCtrl.setName(nameField.getText());
                 try {
                     URLConnection nameVerify  = singleplayerGame.openConnection();
                     BufferedReader in = new BufferedReader(new InputStreamReader(nameVerify.getInputStream()));

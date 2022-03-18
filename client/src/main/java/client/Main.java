@@ -25,6 +25,8 @@ import client.scenes.GameCtrl;
 import client.scenes.PromptCtrl;
 import client.scenes.QuoteOverviewCtrl;
 import client.scenes.SplashCtrl;
+
+
 import com.google.inject.Injector;
 import javafx.application.Application;
 import javafx.stage.Stage;

@@ -50,8 +50,17 @@ class LobbyServiceTest {
         lobbyService.createSinglePlayerGame("Ivan");
         lobbyService.startGame(1);
         String check = "Ivan";
-        assertTrue(check.equals(lobbyService.getGameByID(-1).getPlayers().get(0).getName()));
+        assertTrue(check.equals(lobbyService.getGameByID(-1).getPlayers().get("Ivan").getName()));
         assertEquals(3, lobbyService.getGameByID(1).getPlayers().size());
     }
-
+    @Test
+    void checkPlayerMap(){
+        LobbyService lobbyService = new LobbyService(dtBase);
+        lobbyService.addPlayer("P1");
+        lobbyService.addPlayer("P2");
+        lobbyService.addPlayer("P3");
+        lobbyService.createSinglePlayerGame("Ivan");
+        lobbyService.startGame(1);
+        assertTrue(lobbyService.getGameByID(1).getPlayers().get("P1").getName().equals("P1"));
+    }
 }

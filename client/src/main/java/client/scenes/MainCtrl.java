@@ -39,6 +39,9 @@ public class MainCtrl {
     private PromptCtrl promptCtrl;
     private Scene prompt;
 
+    private String name;
+
+
     /**
      * Initializes all scenes via pairs of controllers and fxml files
      * @param primaryStage
@@ -48,8 +51,10 @@ public class MainCtrl {
      * @param gameCtrl
      * @param prompt
      */
+
     public void initialize(Stage primaryStage, Pair<QuoteOverviewCtrl, Parent> overview,
-        Pair<AddQuoteCtrl, Parent> add, Pair<SplashCtrl, Parent> splash, Pair<GameCtrl, Parent> gameCtrl,
+                           Pair<AddQuoteCtrl, Parent> add, Pair<SplashCtrl, Parent> splash,
+                           Pair<GameCtrl, Parent> gameCtrl,
                            Pair<PromptCtrl, Parent> prompt) {
         this.primaryStage = primaryStage;
         this.overviewCtrl = overview.getKey();
@@ -70,19 +75,24 @@ public class MainCtrl {
         showSplash();
         primaryStage.show();
     }
-    //CHECKSTYLE:OFF
+
+    /**
+     * Showing overview
+     */
     public void showOverview() {
         primaryStage.setTitle("Quotes: Overview");
         primaryStage.setScene(overview);
         overviewCtrl.refresh();
     }
 
+    /**
+     * Showing add
+     */
     public void showAdd() {
         primaryStage.setTitle("Quotes: Adding Quote");
         primaryStage.setScene(add);
         add.setOnKeyPressed(e -> addCtrl.keyPressed(e));
     }
-    //CHECKSTYLE:ON
 
     /**
      * Changes the current scene to the splash screen, resizes scene windows is already open
@@ -132,5 +142,19 @@ public class MainCtrl {
      */
     public void setCurrentGameID(int ID){
         this.currentGameID = ID;
+    }
+
+    /**
+     * @param name is the name of the player that they have inputted.
+     */
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    /**
+     * @return the name of the player
+     */
+    public String getName() {
+        return this.name;
     }
 }
