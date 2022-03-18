@@ -50,12 +50,13 @@ public class LobbyController {
     /**
      * Return game info object(now full game object sent just to check)
      * @param gameID - id of the game
+     * @param player - name of the requesting player
      * @return game info object
      */
-    @GetMapping("{gameID}/getGameInfo")
-    public TrimmedGame getGameInfo(@PathVariable int gameID){
+    @GetMapping("{gameID}/{player}/getGameInfo")
+    public TrimmedGame getGameInfo(@PathVariable int gameID, @PathVariable String player){
         System.out.println( gameID + " connected");
-        return lobbyService.getGameByID(gameID).trim();
+        return lobbyService.getGameByID(gameID).trim(player);
     }
 
     /**

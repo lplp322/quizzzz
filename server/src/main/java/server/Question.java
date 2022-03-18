@@ -88,17 +88,17 @@ public class Question {
     private void generateTypeOne() {
         Activity act = activities.get(0);
 
-        question = String.format("How much energy does %s use", act.getName());
+        question = String.format("How much energy does %s use", act.getTitle());
 
-        answers.add(act.getEnergy()+"");
-        answer = act.getEnergy()+"";
+        answers.add(act.getConsumption()+"");
+        answer = act.getConsumption()+"";
 
         Integer[] types = {1, -1, 2, -2, 3, -3, 4, -4, 5, -5};
         List<Integer> deviations = Arrays.asList(types);
         Collections.shuffle(deviations);
 
         for(int i = 0; i < 3; i++) {
-            int randomlyGeneratedEnergy = act.getEnergy() + deviations.get(i);
+            int randomlyGeneratedEnergy = act.getConsumption() + deviations.get(i);
             answers.add(randomlyGeneratedEnergy+"");
         }
         Collections.shuffle(answers);
@@ -118,13 +118,13 @@ public class Question {
      */
     private void generateTypeThree() {
         Collections.sort(activities);
-        question = String.format("Instead of %s you could use:", activities.get(1).getName());
+        question = String.format("Instead of %s you could use:", activities.get(1).getTitle());
 
-        answer = activities.get(0).getName();
+        answer = activities.get(0).getTitle();
 
         for(int i = 0; i < 4; i++) {
             if(i!=1)
-                answers.add(activities.get(i).getName()+"");
+                answers.add(activities.get(i).getTitle()+"");
         }
         Collections.shuffle(answers);
     }

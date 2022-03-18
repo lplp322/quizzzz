@@ -30,6 +30,7 @@ public class Game implements Runnable{
         for(int i = 0; i < round.getTotalRounds(); i++) {
             Question tempQuestion = new Question(dtBase);
             questions.add(tempQuestion);
+            System.out.println(tempQuestion.getQuestion());
         }
 //
 //        for (int i =0; i < players.size(); i ++) {
@@ -47,7 +48,7 @@ public class Game implements Runnable{
             while(round.getGameStatus() == 1) {
                 round.tickDown();
                 Thread.sleep(1000);
-                System.out.println(round);
+                //System.out.println(round);
             }
         }
         catch (Exception e) {
@@ -93,6 +94,38 @@ public class Game implements Runnable{
     public Round getRound() { return round; }
 
     /**
+     * Trims game for generic purposes, not for a given player
+     * @return the current object as TrimmedGame, with full timer
+     */
+    public TrimmedGame trim(){
+        Question currQuestion = questions.get(round.getRound());
+        return new TrimmedGame(lobbyId, currQuestion.getQuestion(), questions.size(), round.getTimer(),
+                currQuestion.getAnswers(), currQuestion.getType());
+
+    }
+    /**
+     * trims the current object
+     * @param requester Name of the player requesting the trimmed game
+     * @return the current object as TrimmedGame
+     */
+    public TrimmedGame trim(String requester) {
+        if (round.getGameStatus() == 2) {
+            return new TrimmedGame(lobbyId, null, -1, 0, new ArrayList<String>(), 0);
+        }
+        Question currQuestion = questions.get(round.getRound());
+        if (round.isHalfTimerUsed()){
+            if (!requester.equals(round.getPlayerWhoUsedJoker().getName())) {
+                return new TrimmedGame(lobbyId, currQuestion.getQuestion(), round.getRound(), round.getHalvedTimer(),
+                        currQuestion.getAnswers(), currQuestion.getType());
+            }
+        }
+        return new TrimmedGame(lobbyId, currQuestion.getQuestion(), round.getRound(), round.getTimer(),
+                currQuestion.getAnswers(), currQuestion.getType());
+
+    }
+
+
+    /**
      * returns the object as a string
      * @return the object as a string
      */
@@ -106,13 +139,6 @@ public class Game implements Runnable{
                 '}';
     }
 
-    /**
-     * trims the current object
-     * @return the current object as TrimmedGame
-     */
-    public TrimmedGame trim() {
-        return new TrimmedGame(lobbyId, "Question 1", round.getTotalRounds() - round.getRound(), round.getTimer(),1);
-    }
 
     /**
      * Will check for the correctness of the player answer and give him points

@@ -42,10 +42,22 @@ public class Config {
     @Bean
     public void addTempActivities() {
         if(dtBase.getAllActivities().size() < 4) {
-            dtBase.save(new Activity("A", 101));
-            dtBase.save(new Activity("B", 102));
-            dtBase.save(new Activity("C", 103));
-            dtBase.save(new Activity("D", 104));
+            dtBase.save(new Activity("Taking a hot shower for 6 minutes",
+                    4000,
+                    "https://www.quora.com/How-can-I-estimate-the-kWh-of-electricity-when-I-take-a-shower",
+                    "00/shower.png"));
+            dtBase.save(new Activity("Charging your smartphone at night",
+                    10,
+                    "https://9to5mac.com/2021/09/16/iphone-13-battery-life/",
+                    "00/smartphone.png"));
+            dtBase.save(new Activity("Using a refrigerator for 1 month",
+                    40000,
+                    "https://www.kompulsa.com/refrigerator-power-consumption-deciphering-the-label/",
+                    "00/fridge.png"));
+            dtBase.save(new Activity("Vacuuming your home for 30min",
+                    900,
+                    "https://www.philips.com.sg/c-p/FC9350_61/3000-series-bagless-vacuum-cleaner",
+                    "00/vacuuming.png"));
         }
         //System.out.println(dtBase.getAllActivities().size());
     }
