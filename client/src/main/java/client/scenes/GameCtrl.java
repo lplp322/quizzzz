@@ -120,7 +120,7 @@ public class GameCtrl {
                             questionLabel.setText(trimmedGame.getCurrentQuestion());
                         }
                         else {
-                            currentRoundLabel.setText("currentRound " + trimmedGame.getRoundsLeft());
+                            currentRoundLabel.setText("currentRound " + trimmedGame.getRoundNum());
                             timerLabel.setText("Time: " + trimmedGame.getTimer());
                             questionLabel.setText(trimmedGame.getCurrentQuestion());
                             if(trimmedGame.getQuestionType() == 1||trimmedGame.getQuestionType()==2){
