@@ -12,16 +12,20 @@ import javafx.scene.control.TextField;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.OutputStream;
+
 import java.io.Reader;
 import java.net.HttpURLConnection;
+
+
 import java.net.URL;
 
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 
+import java.util.LinkedList;
+
 public class GameCtrl {
-    private MainCtrl mainCtrl;
+//    private final MainCtrl mainCtrl;
 
     @FXML
     private Button choiceA;
@@ -34,6 +38,8 @@ public class GameCtrl {
 
     @FXML
     private Button choiceC;
+
+    private int currentround;
 
     @FXML
     private Button halfTimeJokerButton;
@@ -62,8 +68,22 @@ public class GameCtrl {
     @FXML
     private Label timerLabel;
 
+    private MainCtrl mainCtrl;
+
+    private static String link = "http://localhost:8080/";
+    private static int lastRoundAnswered = -1;
+
+
+
+
+
+//    public MostPowerCtrl(MainCtrl mainCtrl) {
+//        this.mainCtrl = mainCtrl;
+//        this.threeChoicesEnable();
+//    }
+
     /**
-     * Create new GameCtrl instance
+     * Injecting mostpowercontroller
      * @param mainCtrl
      */
     @Inject
@@ -98,31 +118,32 @@ public class GameCtrl {
 
     }
 
-
     /**
-     * This is the method that will continuously poll the server in order to update game information
+     * Getting game info in a new thread
      */
     public void getGameInfo() {
         Thread t1 = new Thread(()-> {
             while(true) {
                 Platform.runLater(() -> {
-                    try {
-                        URL url = new URL("http://localhost:8080/-1/getGameInfo");
-                        //for now all gameID's are set to 1,
-                        //but these need to be changed once the gameID is stored from the sever
-                        HttpURLConnection http = (HttpURLConnection) url.openConnection();
-                        Gson g = new Gson();
-                        String jsonString = httpToJSONString(http);
-                        commons.TrimmedGame trimmedGame = g.fromJson(jsonString, commons.TrimmedGame.class);
-                        currentRoundLabel.setText("currentRound" + trimmedGame.getRoundsLeft());
-                        timerLabel.setText("Time: " + trimmedGame.getTimer());
-                        questionLabel.setText(trimmedGame.getCurrentQuestion());
-                        System.out.println("ok");
-                        http.disconnect();
-                        } catch (IOException e) {
-                            e.printStackTrace();
+                            try {
+//                                URL url = new URL("http://localhost:8080/-1/getGameInfo");
+                                URL url = new URL(link + this.mainCtrl.getCurrentID()+ "/getGameInfo" );
+                                //for now all gameID's are set to 1,
+                                //but these need to be changed once the gameID is stored from the sever
+                                HttpURLConnection http = (HttpURLConnection) url.openConnection();
+                                Gson g = new Gson();
+                                String jsonString = httpToJSONString(http);
+                                commons.TrimmedGame trimmedGame = g.fromJson(jsonString, commons.TrimmedGame.class);
+                                currentRoundLabel.setText("currentRound" + trimmedGame.getRoundsLeft());
+                                timerLabel.setText("Time: " + trimmedGame.getTimer());
+                                questionLabel.setText(trimmedGame.getCurrentQuestion());
+                                this.currentround = 20 - trimmedGame.getRoundsLeft();
+                                System.out.println("ok");
+                                http.disconnect();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
                         }
-                    }
                 );
                 try {
                     Thread.sleep(200);
@@ -158,39 +179,99 @@ public class GameCtrl {
      * @param joker this is a string related to which joker is being passed to the server
      * @throws IOException
      */
-    public static void jokerMessage(String joker) throws IOException {
-        URL url = new URL("http://localhost:8080/1/getGameInfo");
+    public  void jokerMessage(String joker) throws IOException {
+
+//        URL url = new URL("http://localhost:8080/1/P1/checkAnswer/" + currentround + "/" + joker);
+        URL url = new URL(link + this.mainCtrl.getCurrentID()
+                + "/" + this.mainCtrl.getName() + "/joker/" + currentround + "/" + joker);
         HttpURLConnection http = (HttpURLConnection)url.openConnection();
-        http.setRequestMethod("PUT");
-        http.setDoOutput(true);
-        http.setRequestProperty("Content-Type", "application/json");
-
-        String data = "{\n  \"Joker\": \"Halve time\"\n}";
-        //need to fix this to take as input a joker, but I can't figure out the string manipulation
-
-        byte[] out = data.getBytes(StandardCharsets.UTF_8);
-
-        OutputStream stream = http.getOutputStream();
-        stream.write(out);
-
-        System.out.println(http.getResponseCode() + " " + http.getResponseMessage());
+//        http.setRequestMethod("PUT");
+        System.out.println(http.getResponseCode());
+        System.out.println(httpToJSONString(http));
         http.disconnect();
 
     }
 
     /**
-     * @param correct this is a boolean that relates if the question was answered correctly 
+     * @param answer is a string related to which answer the user has chosen.
      * @throws IOException
      */
-    public static void correctMessage(boolean correct) throws IOException {
-        URL url = new URL("http://localhost:8080/1/correctness/" + correct);
+    public void sendAnswer(String answer) throws IOException {
+//        URL url = new URL("http://localhost:8080/1/P1/checkAnswer/" + currentRoundLabel.getText() + "/" + answer);
         //for now all gameID's are set to 1 but these need to be changed once the gameID is stored from the sever
+        // also the round and the name
+
+//        URL url = new URL("http://localhost:8080/1/P1/checkAnswer/" + currentround + "/" + answer);
+        URL url = new URL(link + this.mainCtrl.getCurrentID() + "/"
+                + this.mainCtrl.getName() + "/checkAnswer/" +
+                currentround + "/" + answer);
+        System.out.println(this.mainCtrl.getName());
         HttpURLConnection http = (HttpURLConnection)url.openConnection();
+        http.setRequestMethod("PUT");
+        System.out.println(http.getResponseCode());
+        System.out.println(httpToJSONString(http));
         http.disconnect();
+
     }
 
 
+    /**
+     * @throws IOException
+     */
+    public void choiceASend () throws IOException {
 
+        if (this.checkCanAnswer()) {
+            this.sendAnswer(choiceA.getText());
+            lastRoundAnswered = this.currentround;
+        }
+    }
+
+    /**
+     * @throws IOException
+     */
+    public void choiceBSend() throws IOException {
+        if (this.checkCanAnswer()) {
+            this.sendAnswer(choiceB.getText());
+            lastRoundAnswered = this.currentround;
+        }
+    }
+
+    /**
+     * @throws IOException
+     */
+    public void choiceCSend() throws IOException {
+        if (this.checkCanAnswer()) {
+            this.sendAnswer(choiceC.getText());
+            lastRoundAnswered = this.currentround;
+
+        }
+    }
+
+
+    /**
+     * @return the list of entries in the leaderboard from the server
+     * @throws IOException if the link is not valid
+     */
+    public LinkedList<commons.LeaderboardEntry> getLeaderboard() throws IOException {
+        URL url = new URL(link + "leaderboard" );
+        HttpURLConnection http = (HttpURLConnection) url.openConnection();
+        Gson g = new Gson();
+        String jsonString = httpToJSONString(http);
+        LinkedList<commons.LeaderboardEntry> leaderboardList = g.fromJson(jsonString, LinkedList.class);
+        http.disconnect();
+        return leaderboardList;
+    }
+
+
+    /**
+     * @return returns true if the user can still answer this question
+     */
+    public boolean checkCanAnswer() {
+        if (this.currentround > lastRoundAnswered) {
+            return true;
+        }
+        return false;
+    }
 
 
 }
