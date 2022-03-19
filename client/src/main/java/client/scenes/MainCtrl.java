@@ -30,8 +30,8 @@ public class MainCtrl {
     private AddQuoteCtrl addCtrl;
     private Scene add;
 
-    private MostPowerCtrl mostPowerCtrl;
-    private Scene mostPower;
+    private GameCtrl gameCtrl;
+    private Scene game;
 
     private SplashCtrl splashCtrl;
     private Scene splash;
@@ -42,18 +42,22 @@ public class MainCtrl {
     private LeaderboardCtrl leaderboardCtrl;
     private Scene leaderboard;
 
+    private String name;
+
     /**
      * Initializes all scenes via pairs of controllers and fxml files
      * @param primaryStage
      * @param overview
      * @param add
      * @param splash
-     * @param mostPowerQuestion
+     * @param gameCtrl
      * @param prompt
      * @param leaderboard
      */
+
     public void initialize(Stage primaryStage, Pair<QuoteOverviewCtrl, Parent> overview,
-        Pair<AddQuoteCtrl, Parent> add, Pair<SplashCtrl, Parent> splash, Pair<MostPowerCtrl, Parent> mostPowerQuestion,
+                           Pair<AddQuoteCtrl, Parent> add, Pair<SplashCtrl, Parent> splash,
+                           Pair<GameCtrl, Parent> gameCtrl,
                            Pair<PromptCtrl, Parent> prompt, Pair<LeaderboardCtrl, Parent> leaderboard) {
         this.primaryStage = primaryStage;
         this.overviewCtrl = overview.getKey();
@@ -65,8 +69,8 @@ public class MainCtrl {
         this.splashCtrl = splash.getKey();
         this.splash = new Scene(splash.getValue());
 
-        this.mostPowerCtrl = mostPowerQuestion.getKey();
-        this.mostPower = new Scene(mostPowerQuestion.getValue());
+        this.gameCtrl = gameCtrl.getKey();
+        this.game = new Scene(gameCtrl.getValue());
 
         this.promptCtrl = prompt.getKey();
         this.prompt = new Scene(prompt.getValue());
@@ -77,19 +81,24 @@ public class MainCtrl {
         showSplash();
         primaryStage.show();
     }
-    //CHECKSTYLE:OFF
+
+    /**
+     * Showing overview
+     */
     public void showOverview() {
         primaryStage.setTitle("Quotes: Overview");
         primaryStage.setScene(overview);
         overviewCtrl.refresh();
     }
 
+    /**
+     * Showing add
+     */
     public void showAdd() {
         primaryStage.setTitle("Quotes: Adding Quote");
         primaryStage.setScene(add);
         add.setOnKeyPressed(e -> addCtrl.keyPressed(e));
     }
-    //CHECKSTYLE:ON
 
     /**
      * Changes the current scene to the splash screen, resizes scene windows is already open
@@ -107,9 +116,9 @@ public class MainCtrl {
     /**
      * Changes the current scene to the questions screen
      */
-    public void showMostPowerQuestion() {
+    public void showGame() {
         primaryStage.setTitle("Quizzz");
-        primaryStage.setScene(mostPower);
+        primaryStage.setScene(game);
     }
 
     /**
@@ -151,5 +160,19 @@ public class MainCtrl {
      */
     public void setCurrentGameID(int ID){
         this.currentGameID = ID;
+    }
+
+    /**
+     * @param name is the name of the player that they have inputted.
+     */
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    /**
+     * @return the name of the player
+     */
+    public String getName() {
+        return this.name;
     }
 }

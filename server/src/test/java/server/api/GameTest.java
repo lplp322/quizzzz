@@ -1,21 +1,28 @@
 package server.api;
-
-// CHECKSTYLE:OFF
+//CHECKSTYLE:OFF
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
 import server.Activity;
 import server.Game;
 import server.Player;
+import commons.TrimmedGame;
+import server.database.ActivityRepository;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 public class GameTest {
+    @Mock
+    private ActivityRepository activityRepository;
+    private List<Player> players;
     private Game game;
-    private TestActivityRepository activityRepository;
 
     @BeforeEach
     public void init() {
@@ -25,29 +32,32 @@ public class GameTest {
         activities.add(new Activity("C", 4, "DAS", "DAS"));
         activities.add(new Activity("D", 5, "DAS", "DAS"));
         activityRepository = new TestActivityRepository(activities);
-        game = new Game(List.of(
-                    new Player("A"),
-                    new Player("B")
-                ),
-                1, 1, activityRepository);
+        Map<String, Player> map = new HashMap<>();
+        map.put("A", new Player("A"));
+        map.put("B", new Player("B"));
+        game = new Game(map, 1, 1, activityRepository);
     }
 
     @Test
     public void testGeneral() {
         assertEquals(20, game.getQuestions().size());
     }
+
     @Test
     public void testPlayers() {
-        assertEquals("A", game.getPlayers().get(0).getName());
+        assertEquals("A", game.getPlayers().get("A").getName());
     }
+
     @Test
     public void testGameType() {
         assertEquals(1, game.getGameType());
     }
+
     @Test
     public void testGameId() {
         assertEquals(1, game.getLobbyId());
     }
+
     @Test
     public void testThreadTick() {
         Thread tickThread = new Thread(game::run);
@@ -59,5 +69,13 @@ public class GameTest {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @Test
+    public void noJokerTrim() {
+        TrimmedGame trim = new TrimmedGame(1, game.getQuestions().get(0).getQuestion(), 20, 20,
+                game.getQuestions().get(0).getAnswers(), game.getQuestions().get(0).getType());
+        TrimmedGame gameTrim = game.trim();
+        assertEquals(trim, gameTrim);
     }
 }
