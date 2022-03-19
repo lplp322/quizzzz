@@ -23,6 +23,7 @@ import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 
 import java.util.LinkedList;
+import java.util.List;
 
 public class GameCtrl {
 //    private final MainCtrl mainCtrl;
@@ -72,6 +73,8 @@ public class GameCtrl {
 
     private static String link = "http://localhost:8080/";
     private static int lastRoundAnswered = -1;
+
+    private Button userChoice;
 
 
 
@@ -139,10 +142,18 @@ public class GameCtrl {
                                     currentRoundLabel.setText("Round is over");
                                     timerLabel.setText("Timeout");
                                     questionLabel.setText(trimmedGame.getCurrentQuestion());
+                                    this.showCorrectAnswer(trimmedGame.getCorrectAnswer());
+
+                                    if (trimmedGame.getTimer() == -5) {
+                                        this.resetColors();
+                                    }
+
+
                                 } else {
                                     currentRoundLabel.setText("currentRound " + trimmedGame.getRoundNum());
                                     timerLabel.setText("Time: " + trimmedGame.getTimer());
                                     questionLabel.setText(trimmedGame.getCurrentQuestion());
+                                    this.setPossibleAnswers(trimmedGame.getPossibleAnswers());
                                     if (trimmedGame.getQuestionType() == 1 || trimmedGame.getQuestionType() == 2) {
                                         this.threeChoicesEnable();
                                     } else this.guessEnable();
@@ -233,6 +244,8 @@ public class GameCtrl {
         if (this.checkCanAnswer()) {
             this.sendAnswer(choiceA.getText());
             lastRoundAnswered = this.currentround;
+            this.userChoice = choiceA;
+            this.showYourAnswer();
         }
     }
 
@@ -243,6 +256,8 @@ public class GameCtrl {
         if (this.checkCanAnswer()) {
             this.sendAnswer(choiceB.getText());
             lastRoundAnswered = this.currentround;
+            this.userChoice = choiceB;
+            this.showYourAnswer();
         }
     }
 
@@ -253,6 +268,8 @@ public class GameCtrl {
         if (this.checkCanAnswer()) {
             this.sendAnswer(choiceC.getText());
             lastRoundAnswered = this.currentround;
+            this.userChoice = choiceC;
+            this.showYourAnswer();
 
         }
     }
@@ -282,6 +299,71 @@ public class GameCtrl {
         }
         return false;
     }
+
+    /**
+     * @param answer the string of the answer
+     * @return the button that currently contains the correct answer
+     */
+    public Button findCorrectChoice(String answer) {
+        //I know this is not a very good way of solving this problem but it works
+        if (choiceA.getText().equals(answer)) {
+            return this.choiceC;
+        }
+
+        if (choiceB.getText().equals(answer)) {
+            return this.choiceB;
+        }
+
+        return this.choiceC;
+    }
+
+    /**
+     * @param answers the list of possible answers that should be shown to the user
+     */
+    public  void setPossibleAnswers(List<String> answers) {
+        if (answers == null) {
+            return;
+        }
+        this.choiceA.setText(answers.get(0));
+        this.choiceB.setText(answers.get(1));
+        this.choiceC.setText(answers.get(2));
+
+    }
+
+    /**
+     * @param correctAnswer the string of the correct answer
+     */
+    public void showCorrectAnswer(String correctAnswer) {
+        Button correctButton = this.findCorrectChoice(correctAnswer);
+        correctButton.setStyle("-fx-background-color: #16b211");
+    }
+
+
+    /**
+     * shows the style of
+     */
+    public void showYourAnswer() {
+        this.userChoice.setStyle("-fx-background-color: #5d96d9");
+    }
+
+    public void resetColors() {
+        this.choiceA.setStyle("-fx-background-color: #ffffff");
+        this.choiceB.setStyle("-fx-background-color: #ffffff");
+        this.choiceC.setStyle("-fx-background-color: #ffffff");
+    }
+
+
+    public void choicesDisappear() {
+        this.choiceA.setVisible(false);
+        this.choiceB.setVisible(false);
+        this.choiceC.setVisible(false);
+    }
+
+
+
+
+
+
 
 
 }
