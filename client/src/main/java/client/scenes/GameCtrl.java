@@ -151,8 +151,10 @@ public class GameCtrl {
 
                                 } else {
                                     currentRoundLabel.setText("currentRound " + trimmedGame.getRoundNum());
+                                    currentround = trimmedGame.getRoundNum();
                                     timerLabel.setText("Time: " + trimmedGame.getTimer());
                                     questionLabel.setText(trimmedGame.getCurrentQuestion());
+
                                     this.setPossibleAnswers(trimmedGame.getPossibleAnswers());
                                     if (trimmedGame.getQuestionType() == 1 || trimmedGame.getQuestionType() == 2) {
                                         this.threeChoicesEnable();
@@ -229,7 +231,7 @@ public class GameCtrl {
         System.out.println(this.mainCtrl.getName());
         HttpURLConnection http = (HttpURLConnection)url.openConnection();
         http.setRequestMethod("PUT");
-        System.out.println(http.getResponseCode());
+//        System.out.println(http.getResponseCode());
         System.out.println(httpToJSONString(http));
         http.disconnect();
 
