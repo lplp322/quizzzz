@@ -99,8 +99,9 @@ public class Game implements Runnable{
      */
     public TrimmedGame trim(){
         Question currQuestion = questions.get(round.getRound());
+        String answer = currQuestion.getAnswer();
         return new TrimmedGame(lobbyId, currQuestion.getQuestion(), questions.size(), round.getTimer(),
-                currQuestion.getAnswers(), currQuestion.getType());
+                currQuestion.getAnswers(), currQuestion.getType(), answer);
 
     }
     /**
@@ -110,17 +111,17 @@ public class Game implements Runnable{
      */
     public TrimmedGame trim(String requester) {
         if (round.getGameStatus() == 2) {
-            return new TrimmedGame(lobbyId, null, -1, 0, new ArrayList<String>(), 0);
+            return new TrimmedGame(lobbyId, null, -1, 0, new ArrayList<String>(), 0, null);
         }
         Question currQuestion = questions.get(round.getRound());
         if (round.isHalfTimerUsed()){
             if (!requester.equals(round.getPlayerWhoUsedJoker().getName())) {
                 return new TrimmedGame(lobbyId, currQuestion.getQuestion(), round.getRound(), round.getHalvedTimer(),
-                        currQuestion.getAnswers(), currQuestion.getType());
+                        currQuestion.getAnswers(), currQuestion.getType(), currQuestion.getAnswer());
             }
         }
         return new TrimmedGame(lobbyId, currQuestion.getQuestion(), round.getRound(), round.getTimer(),
-                currQuestion.getAnswers(), currQuestion.getType());
+                currQuestion.getAnswers(), currQuestion.getType(), currQuestion.getAnswer());
 
     }
 

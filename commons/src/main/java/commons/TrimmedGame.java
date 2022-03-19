@@ -10,6 +10,7 @@ public class TrimmedGame {
     private int timer;
     private int questionType;
     private List<String> possibleAnswers;
+    private String correctAnswer;
 
     /**
      * Constructor for creating a new TrimmedGame object, given all fields
@@ -21,13 +22,14 @@ public class TrimmedGame {
      * @param questionType The question type
      */
     public TrimmedGame(int id, String currentQuestion, int roundNum, int timer, List<String> answers,
-                       int questionType) {
+                       int questionType, String correctAnswer) {
         this.id = id;
         this.currentQuestion = currentQuestion;
         this.roundNum = roundNum;
         this.timer = timer;
         this.possibleAnswers = answers;
         this.questionType = questionType;
+        this.correctAnswer = correctAnswer;
     }
 
     /**
@@ -92,4 +94,14 @@ public class TrimmedGame {
                 Objects.equals(currentQuestion, that.currentQuestion) &&
                 Objects.equals(possibleAnswers, that.possibleAnswers);
     }
+
+    /**
+     * @return the string of the correct answer
+     */
+    public String getCorrectAnswer() {
+        return this.correctAnswer;
+    }
+
+
+
 }

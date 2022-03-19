@@ -148,6 +148,7 @@ public class GameCtrl {
                                     } else this.guessEnable();
                                 }
                                 System.out.println("ok");
+                                System.out.println(trimmedGame.getCorrectAnswer());
                                 http.disconnect();
                             } catch (IOException e) {
                                 e.printStackTrace();
