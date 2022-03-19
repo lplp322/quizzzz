@@ -19,12 +19,8 @@ import static com.google.inject.Guice.createInjector;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
-import client.scenes.AddQuoteCtrl;
-import client.scenes.MainCtrl;
-import client.scenes.MostPowerCtrl;
-import client.scenes.PromptCtrl;
-import client.scenes.QuoteOverviewCtrl;
-import client.scenes.SplashCtrl;
+
+import client.scenes.*;
 import com.google.inject.Injector;
 import javafx.application.Application;
 import javafx.stage.Stage;
@@ -49,12 +45,15 @@ public class Main extends Application {
         var overview = FXML.load(QuoteOverviewCtrl.class, "client", "scenes",
                 "QuoteOverview.fxml");
         var add = FXML.load(AddQuoteCtrl.class, "client", "scenes", "AddQuote.fxml");
-        var splash = FXML.load(SplashCtrl.class, "client","scenes", "splash.fxml");
+        var splash = FXML.load(SplashCtrl.class, "client","scenes", "Splash.fxml");
         var mostPowerControl = FXML.load(MostPowerCtrl.class, "client", "scenes",
                 "MostPowerQuestion.fxml");
         var prompt = FXML.load(PromptCtrl.class, "client", "scenes", "Prompt.fxml");
 
+        var leaderboard = FXML.load(LeaderboardCtrl.class, "client", "scenes", "Leaderboard.fxml");
+
         var mainCtrl = INJECTOR.getInstance(MainCtrl.class);
-        mainCtrl.initialize(primaryStage, overview, add, splash, mostPowerControl, prompt);
+        mainCtrl.initialize(primaryStage, overview, add, splash, mostPowerControl, prompt, leaderboard);
+        mainCtrl.showLeaderboard();
     }
 }

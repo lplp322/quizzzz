@@ -39,6 +39,9 @@ public class MainCtrl {
     private PromptCtrl promptCtrl;
     private Scene prompt;
 
+    private LeaderboardCtrl leaderboardCtrl;
+    private Scene leaderboard;
+
     /**
      * Initializes all scenes via pairs of controllers and fxml files
      * @param primaryStage
@@ -47,10 +50,11 @@ public class MainCtrl {
      * @param splash
      * @param mostPowerQuestion
      * @param prompt
+     * @param leaderboard
      */
     public void initialize(Stage primaryStage, Pair<QuoteOverviewCtrl, Parent> overview,
         Pair<AddQuoteCtrl, Parent> add, Pair<SplashCtrl, Parent> splash, Pair<MostPowerCtrl, Parent> mostPowerQuestion,
-                           Pair<PromptCtrl, Parent> prompt) {
+                           Pair<PromptCtrl, Parent> prompt, Pair<LeaderboardCtrl, Parent> leaderboard) {
         this.primaryStage = primaryStage;
         this.overviewCtrl = overview.getKey();
         this.overview = new Scene(overview.getValue());
@@ -66,6 +70,9 @@ public class MainCtrl {
 
         this.promptCtrl = prompt.getKey();
         this.prompt = new Scene(prompt.getValue());
+
+        this.leaderboardCtrl = leaderboard.getKey();
+        this.leaderboard = new Scene(leaderboard.getValue());
 
         showSplash();
         primaryStage.show();
@@ -103,6 +110,18 @@ public class MainCtrl {
     public void showMostPowerQuestion() {
         primaryStage.setTitle("Quizzz");
         primaryStage.setScene(mostPower);
+    }
+
+    /**
+     * Shows the leaderboard
+     */
+    public void showLeaderboard() {
+        if(primaryStage.getScene() != null) {
+            Scene currentScene = primaryStage.getScene();
+            leaderboardCtrl.setWindowSize(currentScene.getWidth(), currentScene.getHeight());
+        }
+        primaryStage.setTitle("Leaderboard");
+        primaryStage.setScene(leaderboard);
     }
 
     /**
