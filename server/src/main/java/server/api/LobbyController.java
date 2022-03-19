@@ -98,12 +98,10 @@ public class LobbyController {
      * @return returns a string based on wether or not the answer was correct or not
      */
     @PutMapping("/{gameID}/{name}/checkAnswer/{round}/{answer}")
-    //CHECKSTYLE:OFF
     public String checkAnswer(@PathVariable int gameID, @PathVariable String name,
                               @PathVariable int round, @PathVariable String answer){
         System.out.println(answer);
 
-        //CHECKSTYLE:ON
 
         if(lobbyService.getGameByID(gameID).checkPlayerAnswer(name, round, answer)){
             return "correct";
