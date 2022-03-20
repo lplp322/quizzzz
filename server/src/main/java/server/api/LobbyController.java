@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import server.LobbyService;
+import server.database.LeaderboardRepository;
 
 import java.util.LinkedList;
 
@@ -17,6 +18,9 @@ import java.util.LinkedList;
 @RequestMapping("/")
 public class LobbyController {
     private LobbyService lobbyService;
+
+    @Autowired
+    private LeaderboardRepository lbRepo;
 
     /**
      * Creates a new LobbyController
@@ -129,13 +133,6 @@ public class LobbyController {
      */
     @GetMapping("leaderboard")
     public LinkedList<LeaderboardEntry> getGameInfo(){
-        LinkedList<LeaderboardEntry> leaderboardList = new LinkedList();
-        LeaderboardEntry entry = new LeaderboardEntry("Ivan", 2000);
-        LeaderboardEntry entry1 = new LeaderboardEntry("Chris", 10000);
-        leaderboardList.add(entry);
-        leaderboardList.add(entry1);
-        return leaderboardList;
-
+        return lbRepo.getAllLeaderboardEntriesOrderedByScore();
     }
-
 }

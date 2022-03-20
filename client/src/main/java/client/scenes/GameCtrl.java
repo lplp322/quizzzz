@@ -1,6 +1,7 @@
 package client.scenes;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.google.inject.Inject;
 import commons.TrimmedGame;
 import javafx.application.Platform;
@@ -15,6 +16,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 import java.io.Reader;
+import java.lang.reflect.Type;
 import java.net.HttpURLConnection;
 
 
@@ -125,7 +127,8 @@ public class GameCtrl {
     /**
      * Getting game info in a new thread
      */
-    public void getGameInfo() {
+    public void getGameInfo() throws IOException {
+        getLeaderboard();
         Thread t1 = new Thread(()-> {
             while(true) {
                 Platform.runLater(() -> {
@@ -292,8 +295,11 @@ public class GameCtrl {
         HttpURLConnection http = (HttpURLConnection) url.openConnection();
         Gson g = new Gson();
         String jsonString = httpToJSONString(http);
-        LinkedList<commons.LeaderboardEntry> leaderboardList = g.fromJson(jsonString, LinkedList.class);
+        Type typeToken = new TypeToken<LinkedList<commons.LeaderboardEntry>>(){}.getType();
+        System.out.println(typeToken.getTypeName());
+        LinkedList<commons.LeaderboardEntry> leaderboardList = g.fromJson(jsonString, typeToken);
         http.disconnect();
+        System.out.println(leaderboardList);
         return leaderboardList;
     }
 
@@ -316,7 +322,6 @@ public class GameCtrl {
         answerLabel.setText("Your answer is " + response);
 
     }
-
 }
 
 
