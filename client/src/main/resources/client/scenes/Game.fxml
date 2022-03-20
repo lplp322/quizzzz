@@ -1,49 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.GameCtrl">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.GameCtrl">
    <children>
-      <SplitPane dividerPositions="0.25735294117647056" layoutX="-14.0" layoutY="-23.0" prefHeight="420.0" prefWidth="614.0">
-        <items>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
-               <children>
-                  <Accordion layoutX="17.0" layoutY="66.0" prefHeight="26.0" prefWidth="121.0" />
-                  <ListView fx:id="playerList" layoutX="22.0" layoutY="92.0" prefHeight="278.0" prefWidth="121.0" />
-                  <Button fx:id="quitGameButton" layoutX="51.0" layoutY="378.0" mnemonicParsing="false" onAction="#guessEnable" text="Quit Game" />
-                  <Label layoutX="39.0" layoutY="53.0" prefHeight="26.0" prefWidth="77.0" text="Players" />
-               </children>
-            </AnchorPane>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="534.0" prefWidth="657.0">
-               <children>
-                  <Button fx:id="choiceA" layoutX="70.0" layoutY="229.0" mnemonicParsing="false" onAction="#choiceASend" prefHeight="26.0" prefWidth="270.0" text="ChoiceA" />
-                  <Button fx:id="choiceB" layoutX="70.0" layoutY="263.0" mnemonicParsing="false" onAction="#choiceBSend" prefHeight="26.0" prefWidth="270.0" text="ChoiceB" />
-                  <Button fx:id="choiceC" layoutX="70.0" layoutY="301.0" mnemonicParsing="false" onAction="#choiceCSend" prefHeight="26.0" prefWidth="270.0" text="ChoiceC" />
-                  <ImageView fx:id="QuestionImage" fitHeight="106.0" fitWidth="111.0" layoutX="15.0" layoutY="104.0" pickOnBounds="true" preserveRatio="true" />
-                  <ToolBar layoutY="23.0" prefHeight="40.0" prefWidth="451.0">
-                     <items>
-                        <Label fx:id="currentRoundLabel" text="Current Round:" />
-                        <Label fx:id="timerLabel" text="Timer: " />
-                     </items>
-                  </ToolBar>
-                  <Button fx:id="halfTimeJokerButton" layoutX="63.0" layoutY="363.0" mnemonicParsing="false" onAction="#getGameInfo" text="Halve Time" />
-                  <Button fx:id="doublePointsJokerButton" layoutX="166.0" layoutY="363.0" mnemonicParsing="false" text="Double Points" />
-                  <Button fx:id="eliminateWrongButton" layoutX="278.0" layoutY="364.0" mnemonicParsing="false" text="Eliminate Answer" />
-                  <TextField fx:id="guessText" layoutX="130.0" layoutY="263.0" promptText="Enter Your Guess " />
-                  <Button fx:id="submitButton" layoutX="361.0" layoutY="264.0" mnemonicParsing="false" onAction="#threeChoicesEnable" text="Submit" />
-                  <Label fx:id="questionLabel" layoutX="84.0" layoutY="151.0" prefHeight="33.0" prefWidth="322.0" text="Example Question">
-                     <font>
-                        <Font size="28.0" />
-                     </font>
-                  </Label>
-                  <Button fx:id="startButton" layoutX="313.0" layoutY="92.0" mnemonicParsing="false" onAction="#getGameInfo" text="Start Game" />
-                  <Label fx:id="answerLabel" alignment="CENTER" layoutX="138.0" layoutY="63.0" text="Your answer is" textAlignment="CENTER" />
-               </children>
-            </AnchorPane>
-        </items>
-      </SplitPane>
+    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="535.0" prefWidth="176.0">
+         <children>
+            <ListView fx:id="playerList" layoutX="9.0" layoutY="64.0" prefHeight="408.0" prefWidth="152.0" />
+            <Button fx:id="quitGameButton" layoutX="25.0" layoutY="485.0" mnemonicParsing="false" onAction="#guessEnable" prefHeight="42.0" prefWidth="120.0" text="Quit Game" />
+            <Label layoutX="49.0" layoutY="20.0" prefHeight="26.0" prefWidth="77.0" text="Players">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+    <AnchorPane layoutX="174.0" minHeight="0.0" minWidth="0.0" prefHeight="536.0" prefWidth="481.0">
+         <children>
+            <Button fx:id="choiceA" layoutX="113.0" layoutY="358.0" mnemonicParsing="false" onAction="#choiceASend" prefHeight="26.0" prefWidth="270.0" text="ChoiceA" />
+            <Button fx:id="choiceB" layoutX="113.0" layoutY="392.0" mnemonicParsing="false" onAction="#choiceBSend" prefHeight="26.0" prefWidth="270.0" text="ChoiceB" />
+            <Button fx:id="choiceC" layoutX="112.0" layoutY="427.0" mnemonicParsing="false" onAction="#choiceCSend" prefHeight="26.0" prefWidth="270.0" text="ChoiceC" />
+            <ImageView fx:id="QuestionImage" fitHeight="115.0" fitWidth="120.0" layoutX="14.0" layoutY="103.0" pickOnBounds="true" preserveRatio="true" />
+            <ToolBar layoutX="-1.0" prefHeight="42.0" prefWidth="482.0">
+               <items>
+                  <Label fx:id="currentRoundLabel" text="Current Round:" />
+                  <Label fx:id="timerLabel" prefHeight="19.0" prefWidth="97.0" text="Timer: " />
+               </items>
+            </ToolBar>
+            <Button fx:id="halfTimeJokerButton" layoutX="34.0" layoutY="478.0" mnemonicParsing="false" onAction="#getGameInfo" prefHeight="28.0" prefWidth="128.0" text="Halve Time" />
+            <Button fx:id="doublePointsJokerButton" layoutX="177.0" layoutY="478.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="128.0" text="Double Points" />
+            <Button fx:id="eliminateWrongButton" layoutX="320.0" layoutY="477.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="128.0" text="Eliminate Answer" />
+            <TextField fx:id="guessText" layoutX="167.0" layoutY="286.0" promptText="Enter Your Guess " />
+            <Button fx:id="submitButton" layoutX="359.0" layoutY="286.0" mnemonicParsing="false" onAction="#threeChoicesEnable" text="Submit" />
+            <Label fx:id="questionLabel" layoutX="151.0" layoutY="167.0" prefHeight="41.0" prefWidth="270.0" text="Example Question">
+               <font>
+                  <Font size="28.0" />
+               </font>
+            </Label>
+            <Button fx:id="startButton" layoutX="378.0" layoutY="71.0" mnemonicParsing="false" onAction="#getGameInfo" text="Start Game" />
+            <Label fx:id="answerLabel" alignment="CENTER" layoutX="195.0" layoutY="313.0" text="Your answer is" textAlignment="CENTER" />
+         </children>
+      </AnchorPane>
    </children>
 </AnchorPane>

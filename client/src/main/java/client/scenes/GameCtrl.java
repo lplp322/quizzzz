@@ -42,7 +42,7 @@ public class GameCtrl {
     @FXML
     private Button choiceC;
 
-    private int currentround;
+    private int currentRound;
 
     @FXML
     private Button halfTimeJokerButton;
@@ -78,10 +78,6 @@ public class GameCtrl {
 
     private static String link = "http://localhost:8080/";
     private static int lastRoundAnswered = -1;
-
-
-
-
 
 //    public MostPowerCtrl(MainCtrl mainCtrl) {
 //        this.mainCtrl = mainCtrl;
@@ -141,7 +137,7 @@ public class GameCtrl {
                                 Gson g = new Gson();
                                 String jsonString = httpToJSONString(http);
                                 commons.TrimmedGame trimmedGame = g.fromJson(jsonString, commons.TrimmedGame.class);
-                                currentround = trimmedGame.getRoundNum();
+                                currentRound = trimmedGame.getRoundNum();
                                 if (trimmedGame.getTimer() < 0) {//works for now, BUT NEEDS TO BE CHANGED IN TRIMMEDGAME
                                     showTimeout(trimmedGame);
                                 } else {
@@ -172,7 +168,7 @@ public class GameCtrl {
         timerLabel.setText("Timeout");
         questionLabel.setText(trimmedGame.getCurrentQuestion());
         answerLabel.setVisible(true);
-        if(currentround>lastRoundAnswered) answerLabel.setText("You have not answered");
+        if(currentRound >lastRoundAnswered) answerLabel.setText("You have not answered");
     }
 
     /**
@@ -184,6 +180,7 @@ public class GameCtrl {
         currentRoundLabel.setText("currentRound " + trimmedGame.getRoundNum());
         timerLabel.setText("Time: " + trimmedGame.getTimer());
         questionLabel.setText(trimmedGame.getCurrentQuestion());
+        
         if (trimmedGame.getQuestionType() == 1 || trimmedGame.getQuestionType() == 2) {
             this.threeChoicesEnable();
             if(trimmedGame.getPossibleAnswers().size() == 3) {
@@ -222,7 +219,7 @@ public class GameCtrl {
 
 //        URL url = new URL("http://localhost:8080/1/P1/checkAnswer/" + currentround + "/" + joker);
         URL url = new URL(link + this.mainCtrl.getCurrentID()
-                + "/" + this.mainCtrl.getName() + "/joker/" + currentround + "/" + joker);
+                + "/" + this.mainCtrl.getName() + "/joker/" + currentRound + "/" + joker);
         HttpURLConnection http = (HttpURLConnection)url.openConnection();
 //        http.setRequestMethod("PUT");
         System.out.println(http.getResponseCode());
@@ -239,7 +236,7 @@ public class GameCtrl {
     public void sendAnswer(String answer) throws IOException {
         URL url = new URL(link + this.mainCtrl.getCurrentID() + "/"
                 + this.mainCtrl.getName() + "/checkAnswer/" +
-                currentround + "/" + answer);
+                currentRound + "/" + answer);
 
             System.out.println(this.mainCtrl.getName());
         HttpURLConnection http = (HttpURLConnection)url.openConnection();
@@ -260,7 +257,7 @@ public class GameCtrl {
 
         if (this.checkCanAnswer()) {
             this.sendAnswer("0");
-            lastRoundAnswered = this.currentround;
+            lastRoundAnswered = this.currentRound;
         }
     }
 
@@ -270,7 +267,7 @@ public class GameCtrl {
     public void choiceBSend() throws IOException {
         if (this.checkCanAnswer()) {
             this.sendAnswer("1");
-            lastRoundAnswered = this.currentround;
+            lastRoundAnswered = this.currentRound;
         }
     }
 
@@ -280,7 +277,7 @@ public class GameCtrl {
     public void choiceCSend() throws IOException {
         if (this.checkCanAnswer()) {
             this.sendAnswer("2");
-            lastRoundAnswered = this.currentround;
+            lastRoundAnswered = this.currentRound;
 
         }
     }
@@ -308,7 +305,7 @@ public class GameCtrl {
      * @return returns true if the user can still answer this question
      */
     public boolean checkCanAnswer() {
-        if (this.currentround > lastRoundAnswered) {
+        if (this.currentRound > lastRoundAnswered) {
             return true;
         }
         return false;
