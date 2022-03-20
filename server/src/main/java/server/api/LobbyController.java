@@ -40,7 +40,7 @@ public class LobbyController {
     @GetMapping("/singleplayer/{name}")
     public int startSinglePlayer(@PathVariable String name){
         int id = lobbyService.createSinglePlayerGame(name);
-
+        System.out.println("Created new game with ID:" + id);
         // Hardcoded to start directly
         Thread t1 = new Thread(lobbyService.getGameByID(id));
         t1.start();
@@ -55,7 +55,7 @@ public class LobbyController {
      */
     @GetMapping("{gameID}/{player}/getGameInfo")
     public TrimmedGame getGameInfo(@PathVariable int gameID, @PathVariable String player){
-        System.out.println( gameID + " connected");
+        //System.out.println( gameID + " polls");
         return lobbyService.getGameByID(gameID).trim(player);
     }
 

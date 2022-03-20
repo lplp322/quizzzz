@@ -122,6 +122,7 @@ public class GameCtrl {
      * Getting game info in a new thread
      */
     public void getGameInfo() {
+        System.out.println("Polling has started for game " + mainCtrl.getCurrentID());
         Thread t1 = new Thread(()-> {
             while(true) {
                 Platform.runLater(() -> {
@@ -147,7 +148,7 @@ public class GameCtrl {
                                         this.threeChoicesEnable();
                                     } else this.guessEnable();
                                 }
-                                System.out.println("ok");
+                            //    System.out.println("ok");
                                 http.disconnect();
                             } catch (IOException e) {
                                 e.printStackTrace();
