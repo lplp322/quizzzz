@@ -21,6 +21,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.util.Pair;
 
+import java.io.IOException;
 import java.util.List;
 
 public class MainCtrl {
@@ -119,7 +120,7 @@ public class MainCtrl {
     /**
      * Changes the current scene to the questions screen
      */
-    public void showGame() {
+    public void showGame() throws IOException {
         primaryStage.setTitle("Quizzz");
         primaryStage.setScene(game);
         gameCtrl.getGameInfo();

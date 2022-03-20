@@ -156,11 +156,11 @@ public class GameCtrl {
                                 } else {
                                     showRound(trimmedGame);
                                 }
-<<<<<<< client/src/main/java/client/scenes/GameCtrl.java
+
                             //    System.out.println("ok");
-=======
+
                                 //System.out.println("ok");
->>>>>>> client/src/main/java/client/scenes/GameCtrl.java
+
                                 http.disconnect();
                             } catch (IOException e) {
                                 e.printStackTrace();
@@ -335,8 +335,6 @@ public class GameCtrl {
         return false;
     }
 
-<<<<<<< client/src/main/java/client/scenes/GameCtrl.java
-=======
 
     /**
      * @param answer the string of the answer
@@ -415,7 +413,7 @@ public class GameCtrl {
         answerLabel.setText("Your answer is " + response);
 
     }
->>>>>>> client/src/main/java/client/scenes/GameCtrl.java
+
 }
 
 
