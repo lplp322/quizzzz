@@ -92,15 +92,7 @@ public class Question {
 
         answers.add(act.getConsumption()+"");
         answer = act.getConsumption()+"";
-
-        Integer[] types = {1, -1, 2, -2, 3, -3, 4, -4, 5, -5};
-        List<Integer> deviations = Arrays.asList(types);
-        Collections.shuffle(deviations);
-
-        for(int i = 0; i < 3; i++) {
-            int randomlyGeneratedEnergy = act.getConsumption() + deviations.get(i);
-            answers.add(randomlyGeneratedEnergy+"");
-        }
+        
         Collections.shuffle(answers);
     }
 
@@ -108,8 +100,21 @@ public class Question {
      *
      */
     private void generateTypeTwo() {
-        //Activity act = dt.getActivities(1);
-        //TO BE IMPLEMENTED
+        Random random = new Random();
+        int questionIndex = random.nextInt(activities.size());
+        question = String.format("How much energy does %s use", activities.get(questionIndex).getTitle());
+        int answerInt = activities.get(questionIndex).getConsumption();
+        double deviation = (activities.get(questionIndex).getConsumption()/2.0)*random.nextDouble();
+        double smaller = activities.get(questionIndex).getConsumption()-deviation;
+        deviation = (activities.get(questionIndex).getConsumption()/2.0)*random.nextDouble();
+        double bigger = activities.get(questionIndex).getConsumption()+deviation;
+
+        answer = String.valueOf(activities.get(questionIndex).getConsumption());
+        answers.add(answer);
+        answers.add(String.valueOf(smaller));
+        answers.add(String.valueOf(bigger));
+
+        Collections.shuffle(answers);
     }
 
     /** Generates a question in the following format:
