@@ -179,6 +179,7 @@ public class Game implements Runnable{
 
     /**
      * @param name name of the player that the score is being updated for
+     * @param points The points to be added
      * @return returns the updated score of the player
      */
     public int updatePlayerScore(String name, int points) {
