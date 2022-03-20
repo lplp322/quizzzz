@@ -1,6 +1,17 @@
 package commons;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity
 public class LeaderboardEntry {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    public long id;
+
     private String name;
     private int score;
 
@@ -11,6 +22,13 @@ public class LeaderboardEntry {
     public LeaderboardEntry(String name, int score) {
         this.name = name;
         this.score = score;
+    }
+
+    /**
+     * Empty constructor for object mapper
+     */
+    public LeaderboardEntry() {
+
     }
 
     /**

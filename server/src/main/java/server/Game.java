@@ -148,15 +148,29 @@ public class Game implements Runnable{
      * @param answer - String with provided answer
      * @return True if answer was correct
      */
-    public boolean checkPlayerAnswer(String name, int round, String answer) {
-        System.out.println(getRound().getRound());
-        System.out.println(getQuestions().get(round).getAnswer());
+    public boolean checkPlayerAnswer(String name, int round, int answer) {
+        System.out.println("Round: "+ getRound().getRound());
+        System.out.println("Correct answer: "+ getQuestions().get(round).getAnswer());
         if(getRound().getRound() == round){
-            if(getQuestions().get(round).getAnswer().equals(answer)){
+            Question currQuestion = questions.get(getRound().getRound());
+            System.out.println("Question type " + currQuestion.getType());
+            if(currQuestion.getType() == 1 || currQuestion.getType() == 0){
+                //TO BE IMPLEMENTED
                 return true;
             }
+            else{
+                int correctAns = -1;
+                for(int i=0; i<currQuestion.getAnswers().size(); i++){
+                    if(currQuestion.getAnswers().get(i).equals(currQuestion.getAnswer())) correctAns = i;
+                }
+                System.out.println("Correct answer: "+ correctAns);
+                if(correctAns == -1) System.out.println("errrroororroror");
+                if (correctAns == answer){
 
-            return false;
+                    return true;
+                }
+                return false;
+            }
         }
         else{
             System.out.println("False round");
