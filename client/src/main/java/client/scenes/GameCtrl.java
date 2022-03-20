@@ -326,6 +326,10 @@ public class GameCtrl {
         if (answers == null) {
             return;
         }
+
+        if (answers.size() == 0) {
+            return;
+        }
         this.choiceA.setText(answers.get(0));
         this.choiceB.setText(answers.get(1));
         this.choiceC.setText(answers.get(2));
