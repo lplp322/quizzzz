@@ -43,6 +43,9 @@ public class Main {
      */
     @EventListener(ApplicationReadyEvent.class)
     public void setup() {
+        if (repo.getAllActivities().size() != 0){
+            return;
+        }
         ObjectMapper mapper = new ObjectMapper();
         File rootFolder = new File("./activities");
         for (final File folder : rootFolder.listFiles()){
