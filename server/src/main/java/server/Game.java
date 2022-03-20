@@ -165,7 +165,7 @@ public class Game implements Runnable{
                 System.out.println("Correct answer: "+ correctAns);
                 if(correctAns == -1) System.out.println("errrroororroror");
                 if (correctAns == answer){
-
+                    updatePlayerScore(name, 100);
                     return true;
                 }
                 return false;
@@ -179,26 +179,14 @@ public class Game implements Runnable{
 
     /**
      * @param name name of the player that the score is being updated for
-     * @param round the round of the question
-     * @param answer the users answer to the question
-     * @return returns the users current score or -1 it is not the current round
+     * @param points The points to be added
+     * @return returns the updated score of the player
      */
-    public int updatePlayerScore(String name, int round, String answer) {
-        System.out.println(getRound().getRound());
-        System.out.println(getQuestions().get(round).getAnswer());
-        if(getRound().getRound() == round){
-            Player player = this.players.get(name);
-            int score = player.getScore();
-
-            if(getQuestions().get(round).getAnswer().equals(answer)){
-                score = score + 100;
-            }
-            player.setScore(score);
-            return score;
-        }
-        else{
-            System.out.println("False round");
-            return -1;
-        }
+    public int updatePlayerScore(String name, int points) {
+        Player player = this.players.get(name);
+        int score = player.getScore();
+        score = score + points;
+        player.setScore(score);
+        return score;
     }
 }

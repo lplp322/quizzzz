@@ -102,10 +102,12 @@ public class LobbyController {
                               @PathVariable int round, @PathVariable int answer){
         System.out.println(answer);
         if(lobbyService.getGameByID(gameID).checkPlayerAnswer(name, round, answer)){
-            int playerScore = 0; //will be changed accordingly to scoring system
-            return "correct. Your score is " +playerScore;
+            int playerScore = lobbyService.getGameByID(gameID).getPlayers().get(name).getScore();
+            if(round == 19) {lbRepo.save(new LeaderboardEntry(name, playerScore));}
+            return "correct. Your score is " + playerScore;
         }
         int score = lobbyService.getGameByID(gameID).getPlayers().get(name).getScore();
+        if(round == 19) {lbRepo.save(new LeaderboardEntry(name, score));}
         return "incorrect. Your score is " + score;
     }
 
