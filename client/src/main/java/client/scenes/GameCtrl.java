@@ -138,12 +138,13 @@ public class GameCtrl {
                                 Gson g = new Gson();
                                 String jsonString = httpToJSONString(http);
                                 commons.TrimmedGame trimmedGame = g.fromJson(jsonString, commons.TrimmedGame.class);
+                                currentround = trimmedGame.getRoundNum();
                                 if (trimmedGame.getTimer() < 0) {//works for now, BUT NEEDS TO BE CHANGED IN TRIMMEDGAME
                                     showTimeout(trimmedGame);
                                 } else {
                                     showRound(trimmedGame);
                                 }
-                                System.out.println("ok");
+                                //System.out.println("ok");
                                 http.disconnect();
                             } catch (IOException e) {
                                 e.printStackTrace();
@@ -168,6 +169,7 @@ public class GameCtrl {
         timerLabel.setText("Timeout");
         questionLabel.setText(trimmedGame.getCurrentQuestion());
         answerLabel.setVisible(true);
+        if(currentround>lastRoundAnswered) answerLabel.setText("You have not answered");
     }
 
     /**
@@ -175,15 +177,17 @@ public class GameCtrl {
      * @param trimmedGame
      */
     private void showRound(TrimmedGame trimmedGame) {
+        answerLabel.setVisible(false);
         currentRoundLabel.setText("currentRound " + trimmedGame.getRoundNum());
         timerLabel.setText("Time: " + trimmedGame.getTimer());
         questionLabel.setText(trimmedGame.getCurrentQuestion());
-        answerLabel.setVisible(false);
         if (trimmedGame.getQuestionType() == 1 || trimmedGame.getQuestionType() == 2) {
             this.threeChoicesEnable();
-//            choiceA.setText(trimmedGame.getPossibleAnswers().get(0));
-//            choiceB.setText(trimmedGame.getPossibleAnswers().get(1));
-//            choiceC.setText(trimmedGame.getPossibleAnswers().get(2));
+            if(trimmedGame.getPossibleAnswers().size() == 3) {
+                choiceA.setText(trimmedGame.getPossibleAnswers().get(0));
+                choiceB.setText(trimmedGame.getPossibleAnswers().get(1));
+                choiceC.setText(trimmedGame.getPossibleAnswers().get(2));
+            }
         } else this.guessEnable();
     }
 
@@ -252,7 +256,7 @@ public class GameCtrl {
     public void choiceASend () throws IOException {
 
         if (this.checkCanAnswer()) {
-            this.sendAnswer(choiceA.getText());
+            this.sendAnswer("0");
             lastRoundAnswered = this.currentround;
         }
     }
@@ -262,7 +266,7 @@ public class GameCtrl {
      */
     public void choiceBSend() throws IOException {
         if (this.checkCanAnswer()) {
-            this.sendAnswer(choiceB.getText());
+            this.sendAnswer("1");
             lastRoundAnswered = this.currentround;
         }
     }
@@ -272,7 +276,7 @@ public class GameCtrl {
      */
     public void choiceCSend() throws IOException {
         if (this.checkCanAnswer()) {
-            this.sendAnswer(choiceC.getText());
+            this.sendAnswer("2");
             lastRoundAnswered = this.currentround;
 
         }
