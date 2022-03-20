@@ -167,25 +167,18 @@ public class Game implements Runnable{
      * @param name name of the player that the score is being updated for
      * @param round the round of the question
      * @param answer the users answer to the question
-     * @return returns the users current score or -1 it is not the current round
+     * @return returns the updated score of the player
      */
     public int updatePlayerScore(String name, int round, String answer) {
         System.out.println(getRound().getRound());
         System.out.println(getQuestions().get(round).getAnswer());
         Player player = this.players.get(name);
 
-        if(getRound().getRound() == round) {
-            int score = player.getScore();
-            if(getQuestions().get(round).getAnswer().equals(answer)){
-                score = score + 100;
-            }
+        int score = player.getScore();
+        if(getQuestions().get(round).getAnswer().equals(answer)){
+            score = score + 100;
             player.setScore(score);
-            return score;
         }
-        // if round != currentround, but user has right answer, he does not get the points?
-        else{
-            System.out.println("False round");
-            return this.players.get(name).getScore();
-        }
+        return score;
     }
 }
