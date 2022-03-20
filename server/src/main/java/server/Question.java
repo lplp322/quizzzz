@@ -3,7 +3,7 @@ package server;
 import server.database.ActivityRepository;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+//import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
@@ -92,7 +92,7 @@ public class Question {
 
         answers.add(act.getConsumption()+"");
         answer = act.getConsumption()+"";
-        
+
         Collections.shuffle(answers);
     }
 
