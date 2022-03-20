@@ -59,7 +59,7 @@ public class LobbyController {
      */
     @GetMapping("{gameID}/{player}/getGameInfo")
     public TrimmedGame getGameInfo(@PathVariable int gameID, @PathVariable String player){
-        System.out.println( gameID + " connected");
+        //System.out.println( gameID + " connected");
         return lobbyService.getGameByID(gameID).trim(player);
     }
 
@@ -99,14 +99,14 @@ public class LobbyController {
      */
     @PutMapping("/{gameID}/{name}/checkAnswer/{round}/{answer}")
     public String checkAnswer(@PathVariable int gameID, @PathVariable String name,
-                              @PathVariable int round, @PathVariable String answer){
+                              @PathVariable int round, @PathVariable int answer){
         System.out.println(answer);
-
-
         if(lobbyService.getGameByID(gameID).checkPlayerAnswer(name, round, answer)){
-            return "correct";
+            int playerScore = 0; //will be changed accordingly to scoring system
+            return "correct. Your score is " +playerScore;
         }
-        return "incorrect";
+        int score = lobbyService.getGameByID(gameID).getPlayers().get(name).getScore();
+        return "incorrect. Your score is " + score;
     }
 
 
