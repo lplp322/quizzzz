@@ -172,19 +172,20 @@ public class Game implements Runnable{
     public int updatePlayerScore(String name, int round, String answer) {
         System.out.println(getRound().getRound());
         System.out.println(getQuestions().get(round).getAnswer());
-        if(getRound().getRound() == round){
-            Player player = this.players.get(name);
-            int score = player.getScore();
+        Player player = this.players.get(name);
 
+        if(getRound().getRound() == round) {
+            int score = player.getScore();
             if(getQuestions().get(round).getAnswer().equals(answer)){
                 score = score + 100;
             }
             player.setScore(score);
             return score;
         }
+        // if round != currentround, but user has right answer, he does not get the points?
         else{
             System.out.println("False round");
-            return -1;
+            return this.players.get(name).getScore();
         }
     }
 }
