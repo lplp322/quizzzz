@@ -15,10 +15,13 @@
  */
 package client.scenes;
 
+import commons.LeaderboardEntry;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.util.Pair;
+
+import java.util.List;
 
 public class MainCtrl {
     private int currentGameID;  //the ID of the ongoing game
@@ -39,8 +42,10 @@ public class MainCtrl {
     private PromptCtrl promptCtrl;
     private Scene prompt;
 
-    private String name;
+    private LeaderboardCtrl leaderboardCtrl;
+    private Scene leaderboard;
 
+    private String name;
 
     /**
      * Initializes all scenes via pairs of controllers and fxml files
@@ -50,12 +55,13 @@ public class MainCtrl {
      * @param splash
      * @param gameCtrl
      * @param prompt
+     * @param leaderboard
      */
 
     public void initialize(Stage primaryStage, Pair<QuoteOverviewCtrl, Parent> overview,
                            Pair<AddQuoteCtrl, Parent> add, Pair<SplashCtrl, Parent> splash,
                            Pair<GameCtrl, Parent> gameCtrl,
-                           Pair<PromptCtrl, Parent> prompt) {
+                           Pair<PromptCtrl, Parent> prompt, Pair<LeaderboardCtrl, Parent> leaderboard) {
         this.primaryStage = primaryStage;
         this.overviewCtrl = overview.getKey();
         this.overview = new Scene(overview.getValue());
@@ -71,6 +77,9 @@ public class MainCtrl {
 
         this.promptCtrl = prompt.getKey();
         this.prompt = new Scene(prompt.getValue());
+
+        this.leaderboardCtrl = leaderboard.getKey();
+        this.leaderboard = new Scene(leaderboard.getValue());
 
         showSplash();
         primaryStage.show();
@@ -114,6 +123,30 @@ public class MainCtrl {
         primaryStage.setTitle("Quizzz");
         primaryStage.setScene(game);
         gameCtrl.getGameInfo();
+    }
+
+    /**
+     * Shows the leaderboard
+     * @param results
+     * @param myResult
+     */
+    public void showLeaderboard(List<LeaderboardEntry> results, LeaderboardEntry myResult) {
+        /*if(primaryStage.getScene() != null) {
+            Scene currentScene = primaryStage.getScene();
+            leaderboardCtrl.setWindowSize(currentScene.getWidth(), currentScene.getHeight());
+        }*/
+        /*primaryStage.setTitle("Leaderboard");
+        primaryStage.setScene(leaderboard);
+        LeaderboardEntry ll = new LeaderboardEntry("Energy Master29", 150);
+        LeaderboardEntry ll2 = new LeaderboardEntry("MLGenergyUsage", 100);
+        LeaderboardEntry ll3 = new LeaderboardEntry("You", 50);
+        LeaderboardEntry ll4 = new LeaderboardEntry("Me", 3);
+        leaderboardCtrl.displayResults(List.of(ll, ll2, ll3, ll4, ll4,
+        ll4, ll4, ll4, ll4, ll4, ll4, ll4, ll4, ll4, ll4, ll4, ll4, ll4, ll4, ll4, ll4),
+         ll3);
+        */
+
+        leaderboardCtrl.displayResults(results, myResult);
     }
 
     /**

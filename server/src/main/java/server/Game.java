@@ -99,8 +99,9 @@ public class Game implements Runnable{
      */
     public TrimmedGame trim(){
         Question currQuestion = questions.get(round.getRound());
+        String answer = currQuestion.getAnswer();
         return new TrimmedGame(lobbyId, currQuestion.getQuestion(), questions.size(), round.getTimer(),
-                currQuestion.getAnswers(), currQuestion.getType());
+                currQuestion.getAnswers(), currQuestion.getType(), answer);
 
     }
     /**
@@ -110,17 +111,17 @@ public class Game implements Runnable{
      */
     public TrimmedGame trim(String requester) {
         if (round.getGameStatus() == 2) {
-            return new TrimmedGame(lobbyId, null, -1, 0, new ArrayList<String>(), 0);
+            return new TrimmedGame(lobbyId, null, -1, 0, new ArrayList<String>(), 0, null);
         }
         Question currQuestion = questions.get(round.getRound());
         if (round.isHalfTimerUsed()){
             if (!requester.equals(round.getPlayerWhoUsedJoker().getName())) {
                 return new TrimmedGame(lobbyId, currQuestion.getQuestion(), round.getRound(), round.getHalvedTimer(),
-                        currQuestion.getAnswers(), currQuestion.getType());
+                        currQuestion.getAnswers(), currQuestion.getType(), currQuestion.getAnswer());
             }
         }
         return new TrimmedGame(lobbyId, currQuestion.getQuestion(), round.getRound(), round.getTimer(),
-                currQuestion.getAnswers(), currQuestion.getType());
+                currQuestion.getAnswers(), currQuestion.getType(), currQuestion.getAnswer());
 
     }
 
@@ -147,14 +148,29 @@ public class Game implements Runnable{
      * @param answer - String with provided answer
      * @return True if answer was correct
      */
-    public boolean checkPlayerAnswer(String name, int round, String answer) {
-        System.out.println(getRound().getRound());
-        System.out.println(getQuestions().get(round).getAnswer());
+    public boolean checkPlayerAnswer(String name, int round, int answer) {
+        System.out.println("Round: "+ getRound().getRound());
+        System.out.println("Correct answer: "+ getQuestions().get(round).getAnswer());
         if(getRound().getRound() == round){
-            if(getQuestions().get(round).getAnswer().equals(answer)){
+            Question currQuestion = questions.get(getRound().getRound());
+            System.out.println("Question type " + currQuestion.getType());
+            if(currQuestion.getType() == 1 || currQuestion.getType() == 0){
+                //TO BE IMPLEMENTED
                 return true;
             }
-            return false;
+            else{
+                int correctAns = -1;
+                for(int i=0; i<currQuestion.getAnswers().size(); i++){
+                    if(currQuestion.getAnswers().get(i).equals(currQuestion.getAnswer())) correctAns = i;
+                }
+                System.out.println("Correct answer: "+ correctAns);
+                if(correctAns == -1) System.out.println("errrroororroror");
+                if (correctAns == answer){
+                    updatePlayerScore(name, 100);
+                    return true;
+                }
+                return false;
+            }
         }
         else{
             System.out.println("False round");
@@ -188,26 +204,14 @@ public class Game implements Runnable{
 
     /**
      * @param name name of the player that the score is being updated for
-     * @param round the round of the question
-     * @param answer the users answer to the question
-     * @return returns the users current score or -1 it is not the current round
+     * @param points The points to be added
+     * @return returns the updated score of the player
      */
-    public int updatePlayerScore(String name, int round, String answer) {
-        System.out.println(getRound().getRound());
-        System.out.println(getQuestions().get(round).getAnswer());
-        if(getRound().getRound() == round){
-            Player player = this.players.get(name);
-            int score = player.getScore();
-
-            if(getQuestions().get(round).getAnswer().equals(answer)){
-                score = score + 100;
-            }
-            player.setScore(score);
-            return score;
-        }
-        else{
-            System.out.println("False round");
-            return -1;
-        }
+    public int updatePlayerScore(String name, int points) {
+        Player player = this.players.get(name);
+        int score = player.getScore();
+        score = score + points;
+        player.setScore(score);
+        return score;
     }
 }

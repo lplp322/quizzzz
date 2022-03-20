@@ -17,15 +17,20 @@ package server;
 
 import java.util.Random;
 
+import commons.LeaderboardEntry;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import server.database.ActivityRepository;
+import server.database.LeaderboardRepository;
 
 @Configuration
 public class Config {
     @Autowired
     private ActivityRepository dtBase;
+    @Autowired
+    private LeaderboardRepository dtBasee;
+
 
     /**
      * returns random
@@ -60,5 +65,17 @@ public class Config {
                     "00/vacuuming.png"));
         }
         //System.out.println(dtBase.getAllActivities().size());
+    }
+
+    /**
+     * Adds 5 leaderboard entries in case its empty
+     */
+    @Bean
+    public void addTempLeaderboardEntries() {
+        if(dtBasee.findAll().size() < 5) {
+            for (int i = 0; i < 5; i++) {
+                dtBasee.save(new LeaderboardEntry("Henk"+i, 1000*i));
+            }
+        }
     }
 }
