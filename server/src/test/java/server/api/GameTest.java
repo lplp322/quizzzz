@@ -74,7 +74,8 @@ public class GameTest {
     @Test
     public void noJokerTrim() {
         TrimmedGame trim = new TrimmedGame(1, game.getQuestions().get(0).getQuestion(), 20, 20,
-                game.getQuestions().get(0).getAnswers(), game.getQuestions().get(0).getType());
+                game.getQuestions().get(0).getAnswers(), game.getQuestions().get(0).getType(),
+                game.getQuestions().get(0).getAnswer());
         TrimmedGame gameTrim = game.trim();
         assertEquals(trim, gameTrim);
     }
