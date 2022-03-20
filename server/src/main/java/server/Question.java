@@ -88,7 +88,7 @@ public class Question {
     private void generateTypeOne() {
         Activity act = activities.get(0);
 
-        question = String.format("How much energy does %s use", act.getTitle());
+        question = String.format("Estimate the energy usage of %s", act.getTitle());
 
         answers.add(act.getConsumption()+"");
         answer = act.getConsumption()+"";
@@ -100,19 +100,29 @@ public class Question {
      *
      */
     private void generateTypeTwo() {
+        int wrongAnswer1;
+        int wrongAnswer2;
         Random random = new Random();
         int questionIndex = random.nextInt(activities.size());
         question = String.format("How much energy does %s use", activities.get(questionIndex).getTitle());
         int answerInt = activities.get(questionIndex).getConsumption();
-        double deviation = (activities.get(questionIndex).getConsumption()/2.0)*random.nextDouble();
-        double smaller = activities.get(questionIndex).getConsumption()-deviation;
-        deviation = (activities.get(questionIndex).getConsumption()/2.0)*random.nextDouble();
-        double bigger = activities.get(questionIndex).getConsumption()+deviation;
+
+        int deviation = random.nextInt(activities.get(questionIndex).getConsumption());
+        boolean sign = random.nextBoolean();
+
+        if(sign)wrongAnswer1 =activities.get(questionIndex).getConsumption()+deviation;
+            else wrongAnswer1 =activities.get(questionIndex).getConsumption()-deviation;
+
+        deviation = random.nextInt((activities.get(questionIndex).getConsumption()/2));
+        sign = random.nextBoolean();
+
+        if(sign)wrongAnswer2 = activities.get(questionIndex).getConsumption()+deviation;
+            else wrongAnswer2 = activities.get(questionIndex).getConsumption()-deviation;
 
         answer = String.valueOf(activities.get(questionIndex).getConsumption());
         answers.add(answer);
-        answers.add(String.valueOf(smaller));
-        answers.add(String.valueOf(bigger));
+        answers.add(String.valueOf(wrongAnswer1));
+        answers.add(String.valueOf(wrongAnswer2));
 
         Collections.shuffle(answers);
     }
