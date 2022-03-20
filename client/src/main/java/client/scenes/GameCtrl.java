@@ -171,12 +171,13 @@ public class GameCtrl {
         t1.start();
     }
 
-        timerLabel.setText("Timeout");
+
     /**
      * Showing the timeout
      * @param trimmedGame
      */
     public void showTimeout(TrimmedGame trimmedGame) {
+        timerLabel.setText("Timeout");
         currentRoundLabel.setText("Round is over");
         questionLabel.setText(trimmedGame.getCurrentQuestion());
         answerLabel.setVisible(true);
@@ -329,7 +330,7 @@ public class GameCtrl {
         return false;
     }
 
-        }
+
     /**
      * @param answer the string of the answer
      * @return the button that currently contains the correct answer
