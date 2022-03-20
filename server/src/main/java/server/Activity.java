@@ -83,7 +83,7 @@ public class Activity implements Comparable {
      * @param name the name of the activity
      */
     public void setTitle(String name) {
-        this.title = title;
+        this.title = name;
     }
 
     /**
@@ -91,7 +91,7 @@ public class Activity implements Comparable {
      * @param energy the energy of the activity
      */
     public void setConsumption(int energy) {
-        this.consumption = consumption;
+        this.consumption = energy;
     }
 
     /**
@@ -117,8 +117,8 @@ public class Activity implements Comparable {
      */
     @Override
     public int compareTo(Object o) {
-        Activity otherActivity = (Activity)o;
-        return (getConsumption() < otherActivity.getConsumption()?-1:1);
+        Activity otherActivity = (Activity) o;
+        return (Integer.compare(getConsumption(), otherActivity.getConsumption()));
     }
 
     /**
