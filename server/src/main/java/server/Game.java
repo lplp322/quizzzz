@@ -176,11 +176,11 @@ public class Game implements Runnable{
             Double answerDouble = Double.parseDouble(getQuestions().get(round).getAnswer());
             Double estimationDouble = Double.parseDouble(estimation);
             Double error = Math.abs(answerDouble-estimationDouble);
-            if(error==0)return 5;
-            else if(error<=(answerDouble*20)/100)return 4;
-            else if(error<=(answerDouble*40)/100)return 3;
-            else if(error<=(answerDouble*50)/100)return 2;
-            else if(error<=(answerDouble*70)/100)return 1;
+            if(error==0)return 100;
+            else if(error<=(answerDouble*20)/100)return 80;
+            else if(error<=(answerDouble*40)/100)return 60;
+            else if(error<=(answerDouble*50)/100)return 40;
+            else if(error<=(answerDouble*70)/100)return 20;
         }
         System.out.println("False round");
         return 0;
