@@ -149,7 +149,7 @@ public class GameCtrl {
                                 if (trimmedGame.getTimer() < 0) {//works for now, BUT NEEDS TO BE CHANGED IN TRIMMEDGAME
                                     showTimeout(trimmedGame);
                                     this.showCorrectAnswer(trimmedGame.getCorrectAnswer());
-                                    if (trimmedGame.getTimer() == -5) {
+                                    if (trimmedGame.getTimer() == -4) {
                                         this.resetColors();
                                     }
                                 } else {
