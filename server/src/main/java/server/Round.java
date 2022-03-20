@@ -40,6 +40,7 @@ public class Round {
         }
         else if (timer == -5){
             timeoutActive = false;
+            timer = 20;
             round++;
         }
         if(round == totalRounds-1) {
