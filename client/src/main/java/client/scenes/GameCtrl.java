@@ -121,6 +121,7 @@ public class GameCtrl {
 
     }
 
+    //CHECKSTYLE:OFF
     /**
      * Getting game info in a new thread
      */
@@ -176,6 +177,8 @@ public class GameCtrl {
             }});
         t1.start();
     }
+
+    //CHECKSTYLE:ON
 
 
     /**
@@ -352,6 +355,9 @@ public class GameCtrl {
         this.userChoice.setStyle("-fx-background-color: #5d96d9");
     }
 
+    /**
+     *
+     */
     public void resetColors() {
         this.choiceA.setStyle("-fx-background-color: #ffffff");
         this.choiceB.setStyle("-fx-background-color: #ffffff");
@@ -359,6 +365,9 @@ public class GameCtrl {
     }
 
 
+    /**
+     * 
+     */
     public void choicesDisappear() {
         this.choiceA.setVisible(false);
         this.choiceB.setVisible(false);
