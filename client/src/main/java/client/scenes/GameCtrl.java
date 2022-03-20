@@ -366,7 +366,7 @@ public class GameCtrl {
 
 
     /**
-     * 
+     *
      */
     public void choicesDisappear() {
         this.choiceA.setVisible(false);

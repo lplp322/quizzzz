@@ -13,13 +13,13 @@ public class TrimmedGame {
     private String correctAnswer;
 
     /**
-     * Constructor for creating a new TrimmedGame object, given all fields
-     * @param id The lobby ID
-     * @param currentQuestion The current Question (as a String)
-     * @param roundNum The current round number
-     * @param timer The remaining timer in the round (adjusted depending on requester)
-     * @param answers The possible answers to the question
-     * @param questionType The question type
+     * @param id Id of the game
+     * @param currentQuestion the current question shown to the user
+     * @param roundNum
+     * @param timer
+     * @param answers
+     * @param questionType
+     * @param correctAnswer the correct answer so this can be displayed to the user
      */
     public TrimmedGame(int id, String currentQuestion, int roundNum, int timer, List<String> answers,
                        int questionType, String correctAnswer) {
