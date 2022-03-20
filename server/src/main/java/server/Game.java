@@ -154,13 +154,36 @@ public class Game implements Runnable{
             if(getQuestions().get(round).getAnswer().equals(answer)){
                 return true;
             }
-
             return false;
         }
         else{
             System.out.println("False round");
             return false;
         }
+    }
+
+    /**
+     * Checks the error of the estimation, and awards points accordingly
+     * @param name - name of the player
+     * @param round - game round
+     * @param estimation - the guess as a string
+     * @return  - number of points awarded
+     */
+    public int checkPlayerEstimation(String name, int round, String estimation) {
+        System.out.println(getRound().getRound());
+        System.out.println(getQuestions().get(round).getAnswer());
+        if(getRound().getRound() == round){
+            Double answerDouble = Double.parseDouble(getQuestions().get(round).getAnswer());
+            Double estimationDouble = Double.parseDouble(estimation);
+            Double error = Math.abs(answerDouble-estimationDouble);
+            if(error==0)return 5;
+            else if(error<=(answerDouble*20)/100)return 4;
+            else if(error<=(answerDouble*40)/100)return 3;
+            else if(error<=(answerDouble*50)/100)return 2;
+            else if(error<=(answerDouble*70)/100)return 1;
+        }
+        System.out.println("False round");
+        return 0;
     }
 
     /**

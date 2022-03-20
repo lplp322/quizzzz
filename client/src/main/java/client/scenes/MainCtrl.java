@@ -113,6 +113,7 @@ public class MainCtrl {
     public void showGame() {
         primaryStage.setTitle("Quizzz");
         primaryStage.setScene(game);
+        gameCtrl.getGameInfo();
     }
 
     /**
