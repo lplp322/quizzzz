@@ -2,6 +2,7 @@ package client.scenes;
 
 import com.google.gson.Gson;
 import com.google.inject.Inject;
+import commons.TrimmedGame;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -68,6 +69,9 @@ public class GameCtrl {
     @FXML
     private Label timerLabel;
 
+    @FXML
+    private Label answerLabel;
+
     private MainCtrl mainCtrl;
 
     private static String link = "http://localhost:8080/";
@@ -125,7 +129,6 @@ public class GameCtrl {
         Thread t1 = new Thread(()-> {
             while(true) {
                 Platform.runLater(() -> {
-
                             try {
                                 URL url = new URL(link + mainCtrl.getCurrentID()
                                         +"/" + mainCtrl.getName() + "/getGameInfo");
@@ -136,16 +139,9 @@ public class GameCtrl {
                                 String jsonString = httpToJSONString(http);
                                 commons.TrimmedGame trimmedGame = g.fromJson(jsonString, commons.TrimmedGame.class);
                                 if (trimmedGame.getTimer() < 0) {//works for now, BUT NEEDS TO BE CHANGED IN TRIMMEDGAME
-                                    currentRoundLabel.setText("Round is over");
-                                    timerLabel.setText("Timeout");
-                                    questionLabel.setText(trimmedGame.getCurrentQuestion());
+                                    showTimeout(trimmedGame);
                                 } else {
-                                    currentRoundLabel.setText("currentRound " + trimmedGame.getRoundNum());
-                                    timerLabel.setText("Time: " + trimmedGame.getTimer());
-                                    questionLabel.setText(trimmedGame.getCurrentQuestion());
-                                    if (trimmedGame.getQuestionType() == 1 || trimmedGame.getQuestionType() == 2) {
-                                        this.threeChoicesEnable();
-                                    } else this.guessEnable();
+                                    showRound(trimmedGame);
                                 }
                                 System.out.println("ok");
                                 http.disconnect();
@@ -163,6 +159,33 @@ public class GameCtrl {
         t1.start();
     }
 
+    /**
+     * Showing the timeout
+     * @param trimmedGame
+     */
+    public void showTimeout(TrimmedGame trimmedGame) {
+        currentRoundLabel.setText("Round is over");
+        timerLabel.setText("Timeout");
+        questionLabel.setText(trimmedGame.getCurrentQuestion());
+        answerLabel.setVisible(true);
+    }
+
+    /**
+     * Showing the round screen
+     * @param trimmedGame
+     */
+    private void showRound(TrimmedGame trimmedGame) {
+        currentRoundLabel.setText("currentRound " + trimmedGame.getRoundNum());
+        timerLabel.setText("Time: " + trimmedGame.getTimer());
+        questionLabel.setText(trimmedGame.getCurrentQuestion());
+        answerLabel.setVisible(false);
+        if (trimmedGame.getQuestionType() == 1 || trimmedGame.getQuestionType() == 2) {
+            this.threeChoicesEnable();
+//            choiceA.setText(trimmedGame.getPossibleAnswers().get(0));
+//            choiceB.setText(trimmedGame.getPossibleAnswers().get(1));
+//            choiceC.setText(trimmedGame.getPossibleAnswers().get(2));
+        } else this.guessEnable();
+    }
 
     /**
      * @param http this is a http connection that the response of which will be turned into a string
@@ -196,7 +219,8 @@ public class GameCtrl {
         HttpURLConnection http = (HttpURLConnection)url.openConnection();
 //        http.setRequestMethod("PUT");
         System.out.println(http.getResponseCode());
-        System.out.println(httpToJSONString(http));
+        String response = httpToJSONString(http);
+        System.out.println(response);
         http.disconnect();
 
     }
@@ -206,19 +230,17 @@ public class GameCtrl {
      * @throws IOException
      */
     public void sendAnswer(String answer) throws IOException {
-//        URL url = new URL("http://localhost:8080/1/P1/checkAnswer/" + currentRoundLabel.getText() + "/" + answer);
-        //for now all gameID's are set to 1 but these need to be changed once the gameID is stored from the sever
-        // also the round and the name
-
-//        URL url = new URL("http://localhost:8080/1/P1/checkAnswer/" + currentround + "/" + answer);
         URL url = new URL(link + this.mainCtrl.getCurrentID() + "/"
                 + this.mainCtrl.getName() + "/checkAnswer/" +
                 currentround + "/" + answer);
-        System.out.println(this.mainCtrl.getName());
+
+            System.out.println(this.mainCtrl.getName());
         HttpURLConnection http = (HttpURLConnection)url.openConnection();
         http.setRequestMethod("PUT");
-        System.out.println(http.getResponseCode());
-        System.out.println(httpToJSONString(http));
+            System.out.println(http.getResponseCode());
+        String response = httpToJSONString(http);
+            System.out.println(response);
+        printAnswerCorrectness(response);
         http.disconnect();
 
     }
@@ -282,6 +304,14 @@ public class GameCtrl {
         return false;
     }
 
+    /**
+     * Changing the label with answer, when response to the answer received
+     * @param response - response from server in String format
+     */
+    public void printAnswerCorrectness(String response) {
+        answerLabel.setText("Your answer is " + response);
+
+    }
 
 }
 
