@@ -98,7 +98,7 @@ public class Question {
         Collections.shuffle(deviations);
 
         for(int i = 0; i < 3; i++) {
-            int randomlyGeneratedEnergy = act.getConsumption() + deviations.get(i);
+            long randomlyGeneratedEnergy = act.getConsumption() + deviations.get(i);
             answers.add(randomlyGeneratedEnergy+"");
         }
         Collections.shuffle(answers);
