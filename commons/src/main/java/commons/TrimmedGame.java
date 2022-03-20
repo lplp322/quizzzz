@@ -10,24 +10,26 @@ public class TrimmedGame {
     private int timer;
     private int questionType;
     private List<String> possibleAnswers;
+    private String correctAnswer;
 
     /**
-     * Constructor for creating a new TrimmedGame object, given all fields
-     * @param id The lobby ID
-     * @param currentQuestion The current Question (as a String)
-     * @param roundNum The current round number
-     * @param timer The remaining timer in the round (adjusted depending on requester)
-     * @param answers The possible answers to the question
-     * @param questionType The question type
+     * @param id Id of the game
+     * @param currentQuestion the current question shown to the user
+     * @param roundNum
+     * @param timer
+     * @param answers
+     * @param questionType
+     * @param correctAnswer the correct answer so this can be displayed to the user
      */
     public TrimmedGame(int id, String currentQuestion, int roundNum, int timer, List<String> answers,
-                       int questionType) {
+                       int questionType, String correctAnswer) {
         this.id = id;
         this.currentQuestion = currentQuestion;
         this.roundNum = roundNum;
         this.timer = timer;
         this.possibleAnswers = answers;
         this.questionType = questionType;
+        this.correctAnswer = correctAnswer;
     }
 
     /**
@@ -92,4 +94,14 @@ public class TrimmedGame {
                 Objects.equals(currentQuestion, that.currentQuestion) &&
                 Objects.equals(possibleAnswers, that.possibleAnswers);
     }
+
+    /**
+     * @return the string of the correct answer
+     */
+    public String getCorrectAnswer() {
+        return this.correctAnswer;
+    }
+
+
+
 }

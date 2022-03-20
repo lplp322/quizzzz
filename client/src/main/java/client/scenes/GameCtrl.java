@@ -26,6 +26,7 @@ import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 
 import java.util.LinkedList;
+import java.util.List;
 
 public class GameCtrl {
 //    private final MainCtrl mainCtrl;
@@ -79,6 +80,8 @@ public class GameCtrl {
     private static String link = "http://localhost:8080/";
     private static int lastRoundAnswered = -1;
 
+    private Button userChoice;
+
 //    public MostPowerCtrl(MainCtrl mainCtrl) {
 //        this.mainCtrl = mainCtrl;
 //        this.threeChoicesEnable();
@@ -120,6 +123,7 @@ public class GameCtrl {
 
     }
 
+    //CHECKSTYLE:OFF
     /**
      * Getting game info in a new thread
      */
@@ -140,6 +144,10 @@ public class GameCtrl {
                                 currentRound = trimmedGame.getRoundNum();
                                 if (trimmedGame.getTimer() < 0) {//works for now, BUT NEEDS TO BE CHANGED IN TRIMMEDGAME
                                     showTimeout(trimmedGame);
+                                    this.showCorrectAnswer(trimmedGame.getCorrectAnswer());
+                                    if (trimmedGame.getTimer() == -4) {
+                                        this.resetColors();
+                                    }
                                 } else {
                                     showRound(trimmedGame);
                                 }
@@ -159,17 +167,19 @@ public class GameCtrl {
         t1.start();
     }
 
+
     /**
      * Showing the timeout
      * @param trimmedGame
      */
     public void showTimeout(TrimmedGame trimmedGame) {
-        currentRoundLabel.setText("Round is over");
         timerLabel.setText("Timeout");
+        currentRoundLabel.setText("Round is over");
         questionLabel.setText(trimmedGame.getCurrentQuestion());
         answerLabel.setVisible(true);
         if(currentRound >lastRoundAnswered) answerLabel.setText("You have not answered");
     }
+
 
     /**
      * Showing the round screen
@@ -241,12 +251,14 @@ public class GameCtrl {
             System.out.println(this.mainCtrl.getName());
         HttpURLConnection http = (HttpURLConnection)url.openConnection();
         http.setRequestMethod("PUT");
-            System.out.println(http.getResponseCode());
+
+        System.out.println(http.getResponseCode());
+
         String response = httpToJSONString(http);
-            System.out.println(response);
+        System.out.println(response);
+
         printAnswerCorrectness(response);
         http.disconnect();
-
     }
 
 
@@ -257,7 +269,10 @@ public class GameCtrl {
 
         if (this.checkCanAnswer()) {
             this.sendAnswer("0");
+
             lastRoundAnswered = this.currentRound;
+            this.userChoice = choiceA;
+            this.showYourAnswer();
         }
     }
 
@@ -268,6 +283,8 @@ public class GameCtrl {
         if (this.checkCanAnswer()) {
             this.sendAnswer("1");
             lastRoundAnswered = this.currentRound;
+            this.userChoice = choiceB;
+            this.showYourAnswer();
         }
     }
 
@@ -278,7 +295,8 @@ public class GameCtrl {
         if (this.checkCanAnswer()) {
             this.sendAnswer("2");
             lastRoundAnswered = this.currentRound;
-
+            this.userChoice = choiceC;
+            this.showYourAnswer();
         }
     }
 
@@ -311,6 +329,76 @@ public class GameCtrl {
         return false;
     }
 
+
+    /**
+     * @param answer the string of the answer
+     * @return the button that currently contains the correct answer
+     */
+    public Button findCorrectChoice(String answer) {
+        //I know this is not a very good way of solving this problem but it works
+        if (choiceA.getText().equals(answer)) {
+            return this.choiceC;
+        }
+        if (choiceB.getText().equals(answer)) {
+            return this.choiceB;
+        }
+
+        return this.choiceC;
+    }
+
+    /**
+     * @param answers the list of possible answers that should be shown to the user
+     */
+    public  void setPossibleAnswers(List<String> answers) {
+        if (answers == null) {
+            return;
+        }
+
+        if (answers.size() == 0) {
+            return;
+        }
+        this.choiceA.setText(answers.get(0));
+        this.choiceB.setText(answers.get(1));
+        this.choiceC.setText(answers.get(2));
+
+    }
+
+    /**
+     * @param correctAnswer the string of the correct answer
+     */
+    public void showCorrectAnswer(String correctAnswer) {
+        Button correctButton = this.findCorrectChoice(correctAnswer);
+        correctButton.setStyle("-fx-background-color: #16b211");
+    }
+
+
+    /**
+     * shows the style of
+     */
+    public void showYourAnswer() {
+        this.userChoice.setStyle("-fx-background-color: #5d96d9");
+    }
+
+    /**
+     *
+     */
+    public void resetColors() {
+        this.choiceA.setStyle("-fx-background-color: #ffffff");
+        this.choiceB.setStyle("-fx-background-color: #ffffff");
+        this.choiceC.setStyle("-fx-background-color: #ffffff");
+    }
+
+
+    /**
+     *
+     */
+    public void choicesDisappear() {
+        this.choiceA.setVisible(false);
+        this.choiceB.setVisible(false);
+        this.choiceC.setVisible(false);
+    }
+
+
     /**
      * Changing the label with answer, when response to the answer received
      * @param response - response from server in String format
@@ -320,6 +408,11 @@ public class GameCtrl {
 
     }
 }
+
+
+
+
+
 
 
 
