@@ -25,6 +25,7 @@ import org.springframework.context.event.EventListener;
 import server.database.ActivityRepository;
 
 import java.io.File;
+import java.util.Optional;
 
 @SpringBootApplication
 @EntityScan(basePackages = { "commons", "server" })
@@ -43,18 +44,17 @@ public class Main {
      */
     @EventListener(ApplicationReadyEvent.class)
     public void setup() {
-        if (repo.getAllActivities().size() != 0){
-            return;
-        }
         ObjectMapper mapper = new ObjectMapper();
-        File rootFolder = new File("./activities");
+        File rootFolder = new File("./server/activities");
         for (final File folder : rootFolder.listFiles()){
             for (final File file : folder.listFiles()) {
                 if ( file.getName().endsWith(".json") ) {
                     try {
                         JsonActivity temp = mapper.readValue(file, JsonActivity.class);
-                        // Filter activities if won't fit in repository
-                        if (temp.getConsumption_in_wh() > Integer.MAX_VALUE || temp.getSource().length() > 255) {
+                        Optional<Activity> repoActivity = repo.findByTitle(temp.getTitle());
+                        // Filter activities if won't fit in repository or already in repository
+                        if (temp.getConsumption_in_wh() > Integer.MAX_VALUE || temp.getSource().length() > 255 ||
+                                repoActivity.isPresent()) {
                             continue;
                         }
                         String ac = file.getPath();
