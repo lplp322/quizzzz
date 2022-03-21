@@ -132,6 +132,7 @@ public class GameCtrl {
      * Getting game info in a new thread
      */
     public void getGameInfo() throws IOException {
+        System.out.println("Polling has started for game " + mainCtrl.getCurrentID());
         getLeaderboard();
         Thread t1 = new Thread(()-> {
             while(true) {
@@ -155,7 +156,11 @@ public class GameCtrl {
                                 } else {
                                     showRound(trimmedGame);
                                 }
+
+                            //    System.out.println("ok");
+
                                 //System.out.println("ok");
+
                                 http.disconnect();
                             } catch (IOException e) {
                                 e.printStackTrace();
@@ -408,6 +413,7 @@ public class GameCtrl {
         answerLabel.setText("Your answer is " + response);
 
     }
+
 }
 
 
