@@ -33,7 +33,7 @@
                   <Button fx:id="doublePointsJokerButton" layoutX="166.0" layoutY="363.0" mnemonicParsing="false" text="Double Points" />
                   <Button fx:id="eliminateWrongButton" layoutX="278.0" layoutY="364.0" mnemonicParsing="false" text="Eliminate Answer" />
                   <TextField fx:id="guessText" layoutX="130.0" layoutY="263.0" promptText="Enter Your Guess " />
-                  <Button fx:id="submitButton" layoutX="361.0" layoutY="264.0" mnemonicParsing="false" onAction="#threeChoicesEnable" text="Submit" />
+                  <Button fx:id="submitButton" layoutX="361.0" layoutY="264.0" mnemonicParsing="false" onAction="#submitAnswer" text="Submit" />
                   <Label fx:id="questionLabel" layoutX="84.0" layoutY="151.0" prefHeight="33.0" prefWidth="322.0" text="Example Question">
                      <font>
                         <Font size="28.0" />
