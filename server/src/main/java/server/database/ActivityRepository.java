@@ -19,7 +19,7 @@ public interface ActivityRepository extends JpaRepository<Activity, String> {
     /**
      * Query to find an activity with a given title
      * @param title Title of the activity
-     * @returnThe Activity with the given title
+     * @return The Activity with the given title
      */
     Optional<Activity> findByTitle(String title);
 }
