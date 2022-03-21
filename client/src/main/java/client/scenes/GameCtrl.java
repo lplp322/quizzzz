@@ -149,7 +149,11 @@ public class GameCtrl {
                                 } else {
                                     showRound(trimmedGame);
                                 }
+
+                            //    System.out.println("ok");
+
                                 //System.out.println("ok");
+
                                 http.disconnect();
                             } catch (IOException e) {
                                 e.printStackTrace();
@@ -402,6 +406,7 @@ public class GameCtrl {
     public void printAnswerCorrectness(String response) {
         answerLabel.setText("Your answer is " + response);
     }
+
 }
 
 

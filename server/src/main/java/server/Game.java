@@ -179,6 +179,30 @@ public class Game implements Runnable{
     }
 
     /**
+     * Checks the error of the estimation, and awards points accordingly
+     * @param name - name of the player
+     * @param round - game round
+     * @param estimation - the guess as a string
+     * @return  - number of points awarded
+     */
+    public int checkPlayerEstimation(String name, int round, String estimation) {
+        System.out.println(getRound().getRound());
+        System.out.println(getQuestions().get(round).getAnswer());
+        if(getRound().getRound() == round){
+            Double answerDouble = Double.parseDouble(getQuestions().get(round).getAnswer());
+            Double estimationDouble = Double.parseDouble(estimation);
+            Double error = Math.abs(answerDouble-estimationDouble);
+            if(error==0)return 100;
+            else if(error<=(answerDouble*20)/100)return 80;
+            else if(error<=(answerDouble*40)/100)return 60;
+            else if(error<=(answerDouble*50)/100)return 40;
+            else if(error<=(answerDouble*70)/100)return 20;
+        }
+        System.out.println("False round");
+        return 0;
+    }
+
+    /**
      * @param name name of the player that the score is being updated for
      * @param points The points to be added
      * @return returns the updated score of the player
