@@ -123,6 +123,7 @@ public class MainCtrl {
     public void showGame() throws IOException {
         primaryStage.setTitle("Quizzz");
         primaryStage.setScene(game);
+        gameCtrl.init();
         gameCtrl.getGameInfo();
     }
 

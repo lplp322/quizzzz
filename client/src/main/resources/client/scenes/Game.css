@@ -16,3 +16,20 @@
 #guessText {
     -fx-border-radius: 10%;
 }
+
+#choiceA, #choiceB, #choiceC {
+    -fx-border-color: #111111;
+}
+
+#playerList {
+    -fx-background-color: #444444;
+    -fx-text-fill: #444444;
+}
+
+#playerList:odd {
+    -fx-background-color: #444444;
+}
+
+#playerList:even {
+    -fx-background-color: #444444;
+}

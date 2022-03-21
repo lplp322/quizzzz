@@ -10,6 +10,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.text.Text;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -75,6 +76,9 @@ public class GameCtrl {
     @FXML
     private Label answerLabel;
 
+    @FXML
+    private Text haveYouVoted;
+
     private MainCtrl mainCtrl;
 
     private static String link = "http://localhost:8080/";
@@ -96,6 +100,13 @@ public class GameCtrl {
         this.mainCtrl = mainCtrl;
     }
 
+    /**
+     * Resets the game
+     */
+    public void init() {
+        lastRoundAnswered = -1;
+        this.resetColors();
+    }
 
     /**
      * This method changes the FXML so that only the appropriate buttons/text is visible
@@ -127,6 +138,7 @@ public class GameCtrl {
      */
     public void getGameInfo() throws IOException {
         //getLeaderboard();
+        playerList.getItems().add(this.mainCtrl.getName());
         Thread t1 = new Thread(()-> {
             while(true) {
                 Platform.runLater(() -> {
@@ -145,15 +157,11 @@ public class GameCtrl {
                                     this.showCorrectAnswer(trimmedGame.getCorrectAnswer());
                                     if (trimmedGame.getTimer() == -4) {
                                         this.resetColors();
+                                        haveYouVoted.setVisible(false);
                                     }
                                 } else {
                                     showRound(trimmedGame);
                                 }
-
-                            //    System.out.println("ok");
-
-                                //System.out.println("ok");
-
                                 http.disconnect();
                             } catch (IOException e) {
                                 e.printStackTrace();
@@ -261,6 +269,8 @@ public class GameCtrl {
 
         printAnswerCorrectness(response);
         http.disconnect();
+
+        haveYouVoted.setVisible(true);
     }
 
 
@@ -388,6 +398,12 @@ public class GameCtrl {
         this.choiceC.setStyle("-fx-background-color: #ffffff");
     }
 
+    /**
+     * Exits the game
+     */
+    public void exitGame() {
+        this.mainCtrl.showSplash();
+    }
 
     /**
      *
