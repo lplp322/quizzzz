@@ -107,7 +107,6 @@ public class GameCtrl {
         this.choiceC.setVisible(true);
         this.guessText.setVisible(false);
         this.submitButton.setVisible(false);
-
     }
 
     /**
@@ -120,7 +119,6 @@ public class GameCtrl {
         this.choiceC.setVisible(false);
         this.guessText.setVisible(true);
         this.submitButton.setVisible(true);
-
     }
 
     //CHECKSTYLE:OFF
@@ -128,7 +126,7 @@ public class GameCtrl {
      * Getting game info in a new thread
      */
     public void getGameInfo() throws IOException {
-        getLeaderboard();
+        //getLeaderboard();
         Thread t1 = new Thread(()-> {
             while(true) {
                 Platform.runLater(() -> {
@@ -163,7 +161,8 @@ public class GameCtrl {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-            }});
+            }
+        });
         t1.start();
     }
 
@@ -232,11 +231,10 @@ public class GameCtrl {
                 + "/" + this.mainCtrl.getName() + "/joker/" + currentRound + "/" + joker);
         HttpURLConnection http = (HttpURLConnection)url.openConnection();
 //        http.setRequestMethod("PUT");
-        System.out.println(http.getResponseCode());
+        //System.out.println(http.getResponseCode());
         String response = httpToJSONString(http);
-        System.out.println(response);
+        //System.out.println(response);
         http.disconnect();
-
     }
 
     /**
@@ -248,14 +246,14 @@ public class GameCtrl {
                 + this.mainCtrl.getName() + "/checkAnswer/" +
                 currentRound + "/" + answer);
 
-            System.out.println(this.mainCtrl.getName());
+        //System.out.println(this.mainCtrl.getName());
         HttpURLConnection http = (HttpURLConnection)url.openConnection();
         http.setRequestMethod("PUT");
 
-        System.out.println(http.getResponseCode());
+        //System.out.println(http.getResponseCode());
 
         String response = httpToJSONString(http);
-        System.out.println(response);
+        //System.out.println(response);
 
         printAnswerCorrectness(response);
         http.disconnect();
@@ -311,13 +309,12 @@ public class GameCtrl {
         Gson g = new Gson();
         String jsonString = httpToJSONString(http);
         Type typeToken = new TypeToken<LinkedList<commons.LeaderboardEntry>>(){}.getType();
-        System.out.println(typeToken.getTypeName());
+        //System.out.println(typeToken.getTypeName());
         LinkedList<commons.LeaderboardEntry> leaderboardList = g.fromJson(jsonString, typeToken);
         http.disconnect();
-        System.out.println(leaderboardList);
+        //System.out.println(leaderboardList);
         return leaderboardList;
     }
-
 
     /**
      * @return returns true if the user can still answer this question
@@ -360,7 +357,6 @@ public class GameCtrl {
         this.choiceA.setText(answers.get(0));
         this.choiceB.setText(answers.get(1));
         this.choiceC.setText(answers.get(2));
-
     }
 
     /**
@@ -405,7 +401,6 @@ public class GameCtrl {
      */
     public void printAnswerCorrectness(String response) {
         answerLabel.setText("Your answer is " + response);
-
     }
 }
 
