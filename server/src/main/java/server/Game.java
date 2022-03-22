@@ -21,12 +21,13 @@ public class Game implements Runnable{
      * @param gameType the type of game that is being played (single or multiplayer)
      * @param dtBase the database for the activities
      */
-    public Game(Map<String, Player> players, int lobbyId, int gameType, ActivityRepository dtBase) {
+    public Game(Map<String, Player> players, int lobbyId, int gameType,
+                ActivityRepository dtBase, List<String[]> reactions) {
         this.players = players;
         this.lobbyId = lobbyId;
         this.gameType = gameType;
         round = new Round();
-        this.reactions = new ArrayList<>();
+        this.reactions = reactions;
 
         questions = new ArrayList<>();
         for(int i = 0; i < round.getTotalRounds(); i++) {

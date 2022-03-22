@@ -234,6 +234,7 @@ public class GameCtrl {
                 } catch (ProtocolException e) {
                     e.printStackTrace();
                 }
+                httpToJSONString(http);
                 http.disconnect();
             });
 

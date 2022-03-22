@@ -36,13 +36,13 @@ public class GameTest {
         Map<String, Player> players = new HashMap();
         players.put("A", new Player("A"));
         players.put("B", new Player("B"));
-        game = new Game(players,
-                1, 1, activityRepository);
         reactions = new ArrayList<>();
         String[] reaction = new String[2];
         reaction[0] = "Henk";
         reaction[1] = "crazy.jpg";
         reactions.add(reaction);
+        game = new Game(players,
+                1, 1, activityRepository, reactions);
     }
 
     @Test
