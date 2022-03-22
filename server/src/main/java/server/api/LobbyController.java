@@ -8,7 +8,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import server.Game;
 import server.LobbyService;
+import server.Player;
 import server.database.LeaderboardRepository;
 
 import java.util.LinkedList;
@@ -136,5 +138,20 @@ public class LobbyController {
     @GetMapping("leaderboard")
     public LinkedList<LeaderboardEntry> getGameInfo(){
         return lbRepo.getAllLeaderboardEntriesOrderedByScore();
+    }
+
+    /**
+     * Adds a reaction for the user of the given game
+     * @param gameID The id of the game
+     * @param player The player who sent the reaction
+     * @param reaction The reaction
+     */
+    @PutMapping("reaction/{gameID}/{player}/{reaction}")
+    public void reaction(@PathVariable int gameID, @PathVariable String player, @PathVariable String reaction) {
+        Game game = lobbyService.getGameByID(gameID);
+        Player p = game.getPlayers().get(player);
+        String[] newReaction = new String[] {player, reaction};
+        game.getReactions().add(newReaction);
+        System.out.println("Success: " + newReaction);
     }
 }

@@ -23,6 +23,7 @@ public class GameTest {
     private ActivityRepository activityRepository;
     private List<Player> players;
     private Game game;
+    private List<String[]> reactions;
 
     @BeforeEach
     public void init() {
@@ -37,6 +38,11 @@ public class GameTest {
         players.put("B", new Player("B"));
         game = new Game(players,
                 1, 1, activityRepository);
+        reactions = new ArrayList<>();
+        String[] reaction = new String[2];
+        reaction[0] = "Henk";
+        reaction[1] = "crazy.jpg";
+        reactions.add(reaction);
     }
 
     @Test
@@ -76,7 +82,7 @@ public class GameTest {
     public void noJokerTrim() {
         TrimmedGame trim = new TrimmedGame(1, game.getQuestions().get(0).getQuestion(), 20, 20,
                 game.getQuestions().get(0).getAnswers(), game.getQuestions().get(0).getType(),
-                game.getQuestions().get(0).getAnswer());
+                game.getQuestions().get(0).getAnswer(), reactions);
         TrimmedGame gameTrim = game.trim();
         assertEquals(trim, gameTrim);
     }
