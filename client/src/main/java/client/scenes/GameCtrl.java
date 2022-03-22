@@ -6,10 +6,22 @@ import com.google.inject.Inject;
 import commons.TrimmedGame;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BackgroundImage;
+import javafx.scene.layout.BackgroundRepeat;
+import javafx.scene.layout.BackgroundSize;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
 import java.io.BufferedReader;
@@ -21,6 +33,7 @@ import java.lang.reflect.Type;
 import java.net.HttpURLConnection;
 
 
+import java.net.MalformedURLException;
 import java.net.URL;
 
 import java.nio.charset.Charset;
@@ -78,6 +91,12 @@ public class GameCtrl {
 
     @FXML
     private Text haveYouVoted;
+
+    @FXML
+    private ComboBox reactions;
+
+    @FXML
+    private VBox reactionBox;
 
     private MainCtrl mainCtrl;
 
@@ -155,6 +174,8 @@ public class GameCtrl {
                                 String jsonString = httpToJSONString(http);
                                 commons.TrimmedGame trimmedGame = g.fromJson(jsonString, commons.TrimmedGame.class);
                                 currentRound = trimmedGame.getRoundNum();
+
+                                showReaction(trimmedGame.getReactionHistory());
                                 if (trimmedGame.getTimer() < 0) {//works for now, BUT NEEDS TO BE CHANGED IN TRIMMEDGAME
                                     showTimeout(trimmedGame);
                                     this.showCorrectAnswer(trimmedGame.getCorrectAnswer());
@@ -434,6 +455,26 @@ public class GameCtrl {
         if(!(guessText.getText()==null) && this.checkCanAnswer()){
             sendAnswer(guessText.getText());
             lastRoundAnswered = currentRound;
+        }
+    }
+
+    public void showReaction(List<String[]> reactions) throws MalformedURLException {
+        reactionBox.getChildren().remove(0, reactionBox.getChildren().size());
+        for(String[] pair : reactions) {
+            Label lb = new Label();
+            lb.setPrefWidth(190);
+            lb.setPrefHeight(50);
+            lb.setAlignment(Pos.CENTER_LEFT);
+            lb.setContentDisplay(ContentDisplay.RIGHT);
+            lb.setStyle("-fx-shape: \"M 13 1 C 14 1 14 1 14 5 C 14 9 14 9 13 9 L -7 9 C -8 9 -8 9 -8 5 C -8 1 -8 1 -7 1 L 8 1 L 10 0 L 12 1 L 13 1\"; -fx-border-color: black; -fx-padding: 2; -fx-border-width: 2; -fx-background-color: grey");
+            Image img = new Image((GameCtrl.class.getClassLoader().getResource("reactions/"+pair[1]).toString()));
+            ImageView imageView = new ImageView(img);
+            imageView.setFitHeight(30);
+            imageView.setFitWidth(30);
+            lb.setGraphic(imageView);
+            lb.setText(pair[0]+": ");
+            lb.setFont(new Font(18));
+            reactionBox.getChildren().add(lb);
         }
     }
 }

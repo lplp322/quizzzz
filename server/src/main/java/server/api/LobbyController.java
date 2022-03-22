@@ -149,9 +149,17 @@ public class LobbyController {
     @PutMapping("reaction/{gameID}/{player}/{reaction}")
     public void reaction(@PathVariable int gameID, @PathVariable String player, @PathVariable String reaction) {
         Game game = lobbyService.getGameByID(gameID);
-        Player p = game.getPlayers().get(player);
         String[] newReaction = new String[] {player, reaction};
         game.getReactions().add(newReaction);
         System.out.println("Success: " + newReaction);
+        Thread t = new Thread(()->{
+            try {
+                Thread.sleep(3000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            game.getReactions().remove(newReaction);
+        });
+        t.start();
     }
 }
