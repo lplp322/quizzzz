@@ -146,8 +146,11 @@ public class GameCtrl {
      */
     public void getGameInfo() throws IOException {
         //getLeaderboard();
+        playerList.getItems().remove(0, playerList.getItems().size());
         playerList.getItems().add(this.mainCtrl.getName());
+
         Thread t1 = new Thread(()-> {
+
             while(!stopGame) {
                 Platform.runLater(() -> {
                             try {
@@ -161,7 +164,7 @@ public class GameCtrl {
                                 commons.TrimmedGame trimmedGame = g.fromJson(jsonString, commons.TrimmedGame.class);
                                 currentRound = trimmedGame.getRoundNum();
 
-                                if (currentRound == -1) {
+                                if (currentRound == 2) {
                                     this.stopGame = true;
                                     this.showLeaderboard();
                                 }

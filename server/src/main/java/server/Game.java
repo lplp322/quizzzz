@@ -47,7 +47,7 @@ public class Game implements Runnable{
         try {
             while(round.getGameStatus() == 1) {
                 round.tickDown();
-                Thread.sleep(1000);
+                Thread.sleep(100);
                 //System.out.println(round);
             }
         }
