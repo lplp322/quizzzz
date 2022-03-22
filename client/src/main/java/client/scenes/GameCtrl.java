@@ -15,16 +15,12 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BackgroundImage;
-import javafx.scene.layout.BackgroundRepeat;
-import javafx.scene.layout.BackgroundSize;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
@@ -34,6 +30,7 @@ import java.net.HttpURLConnection;
 
 
 import java.net.MalformedURLException;
+import java.net.ProtocolException;
 import java.net.URL;
 
 import java.nio.charset.Charset;
@@ -160,7 +157,9 @@ public class GameCtrl {
      */
     public void getGameInfo() throws IOException {
         //getLeaderboard();
+        loadReactions();
         playerList.getItems().add(this.mainCtrl.getName());
+
         Thread t1 = new Thread(()-> {
             while(!stopGame) {
                 Platform.runLater(() -> {
@@ -200,6 +199,46 @@ public class GameCtrl {
             }
         });
         t1.start();
+    }
+
+
+    public void loadReactions() {
+        String path = getClass().getClassLoader().getResource("reactions/").getPath();
+        File folder = new File(path);
+        File[] listOfFiles = folder.listFiles();
+        String[] listOfNames = folder.list();
+        for(int i = 0; i < listOfFiles.length; i++) {
+            File f = listOfFiles[i];
+            String file = listOfNames[i];
+            Image img = new Image(f.getPath());
+            ImageView imageView = new ImageView(img);
+            imageView.setFitWidth(40);
+            imageView.setFitHeight(40);
+            Button btn  = new Button("", imageView);
+            btn.setOnMousePressed(event -> {
+                URL url = null;
+                try {
+                    url = new URL(link + "reaction/" + mainCtrl.getCurrentID()
+                            + "/" + mainCtrl.getName() + "/" + file);
+                } catch (MalformedURLException e) {
+                    e.printStackTrace();
+                }
+                HttpURLConnection http = null;
+                try {
+                    http = (HttpURLConnection)url.openConnection();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                try {
+                    http.setRequestMethod("PUT");
+                } catch (ProtocolException e) {
+                    e.printStackTrace();
+                }
+                http.disconnect();
+            });
+
+            reactions.getItems().add(btn);
+        }
     }
 
 
@@ -466,7 +505,8 @@ public class GameCtrl {
             lb.setPrefHeight(50);
             lb.setAlignment(Pos.CENTER_LEFT);
             lb.setContentDisplay(ContentDisplay.RIGHT);
-            lb.setStyle("-fx-shape: \"M 13 1 C 14 1 14 1 14 5 C 14 9 14 9 13 9 L -7 9 C -8 9 -8 9 -8 5 C -8 1 -8 1 -7 1 L 8 1 L 10 0 L 12 1 L 13 1\"; -fx-border-color: black; -fx-padding: 2; -fx-border-width: 2; -fx-background-color: grey");
+            lb.setStyle("-fx-shape: \"M 13 1 C 14 1 14 1 14 5 C 14 9 14 9 13 9 L -7 9 C -8 9 -8 9 -8 5 C -8 1 -8 1 " +
+                    "-7 1 L 8 1 L 10 0 L 12 1 L 13 1\"; -fx-border-color: black; -fx-padding: 1; -fx-border-width: 2;");
             Image img = new Image((GameCtrl.class.getClassLoader().getResource("reactions/"+pair[1]).toString()));
             ImageView imageView = new ImageView(img);
             imageView.setFitHeight(30);

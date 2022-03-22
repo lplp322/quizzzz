@@ -38,8 +38,8 @@
             <ToolBar fx:id="upperPanel" layoutX="4.0" prefHeight="63.0" prefWidth="750.0">
                <items>
                   <Label fx:id="currentRoundLabel" prefHeight="27.0" prefWidth="338.0" text="Current Round:" />
-                  <Label fx:id="timerLabel" prefHeight="19.0" prefWidth="331.0" text="Timer: " />
-                  <ComboBox fx:id="reactions" prefHeight="52.0" prefWidth="8.0" />
+                  <Label fx:id="timerLabel" prefHeight="19.0" prefWidth="288.0" text="Timer: " />
+                  <ComboBox fx:id="reactions" prefHeight="25.0" prefWidth="54.0" />
                </items>
             </ToolBar>
             <Button fx:id="halfTimeJokerButton" layoutX="104.0" layoutY="554.0" mnemonicParsing="false" onAction="#getGameInfo" prefHeight="28.0" prefWidth="128.0" text="Halve Time" />
@@ -58,7 +58,7 @@
                   <Font size="16.0" />
                </font>
             </Text>
-            <VBox fx:id="reactionBox" layoutX="552.0" layoutY="78.0" prefHeight="266.0" prefWidth="190.0" />
+            <VBox fx:id="reactionBox" layoutX="561.0" layoutY="66.0" prefHeight="266.0" prefWidth="185.0" />
          </children>
       </AnchorPane>
    </children>

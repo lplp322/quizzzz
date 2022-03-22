@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import server.Game;
 import server.LobbyService;
-import server.Player;
 import server.database.LeaderboardRepository;
 
 import java.util.LinkedList;
