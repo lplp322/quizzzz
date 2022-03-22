@@ -164,7 +164,7 @@ public class GameCtrl {
                                 commons.TrimmedGame trimmedGame = g.fromJson(jsonString, commons.TrimmedGame.class);
                                 currentRound = trimmedGame.getRoundNum();
 
-                                if (currentRound == 2) {
+                                if (currentRound == 18) {
                                     this.stopGame = true;
                                     this.showLeaderboard();
                                 }
