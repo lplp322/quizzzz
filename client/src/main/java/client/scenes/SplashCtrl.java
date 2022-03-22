@@ -33,6 +33,8 @@ public class SplashCtrl {
         this.mainCtrl.showSinglePlayerPrompt();
     }
 
+    public void multiPlayer(){this.mainCtrl.showMultiPlayer();}
+
     /**
      * Changes the size of the AnchorPlane
      * @param w - preferred width
