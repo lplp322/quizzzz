@@ -162,6 +162,7 @@ public class GameCtrl {
                                 currentRound = trimmedGame.getRoundNum();
 
                                 if (currentRound == -1) {
+                                    this.stopGame = true;
                                     this.showLeaderboard();
                                 }
                                 if (trimmedGame.getTimer() < 0) {//works for now, BUT NEEDS TO BE CHANGED IN TRIMMEDGAME
