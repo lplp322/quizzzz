@@ -10,6 +10,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.text.Text;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -43,7 +44,7 @@ public class GameCtrl {
     @FXML
     private Button choiceC;
 
-    private int currentround;
+    private int currentRound;
 
     @FXML
     private Button halfTimeJokerButton;
@@ -75,6 +76,9 @@ public class GameCtrl {
     @FXML
     private Label answerLabel;
 
+    @FXML
+    private Text haveYouVoted;
+
     private MainCtrl mainCtrl;
 
     private static String link = "http://localhost:8080/";
@@ -82,9 +86,7 @@ public class GameCtrl {
 
     private Button userChoice;
 
-
-
-
+    private boolean stopGame;
 
 //    public MostPowerCtrl(MainCtrl mainCtrl) {
 //        this.mainCtrl = mainCtrl;
@@ -100,6 +102,14 @@ public class GameCtrl {
         this.mainCtrl = mainCtrl;
     }
 
+    /**
+     * Resets the game
+     */
+    public void init() {
+        stopGame = false;
+        lastRoundAnswered = -1;
+        this.resetColors();
+    }
 
     /**
      * This method changes the FXML so that only the appropriate buttons/text is visible
@@ -111,7 +121,6 @@ public class GameCtrl {
         this.choiceC.setVisible(true);
         this.guessText.setVisible(false);
         this.submitButton.setVisible(false);
-
     }
 
     /**
@@ -124,7 +133,6 @@ public class GameCtrl {
         this.choiceC.setVisible(false);
         this.guessText.setVisible(true);
         this.submitButton.setVisible(true);
-
     }
 
     //CHECKSTYLE:OFF
@@ -132,10 +140,10 @@ public class GameCtrl {
      * Getting game info in a new thread
      */
     public void getGameInfo() throws IOException {
-        System.out.println("Polling has started for game " + mainCtrl.getCurrentID());
-        getLeaderboard();
+        //getLeaderboard();
+        playerList.getItems().add(this.mainCtrl.getName());
         Thread t1 = new Thread(()-> {
-            while(true) {
+            while(!stopGame) {
                 Platform.runLater(() -> {
                             try {
                                 URL url = new URL(link + mainCtrl.getCurrentID()
@@ -146,21 +154,17 @@ public class GameCtrl {
                                 Gson g = new Gson();
                                 String jsonString = httpToJSONString(http);
                                 commons.TrimmedGame trimmedGame = g.fromJson(jsonString, commons.TrimmedGame.class);
-                                currentround = trimmedGame.getRoundNum();
+                                currentRound = trimmedGame.getRoundNum();
                                 if (trimmedGame.getTimer() < 0) {//works for now, BUT NEEDS TO BE CHANGED IN TRIMMEDGAME
                                     showTimeout(trimmedGame);
                                     this.showCorrectAnswer(trimmedGame.getCorrectAnswer());
                                     if (trimmedGame.getTimer() == -4) {
                                         this.resetColors();
+                                        haveYouVoted.setVisible(false);
                                     }
                                 } else {
                                     showRound(trimmedGame);
                                 }
-
-                            //    System.out.println("ok");
-
-                                //System.out.println("ok");
-
                                 http.disconnect();
                             } catch (IOException e) {
                                 e.printStackTrace();
@@ -172,7 +176,8 @@ public class GameCtrl {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-            }});
+            }
+        });
         t1.start();
     }
 
@@ -186,7 +191,7 @@ public class GameCtrl {
         currentRoundLabel.setText("Round is over");
         questionLabel.setText(trimmedGame.getCurrentQuestion());
         answerLabel.setVisible(true);
-        if(currentround>lastRoundAnswered) answerLabel.setText("You have not answered");
+        if(currentRound >lastRoundAnswered) answerLabel.setText("You have not answered");
     }
 
 
@@ -199,6 +204,7 @@ public class GameCtrl {
         currentRoundLabel.setText("currentRound " + trimmedGame.getRoundNum());
         timerLabel.setText("Time: " + trimmedGame.getTimer());
         questionLabel.setText(trimmedGame.getCurrentQuestion());
+        
         if (trimmedGame.getQuestionType() == 1 || trimmedGame.getQuestionType() == 2) {
             this.threeChoicesEnable();
             if(trimmedGame.getPossibleAnswers().size() == 3) {
@@ -237,14 +243,13 @@ public class GameCtrl {
 
 //        URL url = new URL("http://localhost:8080/1/P1/checkAnswer/" + currentround + "/" + joker);
         URL url = new URL(link + this.mainCtrl.getCurrentID()
-                + "/" + this.mainCtrl.getName() + "/joker/" + currentround + "/" + joker);
+                + "/" + this.mainCtrl.getName() + "/joker/" + currentRound + "/" + joker);
         HttpURLConnection http = (HttpURLConnection)url.openConnection();
 //        http.setRequestMethod("PUT");
-        System.out.println(http.getResponseCode());
+        //System.out.println(http.getResponseCode());
         String response = httpToJSONString(http);
-        System.out.println(response);
+        //System.out.println(response);
         http.disconnect();
-
     }
 
     /**
@@ -254,17 +259,21 @@ public class GameCtrl {
     public void sendAnswer(String answer) throws IOException {
         URL url = new URL(link + this.mainCtrl.getCurrentID() + "/"
                 + this.mainCtrl.getName() + "/checkAnswer/" +
-                currentround + "/" + answer);
+                currentRound + "/" + answer);
 
-            System.out.println(this.mainCtrl.getName());
+        //System.out.println(this.mainCtrl.getName());
         HttpURLConnection http = (HttpURLConnection)url.openConnection();
         http.setRequestMethod("PUT");
-            System.out.println(http.getResponseCode());
+
+        //System.out.println(http.getResponseCode());
+
         String response = httpToJSONString(http);
-            System.out.println(response);
+        //System.out.println(response);
+
         printAnswerCorrectness(response);
         http.disconnect();
 
+        haveYouVoted.setVisible(true);
     }
 
 
@@ -275,7 +284,8 @@ public class GameCtrl {
 
         if (this.checkCanAnswer()) {
             this.sendAnswer("0");
-            lastRoundAnswered = this.currentround;
+
+            lastRoundAnswered = this.currentRound;
             this.userChoice = choiceA;
             this.showYourAnswer();
         }
@@ -287,7 +297,7 @@ public class GameCtrl {
     public void choiceBSend() throws IOException {
         if (this.checkCanAnswer()) {
             this.sendAnswer("1");
-            lastRoundAnswered = this.currentround;
+            lastRoundAnswered = this.currentRound;
             this.userChoice = choiceB;
             this.showYourAnswer();
         }
@@ -299,10 +309,9 @@ public class GameCtrl {
     public void choiceCSend() throws IOException {
         if (this.checkCanAnswer()) {
             this.sendAnswer("2");
-            lastRoundAnswered = this.currentround;
+            lastRoundAnswered = this.currentRound;
             this.userChoice = choiceC;
             this.showYourAnswer();
-
         }
     }
 
@@ -317,19 +326,18 @@ public class GameCtrl {
         Gson g = new Gson();
         String jsonString = httpToJSONString(http);
         Type typeToken = new TypeToken<LinkedList<commons.LeaderboardEntry>>(){}.getType();
-        System.out.println(typeToken.getTypeName());
+        //System.out.println(typeToken.getTypeName());
         LinkedList<commons.LeaderboardEntry> leaderboardList = g.fromJson(jsonString, typeToken);
         http.disconnect();
-        System.out.println(leaderboardList);
+        //System.out.println(leaderboardList);
         return leaderboardList;
     }
-
 
     /**
      * @return returns true if the user can still answer this question
      */
     public boolean checkCanAnswer() {
-        if (this.currentround > lastRoundAnswered) {
+        if (this.currentRound > lastRoundAnswered) {
             return true;
         }
         return false;
@@ -366,7 +374,6 @@ public class GameCtrl {
         this.choiceA.setText(answers.get(0));
         this.choiceB.setText(answers.get(1));
         this.choiceC.setText(answers.get(2));
-
     }
 
     /**
@@ -394,6 +401,13 @@ public class GameCtrl {
         this.choiceC.setStyle("-fx-background-color: #ffffff");
     }
 
+    /**
+     * Exits the game
+     */
+    public void exitGame() {
+        stopGame = true;
+        this.mainCtrl.showSplash();
+    }
 
     /**
      *
@@ -411,7 +425,6 @@ public class GameCtrl {
      */
     public void printAnswerCorrectness(String response) {
         answerLabel.setText("Your answer is " + response);
-
     }
 
     /**
@@ -420,7 +433,7 @@ public class GameCtrl {
     public void submitAnswer() throws IOException {
         if(!(guessText.getText()==null) && this.checkCanAnswer()){
             sendAnswer(guessText.getText());
-            lastRoundAnswered = currentround;
+            lastRoundAnswered = currentRound;
         }
     }
 }

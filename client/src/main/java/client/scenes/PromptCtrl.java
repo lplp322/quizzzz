@@ -15,6 +15,7 @@ import javafx.scene.layout.AnchorPane;
 public class PromptCtrl {
     private final MainCtrl mainCtrl;
     private boolean isSingleplayer; //Holds information about the mode of the game
+
     @FXML
     private AnchorPane mainWindow;
     @FXML
