@@ -20,7 +20,7 @@ public class Round {
      * By default, first round is 0 and timer counts down from 20
      */
     public Round() {
-        this.round = 0;
+        this.round = 17;
         this.timer = roundTimer;
         this.halfTimerUsed = false;
         this.gameStatus = 1;
@@ -43,7 +43,8 @@ public class Round {
             timer = 20;
             round++;
         }
-        if(round == totalRounds-1) {
+        System.out.println(round);
+        if(round == totalRounds) {
             gameStatus = 2;
         }
     }
