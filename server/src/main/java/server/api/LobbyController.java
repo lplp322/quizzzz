@@ -100,7 +100,14 @@ public class LobbyController {
     @PutMapping("/{gameID}/{name}/checkAnswer/{round}/{answer}")
     public String checkAnswer(@PathVariable int gameID, @PathVariable String name,
                               @PathVariable int round, @PathVariable int answer){
-        System.out.println(answer);
+//        System.out.println(answer);
+        if(round==-1) {
+            int playerScore = lobbyService.getGameByID(gameID).getPlayers().get(name).getScore();
+            {lbRepo.save(new LeaderboardEntry(name, playerScore));}
+            return "correct. Your score is " + playerScore;
+        }
+        System.out.println("eoe");
+        System.out.println(round);
         if(lobbyService.getGameByID(gameID).checkPlayerAnswer(name, round, answer)){
             int playerScore = lobbyService.getGameByID(gameID).getPlayers().get(name).getScore();
             if(round == 19) {lbRepo.save(new LeaderboardEntry(name, playerScore));}

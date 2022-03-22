@@ -163,8 +163,9 @@ public class GameCtrl {
                                 String jsonString = httpToJSONString(http);
                                 commons.TrimmedGame trimmedGame = g.fromJson(jsonString, commons.TrimmedGame.class);
                                 currentRound = trimmedGame.getRoundNum();
-
-                                if (currentRound == 18) {
+                                System.out.println(currentRound);
+                                if (currentRound == -1) {
+                                    sendAnswer("1");
                                     this.stopGame = true;
                                     this.showLeaderboard();
                                 }
