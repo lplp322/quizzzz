@@ -79,6 +79,9 @@ public class GameCtrl {
     @FXML
     private Text haveYouVoted;
 
+    @FXML
+    private Label scoreLabel;
+
     private MainCtrl mainCtrl;
 
     private static String link = "http://localhost:8080/";
@@ -87,6 +90,8 @@ public class GameCtrl {
     private Button userChoice;
 
     private boolean stopGame;
+
+    private int myScore;
 
 //    public MostPowerCtrl(MainCtrl mainCtrl) {
 //        this.mainCtrl = mainCtrl;
@@ -155,6 +160,10 @@ public class GameCtrl {
                                 String jsonString = httpToJSONString(http);
                                 commons.TrimmedGame trimmedGame = g.fromJson(jsonString, commons.TrimmedGame.class);
                                 currentRound = trimmedGame.getRoundNum();
+
+                                if (currentRound == -1) {
+                                    this.showLeaderboard();
+                                }
                                 if (trimmedGame.getTimer() < 0) {//works for now, BUT NEEDS TO BE CHANGED IN TRIMMEDGAME
                                     showTimeout(trimmedGame);
                                     this.showCorrectAnswer(trimmedGame.getCorrectAnswer());
@@ -191,6 +200,7 @@ public class GameCtrl {
         currentRoundLabel.setText("Round is over");
         questionLabel.setText(trimmedGame.getCurrentQuestion());
         answerLabel.setVisible(true);
+        this.scoreLabel.setText(String.valueOf(myScore));
         if(currentRound >lastRoundAnswered) answerLabel.setText("You have not answered");
     }
 
@@ -270,10 +280,13 @@ public class GameCtrl {
         String response = httpToJSONString(http);
         //System.out.println(response);
 
+
         printAnswerCorrectness(response);
         http.disconnect();
 
         haveYouVoted.setVisible(true);
+        this.myScore = findScore(response);
+//        this.scoreLabel.setText(String.valueOf(myScore));
     }
 
 
@@ -436,6 +449,20 @@ public class GameCtrl {
             lastRoundAnswered = currentRound;
         }
     }
+
+
+    public void showLeaderboard() throws IOException {
+        commons.LeaderboardEntry myEntry = new commons.LeaderboardEntry(this.mainCtrl.getName(), myScore);
+        this.mainCtrl.showLeaderboard(this.getLeaderboard(), myEntry);
+    }
+
+
+
+        public static int findScore(String response){
+            String[] words= response.split("\\s");//splits the string based on whitespace
+//using java foreach loop to print elements of string array
+            return Integer.parseInt(words[4]);
+        }
 }
 
 
