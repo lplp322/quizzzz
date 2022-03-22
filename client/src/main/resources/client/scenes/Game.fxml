@@ -10,12 +10,12 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" stylesheets="@Game.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.GameCtrl">
+<AnchorPane prefHeight="400.0" prefWidth="800.0" stylesheets="@Game.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.GameCtrl">
    <children>
-    <AnchorPane fx:id="leftPanel" minHeight="0.0" minWidth="0.0" prefHeight="536.0" prefWidth="182.0">
+    <AnchorPane fx:id="leftPanel" minHeight="0.0" minWidth="0.0" prefHeight="610.0" prefWidth="256.0">
          <children>
-            <ListView fx:id="playerList" layoutX="15.0" layoutY="64.0" prefHeight="408.0" prefWidth="152.0" />
-            <Button fx:id="quitGameButton" layoutX="25.0" layoutY="485.0" mnemonicParsing="false" onAction="#exitGame" prefHeight="42.0" prefWidth="120.0" text="Quit Game">
+            <ListView fx:id="playerList" layoutX="15.0" layoutY="64.0" prefHeight="456.0" prefWidth="217.0" />
+            <Button fx:id="quitGameButton" layoutX="62.0" layoutY="542.0" mnemonicParsing="false" onAction="#exitGame" prefHeight="42.0" prefWidth="120.0" text="Quit Game">
                <font>
                   <Font name="System Bold" size="17.0" />
                </font></Button>
@@ -26,30 +26,30 @@
             </Label>
          </children>
       </AnchorPane>
-    <AnchorPane layoutX="174.0" minHeight="0.0" minWidth="0.0" prefHeight="536.0" prefWidth="481.0">
+    <AnchorPane layoutX="256.0" minHeight="0.0" minWidth="0.0" prefHeight="610.0" prefWidth="922.0">
          <children>
-            <Button fx:id="choiceA" layoutX="113.0" layoutY="358.0" mnemonicParsing="false" onAction="#choiceASend" prefHeight="26.0" prefWidth="270.0" text="ChoiceA" />
-            <Button fx:id="choiceB" layoutX="113.0" layoutY="392.0" mnemonicParsing="false" onAction="#choiceBSend" prefHeight="26.0" prefWidth="270.0" text="ChoiceB" />
-            <Button fx:id="choiceC" layoutX="112.0" layoutY="427.0" mnemonicParsing="false" onAction="#choiceCSend" prefHeight="26.0" prefWidth="270.0" text="ChoiceC" />
-            <ImageView fx:id="QuestionImage" fitHeight="115.0" fitWidth="120.0" layoutX="21.0" layoutY="71.0" pickOnBounds="true" preserveRatio="true" />
-            <ToolBar fx:id="upperPanel" layoutX="7.0" prefHeight="44.0" prefWidth="475.0">
+            <Button fx:id="choiceA" layoutX="363.0" layoutY="357.0" mnemonicParsing="false" onAction="#choiceASend" prefHeight="26.0" prefWidth="270.0" text="ChoiceA" />
+            <Button fx:id="choiceB" layoutX="363.0" layoutY="399.0" mnemonicParsing="false" onAction="#choiceBSend" prefHeight="26.0" prefWidth="270.0" text="ChoiceB" />
+            <Button fx:id="choiceC" layoutX="363.0" layoutY="442.0" mnemonicParsing="false" onAction="#choiceCSend" prefHeight="26.0" prefWidth="270.0" text="ChoiceC" />
+            <ImageView fx:id="QuestionImage" fitHeight="180.0" fitWidth="198.0" layoutX="56.0" layoutY="84.0" pickOnBounds="true" preserveRatio="true" />
+            <ToolBar fx:id="upperPanel" prefHeight="49.0" prefWidth="923.0">
                <items>
                   <Label fx:id="currentRoundLabel" text="Current Round:" />
                   <Label fx:id="timerLabel" prefHeight="19.0" prefWidth="97.0" text="Timer: " />
                </items>
             </ToolBar>
-            <Button fx:id="halfTimeJokerButton" layoutX="34.0" layoutY="478.0" mnemonicParsing="false" onAction="#getGameInfo" prefHeight="28.0" prefWidth="128.0" text="Halve Time" />
-            <Button fx:id="doublePointsJokerButton" layoutX="177.0" layoutY="478.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="128.0" text="Double Points" />
-            <Button fx:id="eliminateWrongButton" layoutX="320.0" layoutY="477.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="128.0" text="Eliminate Answer" />
-            <TextField fx:id="guessText" layoutX="167.0" layoutY="286.0" promptText="Enter Your Guess " />
-            <Button fx:id="submitButton" layoutX="359.0" layoutY="286.0" mnemonicParsing="false" onAction="#threeChoicesEnable" prefHeight="27.0" prefWidth="72.0" text="Submit" />
-            <Label fx:id="questionLabel" layoutX="134.0" layoutY="169.0" prefHeight="107.0" prefWidth="307.0" text="Example Question" textAlignment="CENTER" wrapText="true">
+            <Button fx:id="halfTimeJokerButton" layoutX="117.0" layoutY="552.0" mnemonicParsing="false" onAction="#getGameInfo" prefHeight="28.0" prefWidth="128.0" text="Halve Time" />
+            <Button fx:id="doublePointsJokerButton" layoutX="434.0" layoutY="552.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="128.0" text="Double Points" />
+            <Button fx:id="eliminateWrongButton" layoutX="736.0" layoutY="551.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="128.0" text="Eliminate Answer" />
+            <TextField fx:id="guessText" layoutX="418.0" layoutY="305.0" promptText="Enter Your Guess " />
+            <Button fx:id="submitButton" layoutX="700.0" layoutY="318.0" mnemonicParsing="false" onAction="#threeChoicesEnable" prefHeight="27.0" prefWidth="72.0" text="Submit" />
+            <Label fx:id="questionLabel" layoutX="372.0" layoutY="162.0" prefHeight="108.0" prefWidth="344.0" text="Example Question" textAlignment="CENTER" wrapText="true">
                <font>
                   <Font name="Arial Black" size="19.0" />
                </font>
             </Label>
-            <Button fx:id="startButton" layoutX="378.0" layoutY="71.0" mnemonicParsing="false" onAction="#getGameInfo" text="Start Game" />
-            <Label fx:id="answerLabel" alignment="CENTER" layoutX="185.0" layoutY="321.0" text="Your answer is" textAlignment="CENTER" />
+            <Button fx:id="startButton" layoutX="778.0" layoutY="84.0" mnemonicParsing="false" onAction="#getGameInfo" text="Start Game" />
+            <Label fx:id="answerLabel" alignment="CENTER" layoutX="454.0" layoutY="332.0" text="Your answer is" textAlignment="CENTER" />
             <Text fx:id="haveYouVoted" layoutX="181.0" layoutY="65.0" strokeType="OUTSIDE" strokeWidth="0.0" text="You have voted" textAlignment="CENTER" visible="false" wrappingWidth="120.0">
                <font>
                   <Font size="16.0" />
