@@ -86,6 +86,8 @@ public class GameCtrl {
 
     private Button userChoice;
 
+    private boolean stopGame;
+
 //    public MostPowerCtrl(MainCtrl mainCtrl) {
 //        this.mainCtrl = mainCtrl;
 //        this.threeChoicesEnable();
@@ -104,6 +106,7 @@ public class GameCtrl {
      * Resets the game
      */
     public void init() {
+        stopGame = false;
         lastRoundAnswered = -1;
         this.resetColors();
     }
@@ -140,7 +143,7 @@ public class GameCtrl {
         //getLeaderboard();
         playerList.getItems().add(this.mainCtrl.getName());
         Thread t1 = new Thread(()-> {
-            while(true) {
+            while(!stopGame) {
                 Platform.runLater(() -> {
                             try {
                                 URL url = new URL(link + mainCtrl.getCurrentID()
@@ -402,6 +405,7 @@ public class GameCtrl {
      * Exits the game
      */
     public void exitGame() {
+        stopGame = true;
         this.mainCtrl.showSplash();
     }
 

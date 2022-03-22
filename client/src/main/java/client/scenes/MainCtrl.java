@@ -112,8 +112,8 @@ public class MainCtrl {
             Scene currentScene = primaryStage.getScene();   //Gets current scene
             splashCtrl.setWindowSize(currentScene.getWidth(),currentScene.getHeight());
         }
-            primaryStage.setTitle("Quizzz");
-            primaryStage.setScene(splash);
+        primaryStage.setTitle("Quizzz");
+        primaryStage.setScene(splash);
     }
 
 
@@ -160,6 +160,7 @@ public class MainCtrl {
         promptCtrl.setSingleplayer();
 
         //Resizes new scene by calling the setWindowSize method
+        //System.out.println(currentScene.getWidth() + " " +currentScene.getHeight());
         promptCtrl.setWindowSize(currentScene.getWidth(),currentScene.getHeight());
         primaryStage.setScene(prompt);
     }
