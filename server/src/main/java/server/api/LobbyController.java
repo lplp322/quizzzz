@@ -20,6 +20,8 @@ import java.util.LinkedList;
 public class LobbyController {
     private LobbyService lobbyService;
 
+    private final int REACTION_DURATION = 3000;
+
     @Autowired
     private LeaderboardRepository lbRepo;
 
@@ -153,7 +155,7 @@ public class LobbyController {
         System.out.println("Success: " + newReaction);
         Thread t = new Thread(()->{
             try {
-                Thread.sleep(3000);
+                Thread.sleep(REACTION_DURATION);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

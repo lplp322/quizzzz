@@ -206,6 +206,9 @@ public class GameCtrl {
     }
 
 
+    /**
+     * Loads the available emoji's (in reasources/reactions) into the dropdown menu
+     */
     public void loadReactions() {
         reactions.setValue(new ImageView());
         File folder = new File(getClass().getClassLoader().getResource("reactions/").getPath());
@@ -519,6 +522,11 @@ public class GameCtrl {
         }
     }
 
+    /**
+     * Shows the reactions in the game UI
+     * @param reactions The reaction list to show
+     * @throws MalformedURLException If cannot find the reactions folder
+     */
     public void showReaction(List<String[]> reactions) throws MalformedURLException {
         reactionBox.getChildren().remove(0, reactionBox.getChildren().size());
         for(String[] pair : reactions) {
