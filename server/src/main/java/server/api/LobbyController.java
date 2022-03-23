@@ -32,6 +32,14 @@ public class LobbyController {
     }
 
     /**
+     * To answer, if someone is connected
+     * @return connected message
+     */
+    @GetMapping("/")
+    public String newConnection(){
+        return "Connected";
+    }
+    /**
      * Start singleplayer game with provided name
      * @param name - name of the player
      * @return - id of the singleplayer game

@@ -46,6 +46,9 @@ public class MainCtrl {
     private LeaderboardCtrl leaderboardCtrl;
     private Scene leaderboard;
 
+    private ChooseServerCtrl chooseServerCtrl;
+    private Scene chooseServer;
+
     private String name;
 
     /**
@@ -57,12 +60,14 @@ public class MainCtrl {
      * @param gameCtrl
      * @param prompt
      * @param leaderboard
+     * @param chooseServer
      */
 
     public void initialize(Stage primaryStage, Pair<QuoteOverviewCtrl, Parent> overview,
                            Pair<AddQuoteCtrl, Parent> add, Pair<SplashCtrl, Parent> splash,
                            Pair<GameCtrl, Parent> gameCtrl,
-                           Pair<PromptCtrl, Parent> prompt, Pair<LeaderboardCtrl, Parent> leaderboard) {
+                           Pair<PromptCtrl, Parent> prompt, Pair<LeaderboardCtrl, Parent> leaderboard,
+                            Pair<ChooseServerCtrl, Parent> chooseServer) {
         this.primaryStage = primaryStage;
         this.overviewCtrl = overview.getKey();
         this.overview = new Scene(overview.getValue());

@@ -20,6 +20,7 @@ import static com.google.inject.Guice.createInjector;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import client.scenes.AddQuoteCtrl;
+import client.scenes.ChooseServerCtrl;
 import client.scenes.MainCtrl;
 import client.scenes.GameCtrl;
 import client.scenes.PromptCtrl;
@@ -58,9 +59,11 @@ public class Main extends Application {
 
         var leaderboard = FXML.load(LeaderboardCtrl.class, "client", "scenes", "Leaderboard.fxml");
 
+        var chooseServer = FXML.load(ChooseServerCtrl.class, "client", "scenes", "ChooseServer.fxml");
+
         var mainCtrl = INJECTOR.getInstance(MainCtrl.class);
 
-        mainCtrl.initialize(primaryStage, overview, add, splash, game, prompt, leaderboard);
+        mainCtrl.initialize(primaryStage, overview, add, splash, game, prompt, leaderboard, chooseServer);
         //mainCtrl.showLeaderboard();
     }
 }
