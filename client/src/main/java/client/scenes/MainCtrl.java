@@ -119,10 +119,10 @@ public class MainCtrl {
      * Changes the current scene to the splash screen, resizes scene windows is already open
      */
     public void showSplash() {
-        if(primaryStage.getScene()!=null){
-            Scene currentScene = primaryStage.getScene();   //Gets current scene
-            splashCtrl.setWindowSize(currentScene.getWidth(),currentScene.getHeight());
-        }
+//        if(primaryStage.getScene()!=null){
+//            Scene currentScene = primaryStage.getScene();   //Gets current scene
+//            splashCtrl.setWindowSize(currentScene.getWidth(),currentScene.getHeight());
+//        }
         primaryStage.setTitle("Quizzz");
         primaryStage.setScene(splash);
     }
