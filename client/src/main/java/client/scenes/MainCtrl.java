@@ -25,6 +25,8 @@ import java.io.IOException;
 import java.util.List;
 
 public class MainCtrl {
+    private  String link = "http://localhost:8080/";
+
     private int currentGameID;  //the ID of the ongoing game
     private Stage primaryStage;
 
@@ -157,19 +159,33 @@ public class MainCtrl {
     }
 
     /**
-     * Changes the current scene to Prompt.fxml, sets mode to Singleplayer
+     * Starts the single player Prompt.fxml
      */
     public void showSinglePlayerPrompt() {
+        promptCtrl.setSingleplayer();
+        showPrompt();
+
+    }
+
+    /**
+     * Starts the multiplayer Prompt.fxml
+     */
+    public void showMultiPlayer(){
+        promptCtrl.setMultiplayer();
+        showPrompt();
+    }
+
+    /**
+     * Starts the Prompt.fxml with needed size
+     */
+    public void showPrompt(){
         Scene currentScene = primaryStage.getScene();   //Gets current scene
         primaryStage.setTitle("Enter your name");
-        promptCtrl.setSingleplayer();
-
         //Resizes new scene by calling the setWindowSize method
         //System.out.println(currentScene.getWidth() + " " +currentScene.getHeight());
         promptCtrl.setWindowSize(currentScene.getWidth(),currentScene.getHeight());
         primaryStage.setScene(prompt);
     }
-
     /**
      * A getter for the current gameID
      * @return gameID
@@ -198,5 +214,20 @@ public class MainCtrl {
      */
     public String getName() {
         return this.name;
+    }
+
+    /**
+     * @return the current link
+     */
+    public String getLink() {
+        return link;
+    }
+
+    /**
+     * Sets link
+     * @param link - server link
+     */
+    public void setLink(String link) {
+        this.link = link;
     }
 }
