@@ -33,6 +33,9 @@ public class SplashCtrl {
         this.mainCtrl.showSinglePlayerPrompt();
     }
 
+    /**
+     * Function to be executed when the multiPlayer button is pressed
+     */
     public void multiPlayer(){this.mainCtrl.showMultiPlayer();}
 
     /**
