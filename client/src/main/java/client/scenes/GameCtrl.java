@@ -527,10 +527,7 @@ public class GameCtrl {
             lb.setPrefHeight(50);
             lb.setAlignment(Pos.CENTER_LEFT);
             lb.setContentDisplay(ContentDisplay.RIGHT);
-            lb.setStyle("-fx-shape: \"M -1 2 C -1 1 -1 1 0 1 L 22 1 L 24 0 L 26 1 L 28 1 C 29 1 29 1 29 " +
-                    "2 L 29 10 C 29 11 29 11 28 11 L 0 11 C -1 11 -1 11 -1 10 L -1 2\";" +
-            " -fx-border-color: black; -fx-padding: 1; -fx-border-width: 1.5;" +
-                    "-fx-border-color: grey");
+            lb.setId("reaction");
             Image img = new Image((GameCtrl.class.getClassLoader().getResource("reactions/"+pair[1]).toString()));
             ImageView imageView = new ImageView(img);
             imageView.setFitHeight(30);
