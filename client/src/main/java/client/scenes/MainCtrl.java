@@ -25,7 +25,7 @@ import java.io.IOException;
 import java.util.List;
 
 public class MainCtrl {
-    public  String link = "http://localhost:8080/";
+    private  String link = "http://localhost:8080/";
 
     private int currentGameID;  //the ID of the ongoing game
     private Stage primaryStage;
@@ -209,5 +209,20 @@ public class MainCtrl {
      */
     public String getName() {
         return this.name;
+    }
+
+    /**
+     * @return the current link
+     */
+    public String getLink() {
+        return link;
+    }
+
+    /**
+     * Sets link
+     * @param link - server link
+     */
+    public void setLink(String link) {
+        this.link = link;
     }
 }

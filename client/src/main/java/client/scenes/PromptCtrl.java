@@ -56,9 +56,9 @@ public class PromptCtrl {
             errorLabel.setVisible(false);   //makes the errorLabel visible
             URL playerGame;
             if(isSingleplayer) {
-                playerGame = new URL(mainCtrl.link + "singleplayer/" + nameField.getText());
+                playerGame = new URL(mainCtrl.getLink() + "singleplayer/" + nameField.getText());
             }
-            else playerGame = new URL(mainCtrl.link + "multiplayer/" + nameField.getText());
+            else playerGame = new URL(mainCtrl.getLink() + "multiplayer/" + nameField.getText());
                 this.mainCtrl.setName(nameField.getText());
                 try {
                     URLConnection nameVerify  = playerGame.openConnection();

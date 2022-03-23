@@ -144,7 +144,7 @@ public class GameCtrl {
             while(!stopGame) {
                 Platform.runLater(() -> {
                             try {
-                                URL url = new URL(mainCtrl.link + mainCtrl.getCurrentID()
+                                URL url = new URL(mainCtrl.getLink() + mainCtrl.getCurrentID()
                                         +"/" + mainCtrl.getName() + "/getGameInfo");
                                 //for now all gameID's are set to 1,
                                 //but these need to be changed once the gameID is stored from the sever
@@ -240,7 +240,7 @@ public class GameCtrl {
     public  void jokerMessage(String joker) throws IOException {
 
 //        URL url = new URL("http://localhost:8080/1/P1/checkAnswer/" + currentround + "/" + joker);
-        URL url = new URL(mainCtrl.link + this.mainCtrl.getCurrentID()
+        URL url = new URL(mainCtrl.getLink() + this.mainCtrl.getCurrentID()
                 + "/" + this.mainCtrl.getName() + "/joker/" + currentRound + "/" + joker);
         HttpURLConnection http = (HttpURLConnection)url.openConnection();
 //        http.setRequestMethod("PUT");
@@ -255,7 +255,7 @@ public class GameCtrl {
      * @throws IOException
      */
     public void sendAnswer(String answer) throws IOException {
-        URL url = new URL(mainCtrl.link + this.mainCtrl.getCurrentID() + "/"
+        URL url = new URL(mainCtrl.getLink() + this.mainCtrl.getCurrentID() + "/"
                 + this.mainCtrl.getName() + "/checkAnswer/" +
                 currentRound + "/" + answer);
 
@@ -319,7 +319,7 @@ public class GameCtrl {
      * @throws IOException if the link is not valid
      */
     public LinkedList<commons.LeaderboardEntry> getLeaderboard() throws IOException {
-        URL url = new URL(mainCtrl.link + "leaderboard" );
+        URL url = new URL(mainCtrl.getLink() + "leaderboard" );
         HttpURLConnection http = (HttpURLConnection) url.openConnection();
         Gson g = new Gson();
         String jsonString = httpToJSONString(http);
