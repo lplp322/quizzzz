@@ -34,7 +34,7 @@
             <Button fx:id="choiceA" layoutX="237.0" layoutY="393.0" mnemonicParsing="false" onAction="#choiceASend" prefHeight="26.0" prefWidth="270.0" text="ChoiceA" wrapText="true" />
             <Button fx:id="choiceB" layoutX="237.0" layoutY="439.0" mnemonicParsing="false" onAction="#choiceBSend" prefHeight="26.0" prefWidth="270.0" text="ChoiceB" wrapText="true" />
             <Button fx:id="choiceC" layoutX="237.0" layoutY="483.0" mnemonicParsing="false" onAction="#choiceCSend" prefHeight="26.0" prefWidth="270.0" text="ChoiceC" wrapText="true" />
-            <ImageView fx:id="QuestionImage" fitHeight="182.0" fitWidth="207.0" layoutX="262.0" layoutY="87.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="QuestionImage" fitHeight="182.0" fitWidth="207.0" layoutX="267.0" layoutY="66.0" pickOnBounds="true" preserveRatio="true" />
             <ToolBar fx:id="upperPanel" layoutX="4.0" prefHeight="63.0" prefWidth="750.0">
                <items>
                   <Label fx:id="currentRoundLabel" prefHeight="27.0" prefWidth="338.0" text="Current Round:" />
@@ -48,7 +48,7 @@
             <Button fx:id="eliminateWrongButton" layoutX="505.0" layoutY="554.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="128.0" text="Eliminate Answer" />
             <TextField fx:id="guessText" layoutX="291.0" layoutY="342.0" promptText="Enter Your Guess " />
             <Button fx:id="submitButton" layoutX="469.0" layoutY="340.0" mnemonicParsing="false" onAction="#submitAnswer" prefHeight="29.0" prefWidth="82.0" text="Submit" />
-            <Label fx:id="questionLabel" layoutX="177.0" layoutY="278.0" prefHeight="42.0" prefWidth="379.0" text="Example Question" textAlignment="CENTER" wrapText="true">
+            <Label fx:id="questionLabel" layoutX="177.0" layoutY="246.0" prefHeight="84.0" prefWidth="379.0" text="Example Question" textAlignment="CENTER" wrapText="true">
                <font>
                   <Font name="Arial Black" size="19.0" />
                </font>

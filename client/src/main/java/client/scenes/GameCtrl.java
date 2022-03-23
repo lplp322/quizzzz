@@ -33,14 +33,12 @@ import java.net.HttpURLConnection;
 
 
 import java.net.MalformedURLException;
-import java.net.ProtocolException;
 import java.net.URL;
 
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.regex.Pattern;
@@ -216,6 +214,7 @@ public class GameCtrl {
         img.setFitHeight(30);
         img.setFitWidth(30);
         reactions.setValue(img);
+//        reactions.setButtonCell(new ListCell<>());
         for(File f : folder.listFiles()) {
             ls.add(new ImageView(new Image(f.toString())));
         }
@@ -248,6 +247,17 @@ public class GameCtrl {
                                 split(Pattern.quote(sep)).length-1]);
                     });
                     setGraphic(hBox);
+                }
+                setText("");
+            }
+        });
+        reactions.setButtonCell(new ListCell<>(){
+            @Override
+            protected void updateItem(ImageView item, boolean empty){
+                super.updateItem(item, empty);
+                if(item != null) {
+                    setGraphic(img);
+                    setText("");
                 }
             }
         });
