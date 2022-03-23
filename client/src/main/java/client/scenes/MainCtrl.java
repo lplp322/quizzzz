@@ -89,7 +89,11 @@ public class MainCtrl {
         this.leaderboardCtrl = leaderboard.getKey();
         this.leaderboard = new Scene(leaderboard.getValue());
 
-        showSplash();
+        this.chooseServerCtrl = chooseServer.getKey();
+        this.chooseServer = new Scene(chooseServer.getValue());
+
+        //showSplash();
+        showChooseServer();
         primaryStage.show();
     }
 
@@ -185,6 +189,18 @@ public class MainCtrl {
         //System.out.println(currentScene.getWidth() + " " +currentScene.getHeight());
         promptCtrl.setWindowSize(currentScene.getWidth(),currentScene.getHeight());
         primaryStage.setScene(prompt);
+    }
+
+    /**
+     * Starts ChooseServer.fxml
+     */
+    public void showChooseServer(){
+        if(primaryStage.getScene()!=null){
+            Scene currentScene = primaryStage.getScene();   //Gets current scene
+            splashCtrl.setWindowSize(currentScene.getWidth(),currentScene.getHeight());
+        }
+        primaryStage.setTitle("Choose server");
+        primaryStage.setScene(chooseServer);
     }
     /**
      * A getter for the current gameID
