@@ -5,16 +5,19 @@ import com.google.gson.reflect.TypeToken;
 import com.google.inject.Inject;
 import commons.TrimmedGame;
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
@@ -36,6 +39,7 @@ import java.net.URL;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -90,7 +94,7 @@ public class GameCtrl {
     private Text haveYouVoted;
 
     @FXML
-    private ComboBox reactions;
+    private ComboBox<File> reactions;
 
     @FXML
     private VBox reactionBox;
@@ -203,43 +207,39 @@ public class GameCtrl {
 
 
     public void loadReactions() {
-        String path = getClass().getClassLoader().getResource("reactions/").getPath();
-        File folder = new File(path);
-        File[] listOfFiles = folder.listFiles();
-        String[] listOfNames = folder.list();
-        for(int i = 0; i < listOfFiles.length; i++) {
-            File f = listOfFiles[i];
-            String file = listOfNames[i];
-            Image img = new Image(f.getPath());
-            ImageView imageView = new ImageView(img);
-            imageView.setFitWidth(40);
-            imageView.setFitHeight(40);
-            Button btn  = new Button("", imageView);
-            btn.setOnMousePressed(event -> {
-                URL url = null;
+        File folder = new File(getClass().getClassLoader().getResource("reactions/").getPath());
+        reactions.setItems(FXCollections.observableArrayList(Arrays.asList(folder.listFiles())));
+        reactions.setCellFactory(param -> new ListCell<>() {
+            private void send(String emoji) {
                 try {
-                    url = new URL(link + "reaction/" + mainCtrl.getCurrentID()
-                            + "/" + mainCtrl.getName() + "/" + file);
-                } catch (MalformedURLException e) {
-                    e.printStackTrace();
-                }
-                HttpURLConnection http = null;
-                try {
-                    http = (HttpURLConnection)url.openConnection();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                try {
+                    URL url = new URL(link + "reaction/" + mainCtrl.getCurrentID()
+                            + "/" + mainCtrl.getName() + "/" + emoji);
+                    HttpURLConnection http = (HttpURLConnection)url.openConnection();
                     http.setRequestMethod("PUT");
-                } catch (ProtocolException e) {
+                    httpToJSONString(http);
+                    http.disconnect();
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
-                httpToJSONString(http);
-                http.disconnect();
-            });
-
-            reactions.getItems().add(btn);
-        }
+            }
+            @Override
+            protected void updateItem(File item, boolean empty) {
+                super.updateItem(item, empty);
+                if (item == null || empty)
+                    setGraphic(null);
+                else {
+                    Image image = new Image(item.getPath());
+                    ImageView imageView = new ImageView(image);
+                    imageView.setFitHeight(40);
+                    imageView.setFitWidth(40);
+                    HBox hBox = new HBox(imageView);
+                    hBox.setOnMousePressed(event -> {
+                        send(item.getName());
+                    });
+                    setGraphic(hBox);
+                }
+            }
+        });
     }
 
 
@@ -506,8 +506,10 @@ public class GameCtrl {
             lb.setPrefHeight(50);
             lb.setAlignment(Pos.CENTER_LEFT);
             lb.setContentDisplay(ContentDisplay.RIGHT);
-            lb.setStyle("-fx-shape: \"M 13 1 C 14 1 14 1 14 5 C 14 9 14 9 13 9 L -7 9 C -8 9 -8 9 -8 5 C -8 1 -8 1 " +
-                    "-7 1 L 8 1 L 10 0 L 12 1 L 13 1\"; -fx-border-color: black; -fx-padding: 1; -fx-border-width: 2;");
+            lb.setStyle("-fx-shape: \"M -1 2 C -1 1 -1 1 0 1 L 22 1 L 24 0 L 26 1 L 28 1 C 29 1 29 1 29 " +
+                    "2 L 29 10 C 29 11 29 11 28 11 L 0 11 C -1 11 -1 11 -1 10 L -1 2\";" +
+            " -fx-border-color: black; -fx-padding: 1; -fx-border-width: 1.5;" +
+                    "-fx-border-color: grey");
             Image img = new Image((GameCtrl.class.getClassLoader().getResource("reactions/"+pair[1]).toString()));
             ImageView imageView = new ImageView(img);
             imageView.setFitHeight(30);
