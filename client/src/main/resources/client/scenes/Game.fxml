@@ -38,8 +38,9 @@
             <ToolBar fx:id="upperPanel" layoutX="4.0" prefHeight="63.0" prefWidth="750.0">
                <items>
                   <Label fx:id="currentRoundLabel" prefHeight="27.0" prefWidth="338.0" text="Current Round:" />
-                  <Label fx:id="timerLabel" prefHeight="19.0" prefWidth="288.0" text="Timer: " />
-                  <ComboBox fx:id="reactions" prefHeight="25.0" prefWidth="54.0" />
+                  <Label fx:id="timerLabel" prefHeight="19.0" prefWidth="231.0" text="Timer: " />
+                  <Label prefHeight="17.0" prefWidth="57.0" text="Reactions" />
+                  <ComboBox fx:id="reactions" prefHeight="47.0" prefWidth="54.0" />
                </items>
             </ToolBar>
             <Button fx:id="halfTimeJokerButton" layoutX="104.0" layoutY="554.0" mnemonicParsing="false" onAction="#getGameInfo" prefHeight="28.0" prefWidth="128.0" text="Halve Time" />

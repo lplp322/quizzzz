@@ -39,9 +39,11 @@ import java.net.URL;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.regex.Pattern;
 
 public class GameCtrl {
 //    private final MainCtrl mainCtrl;
@@ -94,7 +96,7 @@ public class GameCtrl {
     private Text haveYouVoted;
 
     @FXML
-    private ComboBox<File> reactions;
+    private ComboBox<ImageView> reactions;
 
     @FXML
     private VBox reactionBox;
@@ -207,8 +209,17 @@ public class GameCtrl {
 
 
     public void loadReactions() {
+        reactions.setValue(new ImageView());
         File folder = new File(getClass().getClassLoader().getResource("reactions/").getPath());
-        reactions.setItems(FXCollections.observableArrayList(Arrays.asList(folder.listFiles())));
+        List<ImageView> ls = new ArrayList<>();
+        ImageView img = new ImageView(new Image(folder.listFiles()[0].getPath()));
+        img.setFitHeight(30);
+        img.setFitWidth(30);
+        reactions.setValue(img);
+        for(File f : folder.listFiles()) {
+            ls.add(new ImageView(new Image(f.toString())));
+        }
+        reactions.setItems(FXCollections.observableArrayList(ls));
         reactions.setCellFactory(param -> new ListCell<>() {
             private void send(String emoji) {
                 try {
@@ -223,18 +234,18 @@ public class GameCtrl {
                 }
             }
             @Override
-            protected void updateItem(File item, boolean empty) {
+            protected void updateItem(ImageView item, boolean empty) {
                 super.updateItem(item, empty);
                 if (item == null || empty)
                     setGraphic(null);
                 else {
-                    Image image = new Image(item.getPath());
-                    ImageView imageView = new ImageView(image);
-                    imageView.setFitHeight(40);
-                    imageView.setFitWidth(40);
-                    HBox hBox = new HBox(imageView);
+                    item.setFitHeight(40);
+                    item.setFitWidth(40);
+                    HBox hBox = new HBox(item);
+                    String sep = "\\";
                     hBox.setOnMousePressed(event -> {
-                        send(item.getName());
+                        send(item.getImage().getUrl().split(Pattern.quote(sep))[item.getImage().getUrl().
+                                split(Pattern.quote(sep)).length-1]);
                     });
                     setGraphic(hBox);
                 }
