@@ -42,6 +42,8 @@ public class ChooseServerCtrl {
     public void connectToServer(){
         cantConnectLabel.setVisible(false);
         String link = textField.getText();
+        System.out.println(textField.getText());
+        if(link.equals("")) link = "http://localhost:8080/";
         try {
             URL url = new URL(link);
             HttpURLConnection http = (HttpURLConnection) url.openConnection();
