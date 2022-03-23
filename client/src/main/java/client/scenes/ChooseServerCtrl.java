@@ -13,7 +13,6 @@ import java.net.ConnectException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.nio.charset.StandardCharsets;
 
 public class ChooseServerCtrl {
     private final MainCtrl mainCtrl;
@@ -44,7 +43,6 @@ public class ChooseServerCtrl {
         cantConnectLabel.setVisible(false);
         String link = textField.getText();
         try {
-            System.out.println(link);
             URL url = new URL(link);
             HttpURLConnection http = (HttpURLConnection) url.openConnection();
             System.out.println(http);

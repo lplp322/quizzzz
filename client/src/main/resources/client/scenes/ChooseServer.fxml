@@ -6,7 +6,7 @@
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.ChooseServerCtrl">
    <children>
       <Label fx:id="mainLabel" layoutX="250.0" layoutY="106.0" text="Put IP of server:" />
-      <TextField fx:id="textField" layoutX="226.0" layoutY="163.0" promptText="http://localhost:8080/" />
+      <TextField fx:id="textField" focusTraversable="false" layoutX="226.0" layoutY="163.0" promptText="http://localhost:8080/" />
       <Button fx:id="connect" layoutX="402.0" layoutY="163.0" mnemonicParsing="false" onAction="#connectToServer" text="Connect" />
       <Label fx:id="cantConnectLabel" layoutX="250.0" layoutY="214.0" text="Can not connect" visible="false" />
    </children>
