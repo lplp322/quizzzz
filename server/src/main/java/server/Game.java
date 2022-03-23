@@ -20,6 +20,7 @@ public class Game implements Runnable{
      * @param lobbyId the ID of the lobby that they were in before
      * @param gameType the type of game that is being played (single or multiplayer)
      * @param dtBase the database for the activities
+     * @param reactions the list of reactions
      */
     public Game(Map<String, Player> players, int lobbyId, int gameType,
                 ActivityRepository dtBase, List<String[]> reactions) {

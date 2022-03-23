@@ -75,12 +75,14 @@ public class MainCtrl {
 
         this.gameCtrl = gameCtrl.getKey();
         this.game = new Scene(gameCtrl.getValue());
+        this.game.getStylesheets().add(getClass().getResource("Game.css").toString());
 
         this.promptCtrl = prompt.getKey();
         this.prompt = new Scene(prompt.getValue());
 
         this.leaderboardCtrl = leaderboard.getKey();
         this.leaderboard = new Scene(leaderboard.getValue());
+        this.leaderboard.getStylesheets().add(getClass().getResource("LeaderboardStyle.css").toString());
 
         showSplash();
         primaryStage.show();
