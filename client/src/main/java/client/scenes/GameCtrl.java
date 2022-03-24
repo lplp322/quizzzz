@@ -213,7 +213,8 @@ public class GameCtrl {
         reactions.setValue(new ImageView());
         File folder = new File(getClass().getClassLoader().getResource("reactions/").getPath());
         List<ImageView> ls = new ArrayList<>();
-        ImageView img = new ImageView(new Image(folder.listFiles()[0].getPath()));
+        System.out.println(folder.listFiles()[0].toString());
+        ImageView img = new ImageView(new Image("reactions/701.png"));
         img.setFitHeight(30);
         img.setFitWidth(30);
         reactions.setValue(img);
@@ -245,7 +246,7 @@ public class GameCtrl {
                     item.setFitWidth(40);
                     HBox hBox = new HBox(item);
                     String sep = "\\";
-                    hBox.setOnMousePressed(event -> {
+                    setOnMousePressed(event -> {
                         send(item.getImage().getUrl().split(Pattern.quote(sep))[item.getImage().getUrl().
                                 split(Pattern.quote(sep)).length-1]);
                     });
