@@ -216,7 +216,7 @@ public class GameCtrl {
      */
     private void showRound(TrimmedGame trimmedGame) {
         answerLabel.setVisible(false);
-        currentRoundLabel.setText("currentRound " + trimmedGame.getRoundNum()+1);
+        currentRoundLabel.setText("currentRound " + (trimmedGame.getRoundNum()+1));
         timerLabel.setText("Time: " + trimmedGame.getTimer());
         questionLabel.setText(trimmedGame.getCurrentQuestion());
         

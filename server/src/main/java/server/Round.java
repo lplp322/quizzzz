@@ -20,7 +20,7 @@ public class Round {
      * By default, first round is 0 and timer counts down from 20
      */
     public Round() {
-        this.round = 0;
+        this.round = 18;
         this.timer = roundTimer;
         this.halfTimerUsed = false;
         this.gameStatus = 1;
