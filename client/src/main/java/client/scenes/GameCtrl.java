@@ -220,7 +220,7 @@ public class GameCtrl {
         reactions.setValue(img);
 //        reactions.setButtonCell(new ListCell<>());
         for(File f : folder.listFiles()) {
-            ls.add(new ImageView(new Image(f.toString())));
+            ls.add(new ImageView(new Image("reactions/"+f.getName())));
         }
         reactions.setItems(FXCollections.observableArrayList(ls));
         reactions.setCellFactory(param -> new ListCell<>() {
@@ -245,7 +245,7 @@ public class GameCtrl {
                     item.setFitHeight(40);
                     item.setFitWidth(40);
                     HBox hBox = new HBox(item);
-                    String sep = "\\";
+                    String sep = "/";
                     setOnMousePressed(event -> {
                         send(item.getImage().getUrl().split(Pattern.quote(sep))[item.getImage().getUrl().
                                 split(Pattern.quote(sep)).length-1]);
