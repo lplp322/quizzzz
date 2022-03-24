@@ -1,23 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.effect.DropShadow?>
-<?import javafx.scene.effect.GaussianBlur?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.paint.Color?>
-<?import javafx.scene.text.Font?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="781.0" prefWidth="1131.0" style="-fx-background-image: url(https://i0.wp.com/electrek.co/wp-content/uploads/sites/3/2021/04/Irene-Vorrink-wind-farm-Netherlands.jpg); -fx-background-size: cover;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="mainWindow" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="781.0" prefWidth="1131.0" style="-fx-background-image: url(https://i0.wp.com/electrek.co/wp-content/uploads/sites/3/2021/04/Irene-Vorrink-wind-farm-Netherlands.jpg); -fx-background-size: cover;" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.scenes.ActivityViewerCtrl">
    <children>
       <AnchorPane layoutX="-14.0" prefHeight="610.0" prefWidth="1009.0" style="-fx-background-image: url(https://i0.wp.com/electrek.co/wp-content/uploads/sites/3/2021/04/Irene-Vorrink-wind-farm-Netherlands.jpg); -fx-background-size: cover;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <effect>
@@ -44,12 +34,12 @@
                 <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
               </columnConstraints>
               <rowConstraints>
-                <RowConstraints maxHeight="171.33331298828125" minHeight="10.0" prefHeight="57.33332824707031" vgrow="NEVER" />
+                <RowConstraints maxHeight="171.33331298828125" minHeight="57.0" prefHeight="57.33332824707031" vgrow="NEVER" />
                 <RowConstraints maxHeight="1.7976931348623157E308" minHeight="10.0" prefHeight="573.3333129882812" vgrow="SOMETIMES" />
                 <RowConstraints maxHeight="126.00002034505212" minHeight="126.00002034505212" prefHeight="126.00002034505212" vgrow="NEVER" />
               </rowConstraints>
                <children>
-                  <Button mnemonicParsing="false" prefHeight="72.0" prefWidth="247.0" style="-fx-background-color: linear-gradient(#ff5400, #be1d00);" text="Quit" GridPane.rowIndex="2">
+                  <Button fx:id="quitButton" mnemonicParsing="false" onAction="#returnToMenu" prefHeight="72.0" prefWidth="247.0" style="-fx-background-color: linear-gradient(#ff5400, #be1d00);" text="Quit" GridPane.rowIndex="2">
                      <font>
                         <Font name="Century Gothic Bold" size="37.0" />
                      </font>
@@ -71,8 +61,8 @@
                               <Font name="Century Gothic Bold" size="18.0" />
                            </font>
                         </Label>
-                        <TextField layoutX="18.0" layoutY="317.0" prefHeight="25.0" prefWidth="297.0" />
-                        <TextField layoutX="18.0" layoutY="381.0" prefHeight="25.0" prefWidth="297.0" />
+                        <TextField layoutX="58.0" layoutY="317.0" prefHeight="25.0" prefWidth="223.0" />
+                        <TextField layoutX="58.0" layoutY="382.0" prefHeight="25.0" prefWidth="223.0" />
                         <Label alignment="CENTER" contentDisplay="CENTER" layoutX="86.0" layoutY="287.0" prefHeight="17.0" prefWidth="167.0" text="Description:" textFill="WHITE">
                            <font>
                               <Font name="Century Gothic Bold" size="18.0" />

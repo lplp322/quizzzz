@@ -46,6 +46,9 @@ public class MainCtrl {
     private LeaderboardCtrl leaderboardCtrl;
     private Scene leaderboard;
 
+    private ActivityViewerCtrl activityViewerCtrl;
+    private Scene activityViewer;
+
     private String name;
 
     /**
@@ -62,7 +65,8 @@ public class MainCtrl {
     public void initialize(Stage primaryStage, Pair<QuoteOverviewCtrl, Parent> overview,
                            Pair<AddQuoteCtrl, Parent> add, Pair<SplashCtrl, Parent> splash,
                            Pair<GameCtrl, Parent> gameCtrl,
-                           Pair<PromptCtrl, Parent> prompt, Pair<LeaderboardCtrl, Parent> leaderboard) {
+                           Pair<PromptCtrl, Parent> prompt, Pair<LeaderboardCtrl, Parent> leaderboard,
+                           Pair<ActivityViewerCtrl, Parent> adminMenu) {
         this.primaryStage = primaryStage;
         this.overviewCtrl = overview.getKey();
         this.overview = new Scene(overview.getValue());
@@ -81,6 +85,9 @@ public class MainCtrl {
 
         this.leaderboardCtrl = leaderboard.getKey();
         this.leaderboard = new Scene(leaderboard.getValue());
+
+        this.activityViewerCtrl = adminMenu.getKey();
+        this.activityViewer = new Scene(adminMenu.getValue());
 
         showSplash();
         primaryStage.show();
@@ -161,6 +168,15 @@ public class MainCtrl {
         //Resizes new scene by calling the setWindowSize method
         promptCtrl.setWindowSize(currentScene.getWidth(),currentScene.getHeight());
         primaryStage.setScene(prompt);
+    }
+
+    public void showActivityViewer() {
+        Scene currentScene = primaryStage.getScene();   //Gets current scene
+        primaryStage.setTitle("ActivityViewer");
+
+        //Resizes new scene by calling the setWindowSize method
+        activityViewerCtrl.setWindowSize(currentScene.getWidth(),currentScene.getHeight());
+        primaryStage.setScene(activityViewer);
     }
 
     /**
