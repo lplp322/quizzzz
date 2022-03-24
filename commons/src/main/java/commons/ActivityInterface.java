@@ -30,4 +30,10 @@ public interface ActivityInterface {
      * @return Energy usage
      */
     public abstract int getConsumption();
+
+    /**
+     * Getter for the title
+     * @return title of the activity
+     */
+    public abstract String getTitle();
 }
