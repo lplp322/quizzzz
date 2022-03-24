@@ -28,9 +28,9 @@
       </AnchorPane>
     <AnchorPane layoutX="255.0" minHeight="0.0" minWidth="0.0" prefHeight="610.0" prefWidth="756.0">
          <children>
-            <Button fx:id="choiceA" layoutX="283.0" layoutY="355.0" mnemonicParsing="false" onAction="#choiceASend" prefHeight="26.0" prefWidth="270.0" text="ChoiceA" wrapText="true" />
-            <Button fx:id="choiceB" layoutX="283.0" layoutY="401.0" mnemonicParsing="false" onAction="#choiceBSend" prefHeight="26.0" prefWidth="270.0" text="ChoiceB" wrapText="true" />
-            <Button fx:id="choiceC" layoutX="283.0" layoutY="445.0" mnemonicParsing="false" onAction="#choiceCSend" prefHeight="26.0" prefWidth="270.0" text="ChoiceC" wrapText="true" />
+            <Button fx:id="choiceA" layoutX="283.0" layoutY="398.0" mnemonicParsing="false" onAction="#choiceASend" prefHeight="26.0" prefWidth="270.0" text="ChoiceA" wrapText="true" />
+            <Button fx:id="choiceB" layoutX="282.0" layoutY="440.0" mnemonicParsing="false" onAction="#choiceBSend" prefHeight="26.0" prefWidth="270.0" text="ChoiceB" wrapText="true" />
+            <Button fx:id="choiceC" layoutX="282.0" layoutY="481.0" mnemonicParsing="false" onAction="#choiceCSend" prefHeight="26.0" prefWidth="270.0" text="ChoiceC" wrapText="true" />
             <ImageView fx:id="QuestionImage" fitHeight="180.0" fitWidth="198.0" layoutX="43.0" layoutY="84.0" pickOnBounds="true" preserveRatio="true" />
             <ToolBar fx:id="upperPanel" layoutX="4.0" prefHeight="63.0" prefWidth="750.0">
                <items>
@@ -43,13 +43,13 @@
             <Button fx:id="eliminateWrongButton" layoutX="553.0" layoutY="551.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="128.0" text="Eliminate Answer" />
             <TextField fx:id="guessText" layoutX="337.0" layoutY="304.0" promptText="Enter Your Guess " />
             <Button fx:id="submitButton" layoutX="553.0" layoutY="305.0" mnemonicParsing="false" onAction="#submitAnswer" prefHeight="27.0" prefWidth="72.0" text="Submit" />
-            <Label fx:id="questionLabel" layoutX="258.0" layoutY="174.0" prefHeight="108.0" prefWidth="344.0" text="Example Question" textAlignment="CENTER" wrapText="true">
+            <Label fx:id="questionLabel" layoutX="258.0" layoutY="174.0" prefHeight="109.0" prefWidth="448.0" text="Example Question" textAlignment="CENTER" wrapText="true">
                <font>
                   <Font name="Arial Black" size="19.0" />
                </font>
             </Label>
             <Button fx:id="startButton" layoutX="617.0" layoutY="84.0" mnemonicParsing="false" onAction="#getGameInfo" text="Start Game" />
-            <Label fx:id="answerLabel" alignment="CENTER" layoutX="300.0" layoutY="333.0" prefHeight="19.0" prefWidth="241.0" text="Your answer is" textAlignment="CENTER" wrapText="true" />
+            <Label fx:id="answerLabel" alignment="CENTER" layoutX="297.0" layoutY="344.0" prefHeight="43.0" prefWidth="241.0" text="Your answer is" textAlignment="CENTER" wrapText="true" />
             <Text fx:id="haveYouVoted" layoutX="300.0" layoutY="83.0" strokeType="OUTSIDE" strokeWidth="0.0" text="You have voted" textAlignment="CENTER" visible="false" wrappingWidth="137.6373197289131">
                <font>
                   <Font size="16.0" />

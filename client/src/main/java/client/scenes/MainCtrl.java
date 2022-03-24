@@ -21,7 +21,13 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.util.Pair;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.net.HttpURLConnection;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 public class MainCtrl {
@@ -48,6 +54,9 @@ public class MainCtrl {
     private LeaderboardCtrl leaderboardCtrl;
     private Scene leaderboard;
 
+    private LobbyCtrl lobbyCtrl;
+    private Scene lobby;
+
     private String name;
 
     /**
@@ -59,12 +68,14 @@ public class MainCtrl {
      * @param gameCtrl
      * @param prompt
      * @param leaderboard
+     * @param lobby
      */
 
     public void initialize(Stage primaryStage, Pair<QuoteOverviewCtrl, Parent> overview,
                            Pair<AddQuoteCtrl, Parent> add, Pair<SplashCtrl, Parent> splash,
                            Pair<GameCtrl, Parent> gameCtrl,
-                           Pair<PromptCtrl, Parent> prompt, Pair<LeaderboardCtrl, Parent> leaderboard) {
+                           Pair<PromptCtrl, Parent> prompt, Pair<LeaderboardCtrl, Parent> leaderboard,
+                           Pair<LobbyCtrl, Parent> lobby) {
         this.primaryStage = primaryStage;
         this.overviewCtrl = overview.getKey();
         this.overview = new Scene(overview.getValue());
@@ -83,6 +94,9 @@ public class MainCtrl {
 
         this.leaderboardCtrl = leaderboard.getKey();
         this.leaderboard = new Scene(leaderboard.getValue());
+
+        this.lobbyCtrl = lobby.getKey();
+        this.lobby = new Scene(lobby.getValue());
 
         showSplash();
         primaryStage.show();
@@ -118,6 +132,14 @@ public class MainCtrl {
         primaryStage.setScene(splash);
     }
 
+    /**
+     * Shows a waiting room before game begins
+     */
+    public void showWaitingRoom() {
+        primaryStage.setTitle("Waiting room");
+        lobbyCtrl.init();
+        primaryStage.setScene(lobby);
+    }
 
     /**
      * Changes the current scene to the questions screen
@@ -181,6 +203,26 @@ public class MainCtrl {
         promptCtrl.setWindowSize(currentScene.getWidth(),currentScene.getHeight());
         primaryStage.setScene(prompt);
     }
+
+    /**
+     * @param http this is a http connection that the response of which will be turned into a string
+     * @return The http response in JSON format
+     */
+    public static String httpToJSONString(HttpURLConnection http) {
+        StringBuilder textBuilder = new StringBuilder();
+        try (Reader reader = new BufferedReader(new InputStreamReader
+                (http.getInputStream(), Charset.forName(StandardCharsets.UTF_8.name())))) {
+            int c = 0;
+            while ((c = reader.read()) != -1) {
+                textBuilder.append((char) c);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        String jsonString = textBuilder.toString();
+        return jsonString;
+    }
+
     /**
      * A getter for the current gameID
      * @return gameID

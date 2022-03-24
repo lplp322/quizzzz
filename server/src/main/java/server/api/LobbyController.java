@@ -3,15 +3,12 @@ package server.api;
 import commons.LeaderboardEntry;
 import commons.TrimmedGame;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import server.LobbyService;
 import server.database.LeaderboardRepository;
 
 import java.util.LinkedList;
+import java.util.List;
 
 
 @RestController
@@ -52,6 +49,15 @@ public class LobbyController {
     }
 
     /**
+     * Returns the id of the current lobby
+     * @return id of current lobby
+     */
+    @GetMapping("multiplayer/getLobbyId")
+    public int getLobbyId() {
+        return lobbyService.getIdCounter();
+    }
+
+    /**
      * Return game info object(now full game object sent just to check)
      * @param gameID - id of the game
      * @param player - name of the requesting player
@@ -78,6 +84,20 @@ public class LobbyController {
     }
 
     /**
+     * Removes a player with given name from the lobby
+     * @param name
+     * @return true if the player was removed, false otherwise
+     */
+    @DeleteMapping("/multiplayer/delete/{name}")
+    public boolean deleteUserMultiPlayer(@PathVariable String name) {
+        //System.out.println("DASDAS");
+        if(lobbyService.removePlayer(name)) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
      * PUT request to start game, that is currently in lobby
      * @return - return trimmed game object !!!(Game will be changed to TrimmedGame later)
      */
@@ -87,6 +107,15 @@ public class LobbyController {
             return lobbyService.getGameByID(lobbyService.getIdCounter() - 1).trim();
         }
         else return null;
+    }
+
+    /**
+     * Returns the names of the players, currently in the lobby
+     * @return - List of the players' names
+     */
+    @GetMapping("/pollLobby")
+    public List<String> pollLobby() {
+        return lobbyService.getNames();
     }
 
     /**
