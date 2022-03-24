@@ -157,6 +157,7 @@ public class Game implements Runnable{
             if(currQuestion.getType() == 0){
                 //TO BE IMPLEMENTED
                 int score = checkPlayerEstimation(name, round, answer+"");
+                int adjustedScore = getRound().getTimer() * score;
                 updatePlayerScore(name, score);
                 if(score<40) return false;
                 return true;
@@ -192,11 +193,11 @@ public class Game implements Runnable{
         Double answerDouble = Double.parseDouble(getQuestions().get(round).getAnswer());
         Double estimationDouble = Double.parseDouble(estimation);
         Double error = Math.abs(answerDouble-estimationDouble);
-        if(error==0)return 100;
-        else if(error<=(answerDouble*20)/100)return 80;
-        else if(error<=(answerDouble*40)/100)return 60;
-        else if(error<=(answerDouble*50)/100)return 40;
-        else if(error<=(answerDouble*70)/100)return 20;
+        if(error==0)return 10;
+        else if(error<=(answerDouble*20)/100)return 8;
+        else if(error<=(answerDouble*40)/100)return 6;
+        else if(error<=(answerDouble*50)/100)return 4;
+        else if(error<=(answerDouble*70)/100)return 2;
         return 0;
     }
 
