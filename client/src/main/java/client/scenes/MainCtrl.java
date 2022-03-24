@@ -60,6 +60,7 @@ public class MainCtrl {
      * @param gameCtrl
      * @param prompt
      * @param leaderboard
+     * @param adminMenu
      */
 
     public void initialize(Stage primaryStage, Pair<QuoteOverviewCtrl, Parent> overview,
@@ -170,6 +171,9 @@ public class MainCtrl {
         primaryStage.setScene(prompt);
     }
 
+    /**
+     * Changes current scene to the activity viewer
+     */
     public void showActivityViewer() {
         Scene currentScene = primaryStage.getScene();   //Gets current scene
         primaryStage.setTitle("ActivityViewer");

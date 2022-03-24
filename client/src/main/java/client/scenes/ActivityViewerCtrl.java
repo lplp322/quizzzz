@@ -24,10 +24,18 @@ public class ActivityViewerCtrl {
         this.mainCtrl = mainCtrl;
     }
 
+    /**
+     * Changes the size of the AnchorPlane
+     * @param w
+     * @param h
+     */
     public void setWindowSize(double w, double h){
         mainWindow.setPrefSize(w,h);
     }
 
+    /**
+     * Shows the splash screen
+     */
     public void returnToMenu(){
         this.mainCtrl.showSplash();
     }
