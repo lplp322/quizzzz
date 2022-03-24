@@ -158,7 +158,7 @@ public class Game implements Runnable{
                 //TO BE IMPLEMENTED
                 int score = checkPlayerEstimation(name, round, answer+"");
                 int adjustedScore = getRound().getTimer() * score;
-                updatePlayerScore(name, score);
+                updatePlayerScore(name, adjustedScore);
                 if(score<40) return false;
                 return true;
             }
