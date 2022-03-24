@@ -93,6 +93,8 @@ public class GameCtrl {
 
     private int myScore;
 
+    private int newPoints = 0;
+
 //    public MostPowerCtrl(MainCtrl mainCtrl) {
 //        this.mainCtrl = mainCtrl;
 //        this.threeChoicesEnable();
@@ -163,7 +165,8 @@ public class GameCtrl {
                                 String jsonString = httpToJSONString(http);
                                 commons.TrimmedGame trimmedGame = g.fromJson(jsonString, commons.TrimmedGame.class);
                                 currentRound = trimmedGame.getRoundNum();
-                                System.out.println(currentRound);
+                                System.out.println(trimmedGame.getCorrectAnswer());
+//                                System.out.println(currentRound);
                                 if (currentRound == -1) {
                                     sendAnswer("1");
                                     this.stopGame = true;
@@ -284,13 +287,24 @@ public class GameCtrl {
 
         String response = httpToJSONString(http);
         //System.out.println(response);
-
-
-        printAnswerCorrectness(response);
         http.disconnect();
 
         haveYouVoted.setVisible(true);
-        this.myScore = findScore(response);
+
+        if (findScore(response) > myScore) {
+            System.out.println(findScore(response));
+            System.out.println(myScore);
+            this.newPoints = findScore(response) - myScore;
+            this.myScore = findScore(response);
+            System.out.println(newPoints);
+        }
+
+        else {
+            this.newPoints = 0;
+        }
+        printAnswerCorrectness(response);
+
+
 //        this.scoreLabel.setText(String.valueOf(myScore));
     }
 
@@ -442,7 +456,8 @@ public class GameCtrl {
      * @param response - response from server in String format
      */
     public void printAnswerCorrectness(String response) {
-        answerLabel.setText("Your answer is " + response);
+
+        answerLabel.setText("You received " + this.newPoints + " points!");
     }
 
     /**
