@@ -7,12 +7,10 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
-
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicReference;
 
 public class LobbyCtrl {
     private MainCtrl mainCtrl;
@@ -179,7 +177,7 @@ public class LobbyCtrl {
             http.disconnect();
         }
         catch (IOException e) {
-
+            e.printStackTrace();
         }
     }
 }
