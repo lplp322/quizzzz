@@ -89,6 +89,8 @@ public class GameCtrl {
 
     private boolean stopGame;
 
+    private commons.TrimmedGame currentTrimmedGame;
+
     private int myScore;
 
     private int newPoints = 0;
@@ -163,6 +165,7 @@ public class GameCtrl {
                                 String jsonString = httpToJSONString(http);
                                 commons.TrimmedGame trimmedGame = g.fromJson(jsonString, commons.TrimmedGame.class);
                                 currentRound = trimmedGame.getRoundNum();
+                                this.currentTrimmedGame  = trimmedGame;
                                 System.out.println(trimmedGame.getCorrectAnswer());
 //                                System.out.println(currentRound);
                                 if (currentRound == -1) {
@@ -481,6 +484,29 @@ public class GameCtrl {
 //using java foreach loop to print elements of string array
             return Integer.parseInt(words[4]);
         }
+
+    /**
+     * when the user clicks on users the eliminate wrong answer
+     * if their answer is wrong it will send a new request to the server with the correct answer
+     * @throws IOException if the url where it sends the answer is invalid
+     */
+    public void sendCorrectAnswer() throws IOException {
+
+        if (userChoice == null) {
+            return;
+        }
+            System.out.println("user choice: " +  userChoice.getText());
+            System.out.println("correct answer: " + this.currentTrimmedGame.getCorrectAnswer());
+            System.out.println("question type " + this.currentTrimmedGame.getQuestionType());
+
+        if (!(userChoice.getText().equals(this.currentTrimmedGame.getCorrectAnswer())) &&
+        this.currentTrimmedGame.getQuestionType() != 0 &&
+        this.currentTrimmedGame.getPossibleAnswers().contains(userChoice.getText())){
+            System.out.println("sending right answer...");
+            this.sendAnswer(this.currentTrimmedGame.getCorrectAnswer());
+            this.eliminateWrongButton.setVisible(false);
+        }
+    }
 }
 
 

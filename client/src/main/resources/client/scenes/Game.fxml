@@ -35,7 +35,10 @@
             </ToolBar>
             <Button fx:id="halfTimeJokerButton" layoutX="152.0" layoutY="551.0" mnemonicParsing="false" onAction="#getGameInfo" prefHeight="28.0" prefWidth="128.0" text="Halve Time" />
             <Button fx:id="doublePointsJokerButton" layoutX="354.0" layoutY="551.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="128.0" text="Double Points" />
-            <Button fx:id="eliminateWrongButton" layoutX="553.0" layoutY="551.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="128.0" text="Eliminate Answer" />
+            <Button fx:id="eliminateWrongButton" layoutX="553.0" layoutY="551.0" mnemonicParsing="false" onAction="#sendCorrectAnswer" prefHeight="29.0" prefWidth="128.0" text="Eliminate Wrong Answer">
+               <font>
+                  <Font size="10.0" />
+               </font></Button>
             <TextField fx:id="guessText" layoutX="337.0" layoutY="304.0" promptText="Enter Your Guess " />
             <Button fx:id="submitButton" layoutX="553.0" layoutY="305.0" mnemonicParsing="false" onAction="#submitAnswer" prefHeight="27.0" prefWidth="72.0" text="Submit" />
             <Label fx:id="questionLabel" layoutX="258.0" layoutY="174.0" prefHeight="108.0" prefWidth="344.0" text="Example Question" textAlignment="CENTER" wrapText="true">
