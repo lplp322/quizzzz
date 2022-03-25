@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
@@ -24,6 +26,7 @@
                   <Font size="18.0" />
                </font>
             </Label>
+            <Button fx:id="startButton" layoutX="88.0" layoutY="505.0" mnemonicParsing="false" onAction="#getGameInfo" text="Start Game" />
          </children>
       </AnchorPane>
     <AnchorPane layoutX="255.0" minHeight="0.0" minWidth="0.0" prefHeight="610.0" prefWidth="756.0">
@@ -34,8 +37,10 @@
             <ImageView fx:id="QuestionImage" fitHeight="180.0" fitWidth="198.0" layoutX="43.0" layoutY="84.0" pickOnBounds="true" preserveRatio="true" />
             <ToolBar fx:id="upperPanel" layoutX="4.0" prefHeight="63.0" prefWidth="750.0">
                <items>
-                  <Label fx:id="currentRoundLabel" text="Current Round:" />
-                  <Label fx:id="timerLabel" prefHeight="19.0" prefWidth="97.0" text="Timer: " />
+                  <Label fx:id="currentRoundLabel" prefHeight="27.0" prefWidth="338.0" text="Current Round:" />
+                  <Label fx:id="timerLabel" prefHeight="19.0" prefWidth="231.0" text="Timer: " />
+                  <Label prefHeight="17.0" prefWidth="57.0" text="Reactions" />
+                  <ComboBox fx:id="reactions" prefHeight="47.0" prefWidth="54.0" />
                </items>
             </ToolBar>
             <Button fx:id="halfTimeJokerButton" layoutX="152.0" layoutY="551.0" mnemonicParsing="false" onAction="#getGameInfo" prefHeight="28.0" prefWidth="128.0" text="Halve Time" />
@@ -48,13 +53,13 @@
                   <Font name="Arial Black" size="19.0" />
                </font>
             </Label>
-            <Button fx:id="startButton" layoutX="617.0" layoutY="84.0" mnemonicParsing="false" onAction="#getGameInfo" text="Start Game" />
-            <Label fx:id="answerLabel" alignment="CENTER" layoutX="297.0" layoutY="344.0" prefHeight="43.0" prefWidth="241.0" text="Your answer is" textAlignment="CENTER" wrapText="true" />
+            <Label fx:id="answerLabel" alignment="CENTER" layoutX="254.0" layoutY="371.0" prefHeight="19.0" prefWidth="241.0" text="Your answer is" textAlignment="CENTER" wrapText="true" />
             <Text fx:id="haveYouVoted" layoutX="300.0" layoutY="83.0" strokeType="OUTSIDE" strokeWidth="0.0" text="You have voted" textAlignment="CENTER" visible="false" wrappingWidth="137.6373197289131">
                <font>
                   <Font size="16.0" />
                </font>
             </Text>
+            <VBox fx:id="reactionBox" layoutX="561.0" layoutY="66.0" prefHeight="266.0" prefWidth="185.0" />
          </children>
       </AnchorPane>
    </children>

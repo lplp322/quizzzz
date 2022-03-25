@@ -5,10 +5,10 @@ import org.springframework.stereotype.Service;
 import server.database.ActivityRepository;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.HashMap;
-import java.util.Set;
 import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 
 @Service
 public class LobbyService {
@@ -43,7 +43,7 @@ public class LobbyService {
      */
     public boolean startGame(int gameType) {
         if(names.size() == 0) return false;
-        Game tempGame = new Game(Map.copyOf(tempPlayers), idCounter, gameType, dtBase);
+        Game tempGame = new Game(Map.copyOf(tempPlayers), idCounter, gameType, dtBase, new ArrayList<>());
         Thread t = new Thread(tempGame);
         t.start();
 
@@ -100,7 +100,7 @@ public class LobbyService {
         Player person = new Player(name);
         Map<String, Player> players = new HashMap<>();
         players.put(name, person);
-        Game newGame = new Game(players, singlePlayerID, 0, dtBase);
+        Game newGame = new Game(players, singlePlayerID, 0, dtBase, new ArrayList<>());
         games.put(singlePlayerID--, newGame);
         return singlePlayerID+1;
     }
