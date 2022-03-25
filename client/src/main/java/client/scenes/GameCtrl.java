@@ -5,14 +5,25 @@ import com.google.gson.reflect.TypeToken;
 import com.google.inject.Inject;
 import commons.TrimmedGame;
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
@@ -21,13 +32,16 @@ import java.lang.reflect.Type;
 import java.net.HttpURLConnection;
 
 
+import java.net.MalformedURLException;
 import java.net.URL;
 
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.regex.Pattern;
 
 public class GameCtrl {
 
@@ -77,6 +91,12 @@ public class GameCtrl {
 
     @FXML
     private Text haveYouVoted;
+
+    @FXML
+    private ComboBox<ImageView> reactions;
+
+    @FXML
+    private VBox reactionBox;
 
     private MainCtrl mainCtrl;
 
@@ -139,7 +159,9 @@ public class GameCtrl {
      */
     public void getGameInfo() throws IOException {
         //getLeaderboard();
+        loadReactions();
         playerList.getItems().add(this.mainCtrl.getName());
+
         Thread t1 = new Thread(()-> {
             while(!stopGame) {
                 Platform.runLater(() -> {
@@ -153,6 +175,8 @@ public class GameCtrl {
                                 String jsonString = httpToJSONString(http);
                                 commons.TrimmedGame trimmedGame = g.fromJson(jsonString, commons.TrimmedGame.class);
                                 currentRound = trimmedGame.getRoundNum();
+
+                                showReaction(trimmedGame.getReactionHistory());
                                 if (trimmedGame.getTimer() < 0) {//works for now, BUT NEEDS TO BE CHANGED IN TRIMMEDGAME
                                     showTimeout(trimmedGame);
                                     this.showCorrectAnswer(trimmedGame.getCorrectAnswer());
@@ -177,6 +201,68 @@ public class GameCtrl {
             }
         });
         t1.start();
+    }
+
+
+    /**
+     * Loads the available emoji's (in reasources/reactions) into the dropdown menu
+     */
+    public void loadReactions() {
+        reactions.setValue(new ImageView());
+        File folder = new File(getClass().getClassLoader().getResource("reactions/").getPath());
+        List<ImageView> ls = new ArrayList<>();
+        System.out.println(folder.listFiles()[0].toString());
+        ImageView img = new ImageView(new Image("reactions/701.png"));
+        img.setFitHeight(30);
+        img.setFitWidth(30);
+        reactions.setValue(img);
+//        reactions.setButtonCell(new ListCell<>());
+        for(File f : folder.listFiles()) {
+            ls.add(new ImageView(new Image("reactions/"+f.getName())));
+        }
+        reactions.setItems(FXCollections.observableArrayList(ls));
+        reactions.setCellFactory(param -> new ListCell<>() {
+            private void send(String emoji) {
+                try {
+                    URL url = new URL(link + "reaction/" + mainCtrl.getCurrentID()
+                            + "/" + mainCtrl.getName() + "/" + emoji);
+                    HttpURLConnection http = (HttpURLConnection)url.openConnection();
+                    http.setRequestMethod("PUT");
+                    httpToJSONString(http);
+                    http.disconnect();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+            @Override
+            protected void updateItem(ImageView item, boolean empty) {
+                super.updateItem(item, empty);
+                if (item == null || empty)
+                    setGraphic(null);
+                else {
+                    item.setFitHeight(40);
+                    item.setFitWidth(40);
+                    HBox hBox = new HBox(item);
+                    String sep = "/";
+                    setOnMousePressed(event -> {
+                        send(item.getImage().getUrl().split(Pattern.quote(sep))[item.getImage().getUrl().
+                                split(Pattern.quote(sep)).length-1]);
+                    });
+                    setGraphic(hBox);
+                }
+                setText("");
+            }
+        });
+        reactions.setButtonCell(new ListCell<>(){
+            @Override
+            protected void updateItem(ImageView item, boolean empty){
+                super.updateItem(item, empty);
+                if(item != null) {
+                    setGraphic(img);
+                    setText("");
+                }
+            }
+        });
     }
 
 
@@ -432,6 +518,31 @@ public class GameCtrl {
         if(!(guessText.getText()==null) && this.checkCanAnswer()){
             sendAnswer(guessText.getText());
             lastRoundAnswered = currentRound;
+        }
+    }
+
+    /**
+     * Shows the reactions in the game UI
+     * @param reactions The reaction list to show
+     * @throws MalformedURLException If cannot find the reactions folder
+     */
+    public void showReaction(List<String[]> reactions) throws MalformedURLException {
+        reactionBox.getChildren().remove(0, reactionBox.getChildren().size());
+        for(String[] pair : reactions) {
+            Label lb = new Label();
+            lb.setPrefWidth(190);
+            lb.setPrefHeight(50);
+            lb.setAlignment(Pos.CENTER_LEFT);
+            lb.setContentDisplay(ContentDisplay.RIGHT);
+            lb.setId("reaction");
+            Image img = new Image((GameCtrl.class.getClassLoader().getResource("reactions/"+pair[1]).toString()));
+            ImageView imageView = new ImageView(img);
+            imageView.setFitHeight(30);
+            imageView.setFitWidth(30);
+            lb.setGraphic(imageView);
+            lb.setText(pair[0]+": ");
+            lb.setFont(new Font(18));
+            reactionBox.getChildren().add(lb);
         }
     }
 }
