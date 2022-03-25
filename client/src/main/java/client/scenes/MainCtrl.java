@@ -226,6 +226,9 @@ public class MainCtrl {
         this.link = link;
     }
 
+    /**
+     * returns the user to the game screen (used after showing the leaderboard)
+     */
     public void returnToGame() {
         primaryStage.setTitle("Quizzz");
         primaryStage.setScene(game);
