@@ -209,7 +209,7 @@ public class GameCtrl {
      */
     public void loadReactions() {
         reactions.setValue(new ImageView());
-        File folder = new File(getClass().getClassLoader().getResource("reactions/").getPath());
+        File folder = new File("client/src/main/resources/reactions");
         List<ImageView> ls = new ArrayList<>();
         System.out.println(folder.listFiles()[0].toString());
         ImageView img = new ImageView(new Image("reactions/701.png"));
