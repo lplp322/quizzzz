@@ -224,7 +224,7 @@ public class GameCtrl {
         reactions.setCellFactory(param -> new ListCell<>() {
             private void send(String emoji) {
                 try {
-                    URL url = new URL(link + "reaction/" + mainCtrl.getCurrentID()
+                    URL url = new URL( mainCtrl.getLink()+ "reaction/" + mainCtrl.getCurrentID()
                             + "/" + mainCtrl.getName() + "/" + emoji);
                     HttpURLConnection http = (HttpURLConnection)url.openConnection();
                     http.setRequestMethod("PUT");
