@@ -78,6 +78,9 @@ public class GameCtrl {
     @FXML
     private Text haveYouVoted;
 
+    @FXML
+    private Label scoreLabel;
+
     private MainCtrl mainCtrl;
 
     private static int lastRoundAnswered = -1;
@@ -85,6 +88,10 @@ public class GameCtrl {
     private Button userChoice;
 
     private boolean stopGame;
+
+    private int myScore;
+
+    private int newPoints = 0;
 
 //    public MostPowerCtrl(MainCtrl mainCtrl) {
 //        this.mainCtrl = mainCtrl;
@@ -139,8 +146,11 @@ public class GameCtrl {
      */
     public void getGameInfo() throws IOException {
         //getLeaderboard();
+        playerList.getItems().remove(0, playerList.getItems().size());
         playerList.getItems().add(this.mainCtrl.getName());
+
         Thread t1 = new Thread(()-> {
+
             while(!stopGame) {
                 Platform.runLater(() -> {
                             try {
@@ -153,6 +163,13 @@ public class GameCtrl {
                                 String jsonString = httpToJSONString(http);
                                 commons.TrimmedGame trimmedGame = g.fromJson(jsonString, commons.TrimmedGame.class);
                                 currentRound = trimmedGame.getRoundNum();
+                                System.out.println(trimmedGame.getCorrectAnswer());
+//                                System.out.println(currentRound);
+                                if (currentRound == -1) {
+                                    sendAnswer("1");
+                                    this.stopGame = true;
+                                    this.showLeaderboard();
+                                }
                                 if (trimmedGame.getTimer() < 0) {//works for now, BUT NEEDS TO BE CHANGED IN TRIMMEDGAME
                                     showTimeout(trimmedGame);
                                     this.showCorrectAnswer(trimmedGame.getCorrectAnswer());
@@ -189,6 +206,7 @@ public class GameCtrl {
         currentRoundLabel.setText("Round is over");
         questionLabel.setText(trimmedGame.getCurrentQuestion());
         answerLabel.setVisible(true);
+        this.scoreLabel.setText(String.valueOf(myScore));
         if(currentRound >lastRoundAnswered) answerLabel.setText("You have not answered");
     }
 
@@ -199,7 +217,7 @@ public class GameCtrl {
      */
     private void showRound(TrimmedGame trimmedGame) {
         answerLabel.setVisible(false);
-        currentRoundLabel.setText("currentRound " + trimmedGame.getRoundNum());
+        currentRoundLabel.setText("currentRound " + (trimmedGame.getRoundNum()+1));
         timerLabel.setText("Time: " + trimmedGame.getTimer());
         questionLabel.setText(trimmedGame.getCurrentQuestion());
         
@@ -267,11 +285,25 @@ public class GameCtrl {
 
         String response = httpToJSONString(http);
         //System.out.println(response);
-
-        printAnswerCorrectness(response);
         http.disconnect();
 
         haveYouVoted.setVisible(true);
+
+        if (findScore(response) > myScore) {
+            System.out.println(findScore(response));
+            System.out.println(myScore);
+            this.newPoints = findScore(response) - myScore;
+            this.myScore = findScore(response);
+            System.out.println(newPoints);
+        }
+
+        else {
+            this.newPoints = 0;
+        }
+        printAnswerCorrectness(response);
+
+
+//        this.scoreLabel.setText(String.valueOf(myScore));
     }
 
 
@@ -422,7 +454,8 @@ public class GameCtrl {
      * @param response - response from server in String format
      */
     public void printAnswerCorrectness(String response) {
-        answerLabel.setText("Your answer is " + response);
+
+        answerLabel.setText("You received " + this.newPoints + " points!");
     }
 
     /**
@@ -434,6 +467,20 @@ public class GameCtrl {
             lastRoundAnswered = currentRound;
         }
     }
+
+
+    public void showLeaderboard() throws IOException {
+        commons.LeaderboardEntry myEntry = new commons.LeaderboardEntry(this.mainCtrl.getName(), myScore);
+        this.mainCtrl.showLeaderboard(this.getLeaderboard(), myEntry);
+    }
+
+
+
+        public static int findScore(String response){
+            String[] words= response.split("\\s");//splits the string based on whitespace
+//using java foreach loop to print elements of string array
+            return Integer.parseInt(words[4]);
+        }
 }
 
 
