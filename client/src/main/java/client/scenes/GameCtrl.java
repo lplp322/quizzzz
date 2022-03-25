@@ -175,7 +175,7 @@ public class GameCtrl {
                                     this.showLeaderboard();
                                 }
                                 if (trimmedGame.getTimer() == 20) {
-                                    this.mainCtrl.showGame();
+                                    this.mainCtrl.returnToGame();
                                 }
                                 if (trimmedGame.getTimer() < 0) {//works for now, BUT NEEDS TO BE CHANGED IN TRIMMEDGAME
                                     showTimeout(trimmedGame);

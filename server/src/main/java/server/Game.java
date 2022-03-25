@@ -221,6 +221,9 @@ public class Game implements Runnable{
         return score;
     }
 
+    /**
+     * @return a linked list containing the current leaderboard for multiplayer games
+     */
     public LinkedList<LeaderboardEntry> getMultiplayerLeaderboard() {
         Set<Map.Entry<String,Player>> playerMappings = this.players.entrySet();
         LinkedList<LeaderboardEntry> leaderboardEntries = new LinkedList<>();

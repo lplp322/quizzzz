@@ -165,8 +165,9 @@ public class LobbyController {
 
 
     /**
-     * @return returns a linked list of entries that store the information
-     * of the leaderboard
+     * @param gameID the current gameID
+     * @return a linked list containing the names and scores of the players in
+     * this multiplayer game
      */
     @GetMapping("/{gameID}/getMultiplayerLeaderBoard")
     public LinkedList<LeaderboardEntry> getMultiplayerLeaderboard(@PathVariable int gameID){

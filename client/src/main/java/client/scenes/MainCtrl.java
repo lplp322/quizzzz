@@ -225,4 +225,9 @@ public class MainCtrl {
     public void setLink(String link) {
         this.link = link;
     }
+
+    public void returnToGame() {
+        primaryStage.setTitle("Quizzz");
+        primaryStage.setScene(game);
+    }
 }
