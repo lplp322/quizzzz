@@ -3,6 +3,7 @@ package client.scenes;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.google.inject.Inject;
+import commons.LeaderboardEntry;
 import commons.TrimmedGame;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -173,12 +174,19 @@ public class GameCtrl {
                                     this.stopGame = true;
                                     this.showLeaderboard();
                                 }
+                                if (trimmedGame.getTimer() == 20) {
+                                    this.mainCtrl.showGame();
+                                }
                                 if (trimmedGame.getTimer() < 0) {//works for now, BUT NEEDS TO BE CHANGED IN TRIMMEDGAME
                                     showTimeout(trimmedGame);
                                     this.showCorrectAnswer(trimmedGame.getCorrectAnswer());
                                     if (trimmedGame.getTimer() == -4) {
                                         this.resetColors();
                                         haveYouVoted.setVisible(false);
+                                    }
+
+                                    if (trimmedGame.getTimer() == -2) {
+                                        this.getMultiplayerLeaderboard();
                                     }
                                 } else {
                                     showRound(trimmedGame);
@@ -553,6 +561,7 @@ public class GameCtrl {
             System.out.println("this is the json String " + jsonString);
             System.out.println("this is the response code " + http.getResponseCode());
             this.myScore = Integer.parseInt(jsonString);
+            printAnswerCorrectness(null);
             http.disconnect();
         }
 
@@ -566,7 +575,7 @@ public class GameCtrl {
      */
     public void getMultiplayerLeaderboard() throws IOException {
         System.out.println("button was clicked");
-        URL url = new URL(mainCtrl.getLink()  +  this.currentRound + "/getMultiplayerLeaderBoard" );
+        URL url = new URL(mainCtrl.getLink()  +  this.mainCtrl.getCurrentID() + "/getMultiplayerLeaderBoard" );
         HttpURLConnection http = (HttpURLConnection) url.openConnection();
         Gson g = new Gson();
         String jsonString = httpToJSONString(http);
@@ -575,6 +584,8 @@ public class GameCtrl {
         LinkedList<commons.LeaderboardEntry> leaderboardList = g.fromJson(jsonString, typeToken);
         http.disconnect();
         System.out.println(leaderboardList);
+        LeaderboardEntry userEntry = new LeaderboardEntry(this.mainCtrl.getName(), this.myScore);
+        this.mainCtrl.showLeaderboard(leaderboardList, userEntry);
 //        return leaderboardList;
     }
 
