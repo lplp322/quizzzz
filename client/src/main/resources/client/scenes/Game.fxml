@@ -68,6 +68,7 @@
                   <Font size="24.0" />
                </font>
             </Label>
+            <Button layoutX="241.0" layoutY="98.0" mnemonicParsing="false" onAction="#getMultiplayerLeaderboardgetMultiplayerLeaderboard" text="Button" />
          </children>
       </AnchorPane>
    </children>

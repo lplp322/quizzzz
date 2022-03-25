@@ -168,8 +168,8 @@ public class LobbyController {
      * @return returns a linked list of entries that store the information
      * of the leaderboard
      */
-    @GetMapping("/{gameID}/{name}/getMultiplayerLeaderBoard/{round}/{answer}")
-    public LinkedList<LeaderboardEntry> getMultiplayerLeaderboard(){
-
+    @GetMapping("/{gameID}/getMultiplayerLeaderBoard")
+    public LinkedList<LeaderboardEntry> getMultiplayerLeaderboard(@PathVariable int gameID){
+        return this.lobbyService.getGameByID(gameID).getMultiplayerLeaderboard();
     }
 }

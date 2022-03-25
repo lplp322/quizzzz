@@ -1,11 +1,10 @@
 package server;
 
+import commons.LeaderboardEntry;
 import commons.TrimmedGame;
 import server.database.ActivityRepository;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Game implements Runnable{
     private Map<String, Player> players;
@@ -220,5 +219,18 @@ public class Game implements Runnable{
     public int getPlayerScore(String name) {
         int score = this.players.get(name).getScore();
         return score;
+    }
+
+    public LinkedList<LeaderboardEntry> getMultiplayerLeaderboard() {
+        Set<Map.Entry<String,Player>> playerMappings = this.players.entrySet();
+        LinkedList<LeaderboardEntry> leaderboardEntries = new LinkedList<>();
+
+        for (Map.Entry<String, Player> entry : playerMappings) {
+            Player player = entry.getValue();
+            commons.LeaderboardEntry ldEntry = new LeaderboardEntry(player.getName(), player.getScore());
+            leaderboardEntries.add(ldEntry);
+        }
+
+        return leaderboardEntries;
     }
 }

@@ -166,7 +166,7 @@ public class GameCtrl {
                                 commons.TrimmedGame trimmedGame = g.fromJson(jsonString, commons.TrimmedGame.class);
                                 currentRound = trimmedGame.getRoundNum();
                                 this.currentTrimmedGame  = trimmedGame;
-                                System.out.println(trimmedGame.getCorrectAnswer());
+//                                System.out.println(trimmedGame.getCorrectAnswer());
 //                                System.out.println(currentRound);
                                 if (currentRound == -1) {
                                     sendAnswer("1");
@@ -555,9 +555,29 @@ public class GameCtrl {
             http.disconnect();
         }
 
-
-
     }
+
+
+
+    /**
+     * @return the list of entries in the leaderboard from the server
+     * @throws IOException if the link is not valid
+     */
+    public LinkedList<commons.LeaderboardEntry> getMultiplayerLeaderboard() throws IOException {
+        System.out.println("button was clicked");
+        URL url = new URL(mainCtrl.getLink() + this.currentRound + "getMultiplayerLeaderBoard" );
+        HttpURLConnection http = (HttpURLConnection) url.openConnection();
+        Gson g = new Gson();
+        String jsonString = httpToJSONString(http);
+        Type typeToken = new TypeToken<LinkedList<commons.LeaderboardEntry>>(){}.getType();
+        //System.out.println(typeToken.getTypeName());
+        LinkedList<commons.LeaderboardEntry> leaderboardList = g.fromJson(jsonString, typeToken);
+        http.disconnect();
+        System.out.println(leaderboardList);
+        return leaderboardList;
+    }
+
+
 }
 
 
