@@ -166,7 +166,7 @@ public class GameCtrl {
                                 commons.TrimmedGame trimmedGame = g.fromJson(jsonString, commons.TrimmedGame.class);
                                 currentRound = trimmedGame.getRoundNum();
                                 this.currentTrimmedGame  = trimmedGame;
-                                System.out.println(trimmedGame.getCorrectAnswer());
+//                                System.out.println(trimmedGame.getCorrectAnswer());
 //                                System.out.println(currentRound);
                                 if (currentRound == -1) {
                                     sendAnswer("1");
@@ -280,17 +280,17 @@ public class GameCtrl {
                 + this.mainCtrl.getName() + "/checkAnswer/" +
                 currentRound + "/" + answer);
 
+        System.out.println("answer is being sent");
         //System.out.println(this.mainCtrl.getName());
         HttpURLConnection http = (HttpURLConnection)url.openConnection();
         http.setRequestMethod("PUT");
-
         //System.out.println(http.getResponseCode());
-
         String response = httpToJSONString(http);
         //System.out.println(response);
         http.disconnect();
-
         haveYouVoted.setVisible(true);
+
+        System.out.println(response);
 
         if (findScore(response) > myScore) {
             System.out.println(findScore(response));
@@ -491,7 +491,6 @@ public class GameCtrl {
      * @throws IOException if the url where it sends the answer is invalid
      */
     public void sendCorrectAnswer() throws IOException {
-
         if (userChoice == null) {
             return;
         }
@@ -503,9 +502,28 @@ public class GameCtrl {
         this.currentTrimmedGame.getQuestionType() != 0 &&
         this.currentTrimmedGame.getPossibleAnswers().contains(userChoice.getText())){
             System.out.println("sending right answer...");
-            this.sendAnswer(this.currentTrimmedGame.getCorrectAnswer());
+            String choice = this.convertAnswerToChoice(currentTrimmedGame.getCorrectAnswer());
+            this.sendAnswer(choice);
             this.eliminateWrongButton.setVisible(false);
         }
+    }
+
+    /**
+     * Converts an answer into an integer that represents the multiple choice options
+     * 0 for the first, 1 for the second etc.
+     * @param answer the String of the answer
+     * @return a string of the number so that it can be easily used in communication
+     */
+    public String convertAnswerToChoice(String answer) {
+
+        if (choiceA.getText().equals(answer)) {
+            return "0";
+        }
+        if (choiceB.getText().equals(answer)) {
+            return "1";
+        }
+
+        return "2";
     }
 }
 
