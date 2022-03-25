@@ -21,23 +21,12 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStreamReader;
-
-import java.io.Reader;
 import java.lang.reflect.Type;
 import java.net.HttpURLConnection;
-
-
-import java.net.MalformedURLException;
 import java.net.URL;
-
-import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
-
+import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -112,7 +101,7 @@ public class GameCtrl {
 //    }
 
     /**
-     * Injecting mostpowercontroller
+     * Injecting mainCtrl
      * @param mainCtrl
      */
     @Inject
@@ -172,7 +161,7 @@ public class GameCtrl {
                                 //but these need to be changed once the gameID is stored from the sever
                                 HttpURLConnection http = (HttpURLConnection) url.openConnection();
                                 Gson g = new Gson();
-                                String jsonString = httpToJSONString(http);
+                                String jsonString = mainCtrl.httpToJSONString(http);
                                 commons.TrimmedGame trimmedGame = g.fromJson(jsonString, commons.TrimmedGame.class);
                                 currentRound = trimmedGame.getRoundNum();
 
@@ -228,7 +217,7 @@ public class GameCtrl {
                             + "/" + mainCtrl.getName() + "/" + emoji);
                     HttpURLConnection http = (HttpURLConnection)url.openConnection();
                     http.setRequestMethod("PUT");
-                    httpToJSONString(http);
+                    mainCtrl.httpToJSONString(http);
                     http.disconnect();
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -300,26 +289,6 @@ public class GameCtrl {
     }
 
     /**
-     * @param http this is a http connection that the response of which will be turned into a string
-     * @return The http response in JSON format
-     */
-    public static String httpToJSONString(HttpURLConnection http) {
-        StringBuilder textBuilder = new StringBuilder();
-        try (Reader reader = new BufferedReader(new InputStreamReader
-                (http.getInputStream(), Charset.forName(StandardCharsets.UTF_8.name())))) {
-            int c = 0;
-            while ((c = reader.read()) != -1) {
-                textBuilder.append((char) c);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        String jsonString = textBuilder.toString();
-        return jsonString;
-    }
-
-
-    /**
      * @param joker this is a string related to which joker is being passed to the server
      * @throws IOException
      */
@@ -331,7 +300,7 @@ public class GameCtrl {
         HttpURLConnection http = (HttpURLConnection)url.openConnection();
 //        http.setRequestMethod("PUT");
         //System.out.println(http.getResponseCode());
-        String response = httpToJSONString(http);
+        String response = mainCtrl.httpToJSONString(http);
         //System.out.println(response);
         http.disconnect();
     }
@@ -351,7 +320,7 @@ public class GameCtrl {
 
         //System.out.println(http.getResponseCode());
 
-        String response = httpToJSONString(http);
+        String response = mainCtrl.httpToJSONString(http);
         //System.out.println(response);
 
         printAnswerCorrectness(response);
@@ -408,7 +377,7 @@ public class GameCtrl {
         URL url = new URL(mainCtrl.getLink() + "leaderboard" );
         HttpURLConnection http = (HttpURLConnection) url.openConnection();
         Gson g = new Gson();
-        String jsonString = httpToJSONString(http);
+        String jsonString = mainCtrl.httpToJSONString(http);
         Type typeToken = new TypeToken<LinkedList<commons.LeaderboardEntry>>(){}.getType();
         //System.out.println(typeToken.getTypeName());
         LinkedList<commons.LeaderboardEntry> leaderboardList = g.fromJson(jsonString, typeToken);

@@ -73,7 +73,7 @@ public class PromptCtrl {
                     this.mainCtrl.setCurrentGameID(ID); //sets the gameID of the MainCtrl to the one received
                     if(isSingleplayer)  this.mainCtrl.showGame();  //shows the game screen
 
-                    else this.mainCtrl.showOverview(); //lobby screen needed to be here instead of overview
+                    else this.mainCtrl.showWaitingRoom(); //lobby screen needed to be here instead of overview
                 } catch (IOException e) {
                     errorLabel.setVisible(true);
                     errorLabel.setText("Could not connect to server!");

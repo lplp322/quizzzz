@@ -3,15 +3,12 @@ package server;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import server.database.ActivityRepository;
-
-
 import java.util.ArrayList;
+import java.util.List;
 import java.util.HashMap;
 import java.util.HashSet;
-
 import java.util.Map;
 import java.util.Set;
-
 
 @Service
 public class LobbyService {
@@ -73,6 +70,20 @@ public class LobbyService {
     }
 
     /**
+     * Removes a player with given name from the lobby
+     * @param name
+     * @return true if the player with the given name was removed successfully, false otherwise
+     */
+    public boolean removePlayer(String name) {
+        if(names.contains(name)) {
+            names.remove(name);
+            tempPlayers.remove(name);
+            return true;
+        }
+        return false;
+    }
+
+    /**
      * returns the idCounter
      * @return the idCounter
      */
@@ -103,6 +114,11 @@ public class LobbyService {
         return games.get(id);
     }
 
-
-
+    /**
+     * Returns the list of all players in the lobby
+     * @return list of names
+     */
+    public List<String> getNames() {
+        return new ArrayList<>(names);
+    }
 }
