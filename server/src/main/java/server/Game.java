@@ -13,18 +13,22 @@ public class Game implements Runnable{
     private List<Question> questions;
     private int gameType;
     private Round round;
+    private List<String[]> reactions;
 
     /**
      * @param players map of players that are in the game
      * @param lobbyId the ID of the lobby that they were in before
      * @param gameType the type of game that is being played (single or multiplayer)
      * @param dtBase the database for the activities
+     * @param reactions the list of reactions
      */
-    public Game(Map<String, Player> players, int lobbyId, int gameType, ActivityRepository dtBase) {
+    public Game(Map<String, Player> players, int lobbyId, int gameType,
+                ActivityRepository dtBase, List<String[]> reactions) {
         this.players = players;
         this.lobbyId = lobbyId;
         this.gameType = gameType;
         round = new Round();
+        this.reactions = reactions;
 
         questions = new ArrayList<>();
         for(int i = 0; i < round.getTotalRounds(); i++) {
@@ -88,6 +92,14 @@ public class Game implements Runnable{
     }
 
     /**
+     * Return the list of all reaction of this game
+     * @return a list containing all the reaction in this game
+     */
+    public List<String[]> getReactions() {
+        return this.reactions;
+    }
+
+    /**
      * returns the round object
      * @return the round object
      */
@@ -101,7 +113,7 @@ public class Game implements Runnable{
         Question currQuestion = questions.get(round.getRound());
         String answer = currQuestion.getAnswer();
         return new TrimmedGame(lobbyId, currQuestion.getQuestion(), questions.size(), round.getTimer(),
-                currQuestion.getAnswers(), currQuestion.getType(), answer);
+                currQuestion.getAnswers(), currQuestion.getType(), answer, (List<String[]>) reactions);
 
     }
     /**
@@ -111,17 +123,18 @@ public class Game implements Runnable{
      */
     public TrimmedGame trim(String requester) {
         if (round.getGameStatus() == 2) {
-            return new TrimmedGame(lobbyId, null, -1, 0, new ArrayList<String>(), 0, null);
+            return new TrimmedGame(lobbyId, null, -1, 0, new ArrayList<String>(), 0
+                    , null, new ArrayList<String[]>());
         }
         Question currQuestion = questions.get(round.getRound());
         if (round.isHalfTimerUsed()){
             if (!requester.equals(round.getPlayerWhoUsedJoker().getName())) {
                 return new TrimmedGame(lobbyId, currQuestion.getQuestion(), round.getRound(), round.getHalvedTimer(),
-                        currQuestion.getAnswers(), currQuestion.getType(), currQuestion.getAnswer());
+                        currQuestion.getAnswers(), currQuestion.getType(), currQuestion.getAnswer(), reactions);
             }
         }
         return new TrimmedGame(lobbyId, currQuestion.getQuestion(), round.getRound(), round.getTimer(),
-                currQuestion.getAnswers(), currQuestion.getType(), currQuestion.getAnswer());
+                currQuestion.getAnswers(), currQuestion.getType(), currQuestion.getAnswer(), reactions);
 
     }
 
