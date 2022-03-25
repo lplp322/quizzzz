@@ -166,7 +166,7 @@ public class GameCtrl {
                                 commons.TrimmedGame trimmedGame = g.fromJson(jsonString, commons.TrimmedGame.class);
                                 currentRound = trimmedGame.getRoundNum();
                                 this.currentTrimmedGame  = trimmedGame;
-//                                System.out.println(trimmedGame.getCorrectAnswer());
+                                System.out.println(trimmedGame.getCorrectAnswer());
 //                                System.out.println(currentRound);
                                 if (currentRound == -1) {
                                     sendAnswer("1");
@@ -494,10 +494,9 @@ public class GameCtrl {
         if (userChoice == null) {
             return;
         }
-            System.out.println("user choice: " +  userChoice.getText());
-            System.out.println("correct answer: " + this.currentTrimmedGame.getCorrectAnswer());
-            System.out.println("question type " + this.currentTrimmedGame.getQuestionType());
-
+//            System.out.println("user choice: " +  userChoice.getText());
+//            System.out.println("correct answer: " + this.currentTrimmedGame.getCorrectAnswer());
+//            System.out.println("question type " + this.currentTrimmedGame.getQuestionType());
         if (!(userChoice.getText().equals(this.currentTrimmedGame.getCorrectAnswer())) &&
         this.currentTrimmedGame.getQuestionType() != 0 &&
         this.currentTrimmedGame.getPossibleAnswers().contains(userChoice.getText())){
@@ -524,6 +523,40 @@ public class GameCtrl {
         }
 
         return "2";
+    }
+
+    /**
+     * sends the number of points that should be added on top of the user's current points
+     * effectively doubling the points they receive for this question
+     * @throws IOException if the url is invalid
+     */
+    public void sendDoublePoints() throws IOException {
+
+        if (userChoice == null) {
+            return;
+        }
+
+        if (this.currentTrimmedGame.getPossibleAnswers().contains(userChoice.getText())){
+            System.out.println("sending extra points");
+            this.doublePointsJokerButton.setVisible(false);
+
+            URL url = new URL(mainCtrl.getLink() + this.mainCtrl.getCurrentID() + "/" +
+                    this.mainCtrl.getName() + "/updateScore/" +  this.currentRound + "/" + this.newPoints);
+
+            System.out.println(mainCtrl.getLink() + this.mainCtrl.getCurrentID() + "/" +
+                    this.mainCtrl.getName() + "/updateScore/" +  this.currentRound + "/" + this.newPoints);
+            HttpURLConnection http = (HttpURLConnection) url.openConnection();
+
+            this.newPoints = this.newPoints * 2;
+            String jsonString = httpToJSONString(http);
+            System.out.println("this is the json String " + jsonString);
+            System.out.println("this is the response code " + http.getResponseCode());
+//            this.myScore = Integer.parseInt(jsonString);
+            http.disconnect();
+        }
+
+
+
     }
 }
 

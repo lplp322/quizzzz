@@ -136,6 +136,24 @@ public class LobbyController {
         return "joker received";
     }
 
+
+    /**
+     * @param gameID the id of the current game
+     * @param name the name of the user
+     * @param round the current round that is being played
+     * @param points the number of new points that should be given to the user
+     * @return a string that just confirms what has taken place for testing purposes
+     */
+    @GetMapping("/{gameID}/{name}/updateScore/{round}/{newScore}")
+    public int updateUserScore(@PathVariable int gameID, @PathVariable String name,
+                               @PathVariable int round, @PathVariable int points) {
+        System.out.println("new points received");
+        this.lobbyService.getGameByID(gameID).updatePlayerScore(name, points);
+
+        int score = this.lobbyService.getGameByID(gameID).getPlayerScore(name);
+        return score;
+    }
+
     /**
      * @return returns a linked list of entries that store the information
      * of the leaderboard
@@ -143,5 +161,15 @@ public class LobbyController {
     @GetMapping("leaderboard")
     public LinkedList<LeaderboardEntry> getGameInfo(){
         return lbRepo.getAllLeaderboardEntriesOrderedByScore();
+    }
+
+
+    /**
+     * @return returns a linked list of entries that store the information
+     * of the leaderboard
+     */
+    @GetMapping("/{gameID}/{name}/getMultiplayerLeaderBoard/{round}/{answer}")
+    public LinkedList<LeaderboardEntry> getMultiplayerLeaderboard(){
+
     }
 }

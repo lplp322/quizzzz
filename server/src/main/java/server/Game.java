@@ -212,4 +212,13 @@ public class Game implements Runnable{
         player.setScore(score);
         return score;
     }
+
+    /**
+     * @param name The name of the player that the score is associated with
+     * @return the score associated with the given name
+     */
+    public int getPlayerScore(String name) {
+        int score = this.players.get(name).getScore();
+        return score;
+    }
 }
