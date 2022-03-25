@@ -166,7 +166,7 @@ public class GameCtrl {
                                 commons.TrimmedGame trimmedGame = g.fromJson(jsonString, commons.TrimmedGame.class);
                                 currentRound = trimmedGame.getRoundNum();
                                 this.currentTrimmedGame  = trimmedGame;
-//                                System.out.println(trimmedGame.getCorrectAnswer());
+                                System.out.println(trimmedGame.getCorrectAnswer());
 //                                System.out.println(currentRound);
                                 if (currentRound == -1) {
                                     sendAnswer("1");
@@ -547,11 +547,12 @@ public class GameCtrl {
                     this.mainCtrl.getName() + "/updateScore/" +  this.currentRound + "/" + this.newPoints);
             HttpURLConnection http = (HttpURLConnection) url.openConnection();
 
+
             this.newPoints = this.newPoints * 2;
             String jsonString = httpToJSONString(http);
             System.out.println("this is the json String " + jsonString);
             System.out.println("this is the response code " + http.getResponseCode());
-//            this.myScore = Integer.parseInt(jsonString);
+            this.myScore = Integer.parseInt(jsonString);
             http.disconnect();
         }
 
@@ -563,9 +564,9 @@ public class GameCtrl {
      * @return the list of entries in the leaderboard from the server
      * @throws IOException if the link is not valid
      */
-    public LinkedList<commons.LeaderboardEntry> getMultiplayerLeaderboard() throws IOException {
+    public void getMultiplayerLeaderboard() throws IOException {
         System.out.println("button was clicked");
-        URL url = new URL(mainCtrl.getLink() + this.currentRound + "getMultiplayerLeaderBoard" );
+        URL url = new URL(mainCtrl.getLink()  +  this.currentRound + "/getMultiplayerLeaderBoard" );
         HttpURLConnection http = (HttpURLConnection) url.openConnection();
         Gson g = new Gson();
         String jsonString = httpToJSONString(http);
@@ -574,7 +575,7 @@ public class GameCtrl {
         LinkedList<commons.LeaderboardEntry> leaderboardList = g.fromJson(jsonString, typeToken);
         http.disconnect();
         System.out.println(leaderboardList);
-        return leaderboardList;
+//        return leaderboardList;
     }
 
 

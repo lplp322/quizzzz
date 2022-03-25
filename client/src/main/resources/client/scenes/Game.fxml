@@ -51,7 +51,7 @@
                   <Font name="Arial Black" size="19.0" />
                </font>
             </Label>
-            <Button fx:id="startButton" layoutX="617.0" layoutY="84.0" mnemonicParsing="false" onAction="#getGameInfo" text="Start Game" />
+            <Button fx:id="startButton" layoutX="617.0" layoutY="84.0" mnemonicParsing="false" onAction="#getMultiplayerLeaderboard" text="Start Game" />
             <Label fx:id="answerLabel" alignment="CENTER" layoutX="300.0" layoutY="333.0" prefHeight="19.0" prefWidth="241.0" text="Your answer is" textAlignment="CENTER" wrapText="true" />
             <Text fx:id="haveYouVoted" layoutX="300.0" layoutY="83.0" strokeType="OUTSIDE" strokeWidth="0.0" text="You have voted" textAlignment="CENTER" visible="false" wrappingWidth="137.6373197289131">
                <font>
@@ -68,7 +68,6 @@
                   <Font size="24.0" />
                </font>
             </Label>
-            <Button layoutX="241.0" layoutY="98.0" mnemonicParsing="false" onAction="#getMultiplayerLeaderboardgetMultiplayerLeaderboard" text="Button" />
          </children>
       </AnchorPane>
    </children>

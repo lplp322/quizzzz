@@ -144,7 +144,7 @@ public class LobbyController {
      * @param points the number of new points that should be given to the user
      * @return a string that just confirms what has taken place for testing purposes
      */
-    @GetMapping("/{gameID}/{name}/updateScore/{round}/{newScore}")
+    @GetMapping("/{gameID}/{name}/updateScore/{round}/{points}")
     public int updateUserScore(@PathVariable int gameID, @PathVariable String name,
                                @PathVariable int round, @PathVariable int points) {
         System.out.println("new points received");
