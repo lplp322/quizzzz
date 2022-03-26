@@ -38,9 +38,9 @@
                   <Label fx:id="timerLabel" prefHeight="19.0" prefWidth="97.0" text="Timer: " />
                </items>
             </ToolBar>
-            <Button fx:id="halfTimeJokerButton" layoutX="152.0" layoutY="551.0" mnemonicParsing="false" onAction="#getGameInfo" prefHeight="28.0" prefWidth="128.0" text="Halve Time" />
-            <Button fx:id="doublePointsJokerButton" layoutX="354.0" layoutY="551.0" mnemonicParsing="false" onAction="#sendDoublePoints" prefHeight="28.0" prefWidth="128.0" text="Double Points" />
-            <Button fx:id="eliminateWrongButton" layoutX="553.0" layoutY="551.0" mnemonicParsing="false" onAction="#sendCorrectAnswer" prefHeight="29.0" prefWidth="128.0" text="Eliminate Wrong Answer">
+            <Button fx:id="halfTimeJokerButton" layoutX="66.0" layoutY="551.0" mnemonicParsing="false" onAction="#getGameInfo" prefHeight="28.0" prefWidth="128.0" text="Halve Time" />
+            <Button fx:id="doublePointsJokerButton" layoutX="258.0" layoutY="552.0" mnemonicParsing="false" onAction="#sendDoublePoints" prefHeight="28.0" prefWidth="128.0" text="Double Points" />
+            <Button fx:id="eliminateWrongButton" layoutX="438.0" layoutY="551.0" mnemonicParsing="false" onAction="#eliminateWrongAnswer" prefHeight="29.0" prefWidth="128.0" text="Eliminate Wrong Answer">
                <font>
                   <Font size="10.0" />
                </font></Button>
@@ -68,6 +68,11 @@
                   <Font size="24.0" />
                </font>
             </Label>
+            <Button fx:id="guaranteeButton" layoutX="612.0" layoutY="554.0" mnemonicParsing="false" onAction="#sendCorrectAnswer" prefHeight="26.0" prefWidth="109.0" text="Guarantee correct answer">
+               <font>
+                  <Font size="8.0" />
+               </font>
+            </Button>
          </children>
       </AnchorPane>
    </children>

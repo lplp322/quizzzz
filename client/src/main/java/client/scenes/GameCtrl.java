@@ -82,6 +82,9 @@ public class GameCtrl {
     @FXML
     private Label scoreLabel;
 
+    @FXML
+    private Button guaranteeButton;
+
     private MainCtrl mainCtrl;
 
     private static int lastRoundAnswered = -1;
@@ -116,7 +119,7 @@ public class GameCtrl {
     public void init() {
         stopGame = false;
         lastRoundAnswered = -1;
-        this.resetColors();
+//        this.resetColors();
     }
 
     /**
@@ -174,8 +177,11 @@ public class GameCtrl {
                                     this.stopGame = true;
                                     this.showLeaderboard();
                                 }
-                                if (trimmedGame.getTimer() == 20) {
+
+                                if (trimmedGame.getTimer() == 20 ||
+                                trimmedGame.getTimer() == 19) {
                                     this.mainCtrl.returnToGame();
+                                    this.showRound(trimmedGame);
                                 }
                                 if (trimmedGame.getTimer() < 0) {//works for now, BUT NEEDS TO BE CHANGED IN TRIMMEDGAME
                                     showTimeout(trimmedGame);
@@ -188,8 +194,11 @@ public class GameCtrl {
                                     if (trimmedGame.getTimer() == -2) {
                                         this.getMultiplayerLeaderboard();
                                     }
-                                } else {
-                                    showRound(trimmedGame);
+                                }
+
+
+                                else {
+                                    updatePolling(trimmedGame);
                                 }
                                 http.disconnect();
                             } catch (IOException e) {
@@ -240,6 +249,23 @@ public class GameCtrl {
                 choiceC.setText(trimmedGame.getPossibleAnswers().get(2));
             }
         } else this.guessEnable();
+    }
+
+
+    private void updatePolling(TrimmedGame trimmedGame) {
+        answerLabel.setVisible(false);
+        currentRoundLabel.setText("currentRound " + (trimmedGame.getRoundNum()+1));
+        timerLabel.setText("Time: " + trimmedGame.getTimer());
+        questionLabel.setText(trimmedGame.getCurrentQuestion());
+
+//        if (trimmedGame.getQuestionType() == 1 || trimmedGame.getQuestionType() == 2) {
+//            this.threeChoicesEnable();
+//            if(trimmedGame.getPossibleAnswers().size() == 3) {
+//                choiceA.setText(trimmedGame.getPossibleAnswers().get(0));
+//                choiceB.setText(trimmedGame.getPossibleAnswers().get(1));
+//                choiceC.setText(trimmedGame.getPossibleAnswers().get(2));
+//            }
+//        } else this.guessEnable();
     }
 
     /**
@@ -440,6 +466,9 @@ public class GameCtrl {
         this.choiceA.setStyle("-fx-background-color: #ffffff");
         this.choiceB.setStyle("-fx-background-color: #ffffff");
         this.choiceC.setStyle("-fx-background-color: #ffffff");
+        this.choiceA.setVisible(true);
+        this.choiceB.setVisible(true);
+        this.choiceC.setVisible(true);
     }
 
     /**
@@ -511,7 +540,7 @@ public class GameCtrl {
             System.out.println("sending right answer...");
             String choice = this.convertAnswerToChoice(currentTrimmedGame.getCorrectAnswer());
             this.sendAnswer(choice);
-            this.eliminateWrongButton.setVisible(false);
+            this.guaranteeButton.setVisible(false);
         }
     }
 
@@ -544,7 +573,9 @@ public class GameCtrl {
             return;
         }
 
-        if (this.currentTrimmedGame.getPossibleAnswers().contains(userChoice.getText())){
+        if (this.currentTrimmedGame.getPossibleAnswers().contains(userChoice.getText()) ||
+                (this.currentTrimmedGame.getQuestionType() == 0 && this.currentRound == lastRoundAnswered)){
+
             System.out.println("sending extra points");
             this.doublePointsJokerButton.setVisible(false);
 
@@ -587,6 +618,33 @@ public class GameCtrl {
         LeaderboardEntry userEntry = new LeaderboardEntry(this.mainCtrl.getName(), this.myScore);
         this.mainCtrl.showLeaderboard(leaderboardList, userEntry);
 //        return leaderboardList;
+    }
+
+
+    /**
+     * checks if the user has not voted for this question and if not they can remove one of
+     * the incorrect answers in multiple choice questions
+     */
+    public void eliminateWrongAnswer() {
+        System.out.println("checking wrong answer");
+        System.out.println(this.currentTrimmedGame.getQuestionType());
+        if (this.currentTrimmedGame.getQuestionType() != 0 &&
+                (this.userChoice == null || this.currentTrimmedGame.getPossibleAnswers().contains(userChoice.getText()))) {
+            System.out.println("wrong answer can be deleted");
+            this.eliminateWrongButton.setVisible(false);
+            if (!choiceA.getText().equals(this.currentTrimmedGame.getCorrectAnswer())) {
+                choiceA.setVisible(false);
+                return;
+            }
+
+            else if (!choiceB.getText().equals(this.currentTrimmedGame.getCorrectAnswer())) {
+                choiceB.setVisible(false);
+            }
+
+            else {
+                choiceC.setVisible(false);
+            }
+        }
     }
 
 
