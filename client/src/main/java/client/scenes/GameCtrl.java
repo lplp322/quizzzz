@@ -3,6 +3,7 @@ package client.scenes;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.google.inject.Inject;
+import commons.Joker;
 import commons.TrimmedGame;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -142,11 +143,52 @@ public class GameCtrl {
         this.submitButton.setVisible(true);
     }
 
+    /**
+     * Poll for game info
+     * @return trimmedGame
+     */
+    public TrimmedGame pollGame() {
+        try {
+            URL url = new URL(mainCtrl.getLink() + mainCtrl.getCurrentID()
+                    +"/" + mainCtrl.getName() + "/getGameInfo");
+            //for now all gameID's are set to 1,
+            //but these need to be changed once the gameID is stored from the sever
+            HttpURLConnection http = (HttpURLConnection) url.openConnection();
+            Gson g = new Gson();
+            String jsonString = mainCtrl.httpToJSONString(http);
+            TrimmedGame trimmedGame = g.fromJson(jsonString, TrimmedGame.class);
+            http.disconnect();
+
+            return trimmedGame;
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    /**
+     *
+     * @param trimmedGame
+     */
+    public void displayScreen(TrimmedGame trimmedGame) {
+        if (trimmedGame.getRound().getTimer() < 0) {//works for now, BUT NEEDS TO BE CHANGED IN TRIMMEDGAME
+            showTimeout(trimmedGame);
+            this.showCorrectAnswer(trimmedGame.getQuestion().getAnswer());
+            if (trimmedGame.getRound().getTimer() == -4) {
+                this.resetColors();
+                haveYouVoted.setVisible(false);
+            }
+        } else {
+            showRound(trimmedGame);
+        }
+    }
+
     //CHECKSTYLE:OFF
     /**
      * Getting game info in a new thread
      */
-    public void getGameInfo() throws IOException {
+    public void tickGame() throws IOException {
         //getLeaderboard();
         loadReactions();
         playerList.getItems().add(this.mainCtrl.getName());
@@ -154,32 +196,16 @@ public class GameCtrl {
         Thread t1 = new Thread(()-> {
             while(!stopGame) {
                 Platform.runLater(() -> {
-                            try {
-                                URL url = new URL(mainCtrl.getLink() + mainCtrl.getCurrentID()
-                                        +"/" + mainCtrl.getName() + "/getGameInfo");
-                                //for now all gameID's are set to 1,
-                                //but these need to be changed once the gameID is stored from the sever
-                                HttpURLConnection http = (HttpURLConnection) url.openConnection();
-                                Gson g = new Gson();
-                                String jsonString = mainCtrl.httpToJSONString(http);
-                                commons.TrimmedGame trimmedGame = g.fromJson(jsonString, commons.TrimmedGame.class);
-                                currentRound = trimmedGame.getRoundNum();
+                            TrimmedGame trimmedGame = pollGame(); // poll the game
 
-                                showReaction(trimmedGame.getReactionHistory());
-                                if (trimmedGame.getTimer() < 0) {//works for now, BUT NEEDS TO BE CHANGED IN TRIMMEDGAME
-                                    showTimeout(trimmedGame);
-                                    this.showCorrectAnswer(trimmedGame.getCorrectAnswer());
-                                    if (trimmedGame.getTimer() == -4) {
-                                        this.resetColors();
-                                        haveYouVoted.setVisible(false);
-                                    }
-                                } else {
-                                    showRound(trimmedGame);
-                                }
-                                http.disconnect();
-                            } catch (IOException e) {
+                            try {
+                                showReaction(trimmedGame.getReactionHistory()); // display all the reactions
+                            }
+                            catch (IOException e) {
                                 e.printStackTrace();
                             }
+                            displayJokers(trimmedGame.getPlayers().get(mainCtrl.getName()).getJokerList());
+                            displayScreen(trimmedGame); // show round or timeout
                         }
                 );
                 try {
@@ -192,6 +218,14 @@ public class GameCtrl {
         t1.start();
     }
 
+    /**
+     * display available jokers
+     */
+    public void displayJokers(List<Joker> jokers) {
+        for(Joker x : jokers) {
+            System.out.println(x.getJokerName());
+        }
+    }
 
     /**
      * Loads the available emoji's (in reasources/reactions) into the dropdown menu
@@ -200,7 +234,7 @@ public class GameCtrl {
         reactions.setValue(new ImageView());
         File folder = new File("client/src/main/resources/reactions");
         List<ImageView> ls = new ArrayList<>();
-        System.out.println(folder.listFiles()[0].toString());
+        //System.out.println(folder.listFiles()[0].toString());
         ImageView img = new ImageView(new Image("reactions/701.png"));
         img.setFitHeight(30);
         img.setFitWidth(30);
@@ -262,7 +296,7 @@ public class GameCtrl {
     public void showTimeout(TrimmedGame trimmedGame) {
         timerLabel.setText("Timeout");
         currentRoundLabel.setText("Round is over");
-        questionLabel.setText(trimmedGame.getCurrentQuestion());
+        questionLabel.setText(trimmedGame.getQuestion().getQuestion());
         answerLabel.setVisible(true);
         if(currentRound >lastRoundAnswered) answerLabel.setText("You have not answered");
     }
@@ -274,16 +308,16 @@ public class GameCtrl {
      */
     private void showRound(TrimmedGame trimmedGame) {
         answerLabel.setVisible(false);
-        currentRoundLabel.setText("currentRound " + trimmedGame.getRoundNum());
-        timerLabel.setText("Time: " + trimmedGame.getTimer());
-        questionLabel.setText(trimmedGame.getCurrentQuestion());
-        
-        if (trimmedGame.getQuestionType() == 1 || trimmedGame.getQuestionType() == 2) {
+        currentRoundLabel.setText("currentRound " + trimmedGame.getRound().getRound());
+        timerLabel.setText("Time: " + trimmedGame.getRound().getTimer());
+        questionLabel.setText(trimmedGame.getQuestion().getQuestion());
+
+        if (trimmedGame.getQuestion().getType() == 1 || trimmedGame.getQuestion().getType() == 2) {
             this.threeChoicesEnable();
-            if(trimmedGame.getPossibleAnswers().size() == 3) {
-                choiceA.setText(trimmedGame.getPossibleAnswers().get(0));
-                choiceB.setText(trimmedGame.getPossibleAnswers().get(1));
-                choiceC.setText(trimmedGame.getPossibleAnswers().get(2));
+            if(trimmedGame.getQuestion().getAnswers().size() == 3) {
+                choiceA.setText(trimmedGame.getQuestion().getAnswers().get(0));
+                choiceB.setText(trimmedGame.getQuestion().getAnswers().get(1));
+                choiceC.setText(trimmedGame.getQuestion().getAnswers().get(2));
             }
         } else this.guessEnable();
     }

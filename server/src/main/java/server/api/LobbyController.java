@@ -72,7 +72,8 @@ public class LobbyController {
     @GetMapping("{gameID}/{player}/getGameInfo")
     public TrimmedGame getGameInfo(@PathVariable int gameID, @PathVariable String player){
         //System.out.println( gameID + " polls");
-        return lobbyService.getGameByID(gameID).trim(player);
+        //return lobbyService.getGameByID(gameID).trim(player);
+        return lobbyService.getGameByID(gameID).getTrimmed();
     }
 
     /**
@@ -110,7 +111,7 @@ public class LobbyController {
     @PutMapping("/startGame")
     public TrimmedGame startGame(){
         if(lobbyService.startGame(1) == true) {
-            return lobbyService.getGameByID(lobbyService.getIdCounter() - 1).trim();
+            return lobbyService.getGameByID(lobbyService.getIdCounter() - 1).getTrimmed();
         }
         else return null;
     }

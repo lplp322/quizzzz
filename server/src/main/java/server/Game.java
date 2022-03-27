@@ -1,5 +1,7 @@
 package server;
 
+import commons.Player;
+import commons.Round;
 import commons.TrimmedGame;
 import server.database.ActivityRepository;
 
@@ -105,37 +107,20 @@ public class Game implements Runnable{
      */
     public Round getRound() { return round; }
 
-    /**
-     * Trims game for generic purposes, not for a given player
-     * @return the current object as TrimmedGame, with full timer
-     */
+    /*
     public TrimmedGame trim(){
         Question currQuestion = questions.get(round.getRound());
         String answer = currQuestion.getAnswer();
         return new TrimmedGame(lobbyId, currQuestion.getQuestion(), questions.size(), round.getTimer(),
                 currQuestion.getAnswers(), currQuestion.getType(), answer, (List<String[]>) reactions);
+    }*/
 
-    }
     /**
      * trims the current object
-     * @param requester Name of the player requesting the trimmed game
      * @return the current object as TrimmedGame
      */
-    public TrimmedGame trim(String requester) {
-        if (round.getGameStatus() == 2) {
-            return new TrimmedGame(lobbyId, null, -1, 0, new ArrayList<String>(), 0
-                    , null, new ArrayList<String[]>());
-        }
-        Question currQuestion = questions.get(round.getRound());
-        if (round.isHalfTimerUsed()){
-            if (!requester.equals(round.getPlayerWhoUsedJoker().getName())) {
-                return new TrimmedGame(lobbyId, currQuestion.getQuestion(), round.getRound(), round.getHalvedTimer(),
-                        currQuestion.getAnswers(), currQuestion.getType(), currQuestion.getAnswer(), reactions);
-            }
-        }
-        return new TrimmedGame(lobbyId, currQuestion.getQuestion(), round.getRound(), round.getTimer(),
-                currQuestion.getAnswers(), currQuestion.getType(), currQuestion.getAnswer(), reactions);
-
+    public TrimmedGame getTrimmed() {
+        return new TrimmedGame(lobbyId, questions.get(round.getRound()).getTrimmed(), players, round, reactions);
     }
 
 

@@ -36,12 +36,6 @@ public class MainCtrl {
     private int currentGameID;  //the ID of the ongoing game
     private Stage primaryStage;
 
-    private QuoteOverviewCtrl overviewCtrl;
-    private Scene overview;
-
-    private AddQuoteCtrl addCtrl;
-    private Scene add;
-
     private GameCtrl gameCtrl;
     private Scene game;
 
@@ -62,8 +56,6 @@ public class MainCtrl {
     /**
      * Initializes all scenes via pairs of controllers and fxml files
      * @param primaryStage
-     * @param overview
-     * @param add
      * @param splash
      * @param gameCtrl
      * @param prompt
@@ -71,17 +63,11 @@ public class MainCtrl {
      * @param lobby
      */
 
-    public void initialize(Stage primaryStage, Pair<QuoteOverviewCtrl, Parent> overview,
-                           Pair<AddQuoteCtrl, Parent> add, Pair<SplashCtrl, Parent> splash,
+    public void initialize(Stage primaryStage, Pair<SplashCtrl, Parent> splash,
                            Pair<GameCtrl, Parent> gameCtrl,
                            Pair<PromptCtrl, Parent> prompt, Pair<LeaderboardCtrl, Parent> leaderboard,
                            Pair<LobbyCtrl, Parent> lobby) {
         this.primaryStage = primaryStage;
-        this.overviewCtrl = overview.getKey();
-        this.overview = new Scene(overview.getValue());
-
-        this.addCtrl = add.getKey();
-        this.add = new Scene(add.getValue());
 
         this.splashCtrl = splash.getKey();
         this.splash = new Scene(splash.getValue());
@@ -102,24 +88,6 @@ public class MainCtrl {
 
         showSplash();
         primaryStage.show();
-    }
-
-    /**
-     * Showing overview
-     */
-    public void showOverview() {
-        primaryStage.setTitle("Quotes: Overview");
-        primaryStage.setScene(overview);
-        overviewCtrl.refresh();
-    }
-
-    /**
-     * Showing add
-     */
-    public void showAdd() {
-        primaryStage.setTitle("Quotes: Adding Quote");
-        primaryStage.setScene(add);
-        add.setOnKeyPressed(e -> addCtrl.keyPressed(e));
     }
 
     /**
@@ -150,7 +118,7 @@ public class MainCtrl {
         primaryStage.setTitle("Quizzz");
         primaryStage.setScene(game);
         gameCtrl.init();
-        gameCtrl.getGameInfo();
+        gameCtrl.tickGame();
     }
 
     /**

@@ -1,5 +1,6 @@
 package server;
 
+import commons.QuestionTrimmed;
 import server.database.ActivityRepository;
 
 import java.util.ArrayList;
@@ -182,6 +183,14 @@ public class Question {
      */
     public List<Activity> getActivities() {
         return activities;
+    }
+
+    /**
+     * returns the class but trimmed
+     * @return trimmed question
+     */
+    public QuestionTrimmed getTrimmed() {
+        return new QuestionTrimmed(question, answers, type, answer);
     }
 
     /**

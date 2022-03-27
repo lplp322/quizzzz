@@ -26,7 +26,7 @@
                   <Font size="18.0" />
                </font>
             </Label>
-            <Button fx:id="startButton" layoutX="88.0" layoutY="505.0" mnemonicParsing="false" onAction="#getGameInfo" text="Start Game" />
+            <Button fx:id="startButton" layoutX="88.0" layoutY="505.0" mnemonicParsing="false" onAction="#tickGame" text="Start Game" />
          </children>
       </AnchorPane>
     <AnchorPane layoutX="255.0" minHeight="0.0" minWidth="0.0" prefHeight="610.0" prefWidth="756.0">
@@ -43,7 +43,7 @@
                   <ComboBox fx:id="reactions" prefHeight="47.0" prefWidth="54.0" />
                </items>
             </ToolBar>
-            <Button fx:id="halfTimeJokerButton" layoutX="152.0" layoutY="551.0" mnemonicParsing="false" onAction="#getGameInfo" prefHeight="28.0" prefWidth="128.0" text="Halve Time" />
+            <Button fx:id="halfTimeJokerButton" layoutX="152.0" layoutY="551.0" mnemonicParsing="false" onAction="#tickGame" prefHeight="28.0" prefWidth="128.0" text="Halve Time" />
             <Button fx:id="doublePointsJokerButton" layoutX="354.0" layoutY="551.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="128.0" text="Double Points" />
             <Button fx:id="eliminateWrongButton" layoutX="553.0" layoutY="551.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="128.0" text="Eliminate Answer" />
             <TextField fx:id="guessText" layoutX="337.0" layoutY="304.0" promptText="Enter Your Guess " />

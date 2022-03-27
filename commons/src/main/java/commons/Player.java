@@ -1,4 +1,4 @@
-package server;
+package commons;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,7 +15,9 @@ public class Player {
     public Player(String name) {
         this.name = name;
         this.score = 0;
+        Joker j = new Joker("ASD");
         this.jokerList = new ArrayList<>();
+        jokerList.add(j);
     }
 
     /**
@@ -27,6 +29,14 @@ public class Player {
         this.name = name;
         this.score = 0;
         this.jokerList = jokerList;
+    }
+
+    /**
+     * removes a joker for a player
+     * @param joker
+     */
+    public void useJoker(Joker joker) {
+        jokerList.remove(joker);
     }
 
     /**
