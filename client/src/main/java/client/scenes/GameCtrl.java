@@ -635,7 +635,8 @@ public class GameCtrl {
         System.out.println("checking wrong answer");
         System.out.println(this.currentTrimmedGame.getQuestionType());
         if (this.currentTrimmedGame.getQuestionType() != 0 &&
-                (this.userChoice == null || this.currentTrimmedGame.getPossibleAnswers().contains(userChoice.getText()))) {
+                (this.userChoice == null ||
+                        this.currentTrimmedGame.getPossibleAnswers().contains(userChoice.getText()))) {
             System.out.println("wrong answer can be deleted");
             this.eliminateWrongButton.setVisible(false);
             if (!choiceA.getText().equals(this.currentTrimmedGame.getCorrectAnswer())) {
