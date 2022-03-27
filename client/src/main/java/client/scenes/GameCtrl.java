@@ -349,7 +349,7 @@ public class GameCtrl {
     public Button findCorrectChoice(String answer) {
         //I know this is not a very good way of solving this problem but it works
         if (choiceA.getText().equals(answer)) {
-            return this.choiceC;
+            return this.choiceA;
         }
         if (choiceB.getText().equals(answer)) {
             return this.choiceB;
@@ -378,6 +378,7 @@ public class GameCtrl {
      * @param correctAnswer the string of the correct answer
      */
     public void showCorrectAnswer(String correctAnswer) {
+        System.out.println(correctAnswer);
         Button correctButton = this.findCorrectChoice(correctAnswer);
         correctButton.setStyle("-fx-background-color: #16b211");
     }
