@@ -417,8 +417,13 @@ public class GameCtrl {
      */
     public Button findCorrectChoice(String answer) {
         //I know this is not a very good way of solving this problem but it works
+//        System.out.println("This is the correct answer " + this.currentTrimmedGame.getCorrectAnswer() + "!");
+//        System.out.println("choice a " + choiceA.getText()+ "!");
+//        System.out.println("choice b " + choiceB.getText()+ "!");
+//        System.out.println("choice c " + choiceC.getText()+ "!");
+
         if (choiceA.getText().equals(answer)) {
-            return this.choiceC;
+            return this.choiceA;
         }
         if (choiceB.getText().equals(answer)) {
             return this.choiceB;
@@ -448,6 +453,7 @@ public class GameCtrl {
      */
     public void showCorrectAnswer(String correctAnswer) {
         Button correctButton = this.findCorrectChoice(correctAnswer);
+        System.out.println(correctButton.getText());
         correctButton.setStyle("-fx-background-color: #16b211");
     }
 
