@@ -601,7 +601,11 @@ public class GameCtrl {
     }
 
 
-
+    /**
+     * @param response takes the response of the correctness and points from the server and
+     *                 retrieves just the points
+     * @return  an integer representing the number of points the player has
+     */
         public static int findScore(String response){
             String[] words= response.split("\\s");//splits the string based on whitespace
 //using java foreach loop to print elements of string array
@@ -674,7 +678,7 @@ public class GameCtrl {
 
 
             this.newPoints = this.newPoints * 2;
-            String jsonString = httpToJSONString(http);
+            String jsonString = this.mainCtrl.httpToJSONString(http);
             System.out.println("this is the json String " + jsonString);
             System.out.println("this is the response code " + http.getResponseCode());
             this.myScore = Integer.parseInt(jsonString);
@@ -695,7 +699,7 @@ public class GameCtrl {
         URL url = new URL(mainCtrl.getLink()  +  this.mainCtrl.getCurrentID() + "/getMultiplayerLeaderBoard" );
         HttpURLConnection http = (HttpURLConnection) url.openConnection();
         Gson g = new Gson();
-        String jsonString = httpToJSONString(http);
+        String jsonString = this.mainCtrl.httpToJSONString(http);
         Type typeToken = new TypeToken<LinkedList<commons.LeaderboardEntry>>(){}.getType();
         //System.out.println(typeToken.getTypeName());
         LinkedList<commons.LeaderboardEntry> leaderboardList = g.fromJson(jsonString, typeToken);
