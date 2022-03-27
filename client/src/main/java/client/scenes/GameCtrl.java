@@ -674,7 +674,7 @@ public class GameCtrl {
 
 
             this.newPoints = this.newPoints * 2;
-            String jsonString = httpToJSONString(http);
+            String jsonString = this.mainCtrl.httpToJSONString(http);
             System.out.println("this is the json String " + jsonString);
             System.out.println("this is the response code " + http.getResponseCode());
             this.myScore = Integer.parseInt(jsonString);
@@ -695,7 +695,7 @@ public class GameCtrl {
         URL url = new URL(mainCtrl.getLink()  +  this.mainCtrl.getCurrentID() + "/getMultiplayerLeaderBoard" );
         HttpURLConnection http = (HttpURLConnection) url.openConnection();
         Gson g = new Gson();
-        String jsonString = httpToJSONString(http);
+        String jsonString = this.mainCtrl.httpToJSONString(http);
         Type typeToken = new TypeToken<LinkedList<commons.LeaderboardEntry>>(){}.getType();
         //System.out.println(typeToken.getTypeName());
         LinkedList<commons.LeaderboardEntry> leaderboardList = g.fromJson(jsonString, typeToken);
