@@ -23,6 +23,7 @@ import java.net.URISyntaxException;
 import client.scenes.AddQuoteCtrl;
 import client.scenes.GameCtrl;
 import client.scenes.QuoteOverviewCtrl;
+import client.scenes.LobbyCtrl;
 import client.scenes.SplashCtrl;
 import client.scenes.PromptCtrl;
 import client.scenes.LeaderboardCtrl;
@@ -62,9 +63,11 @@ public class Main extends Application {
 
         var activityViewer = FXML.load(ActivityViewerCtrl.class, "client", "scenes", "AdminMenu.fxml");
 
+        var lobby = FXML.load(LobbyCtrl.class, "client", "scenes", "Lobby.fxml");
+
         var mainCtrl = INJECTOR.getInstance(MainCtrl.class);
 
-        mainCtrl.initialize(primaryStage, overview, add, splash, game, prompt, leaderboard, activityViewer);
+        mainCtrl.initialize(primaryStage, overview, add, splash, game, prompt, leaderboard, lobby, activityViewer);
         //mainCtrl.showLeaderboard();
     }
 }
