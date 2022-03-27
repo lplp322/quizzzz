@@ -6,29 +6,32 @@ import com.google.inject.Inject;
 import commons.LeaderboardEntry;
 import commons.TrimmedGame;
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-
-import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
-import java.io.InputStreamReader;
-
-import java.io.Reader;
 import java.lang.reflect.Type;
 import java.net.HttpURLConnection;
-
-
 import java.net.URL;
-
-import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
-
+import java.net.MalformedURLException;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.regex.Pattern;
 
 public class GameCtrl {
 
@@ -80,6 +83,12 @@ public class GameCtrl {
     private Text haveYouVoted;
 
     @FXML
+    private ComboBox<ImageView> reactions;
+
+    @FXML
+    private VBox reactionBox;
+
+    @FXML
     private Label scoreLabel;
 
     @FXML
@@ -105,7 +114,7 @@ public class GameCtrl {
 //    }
 
     /**
-     * Injecting mostpowercontroller
+     * Injecting mainCtrl
      * @param mainCtrl
      */
     @Inject
@@ -153,6 +162,7 @@ public class GameCtrl {
     public void getGameInfo() throws IOException {
         //getLeaderboard();
         playerList.getItems().remove(0, playerList.getItems().size());
+        loadReactions();
         playerList.getItems().add(this.mainCtrl.getName());
 
         Thread t1 = new Thread(()-> {
@@ -166,9 +176,11 @@ public class GameCtrl {
                                 //but these need to be changed once the gameID is stored from the sever
                                 HttpURLConnection http = (HttpURLConnection) url.openConnection();
                                 Gson g = new Gson();
-                                String jsonString = httpToJSONString(http);
+                                String jsonString = mainCtrl.httpToJSONString(http);
                                 commons.TrimmedGame trimmedGame = g.fromJson(jsonString, commons.TrimmedGame.class);
                                 currentRound = trimmedGame.getRoundNum();
+
+                                showReaction(trimmedGame.getReactionHistory());
                                 this.currentTrimmedGame  = trimmedGame;
                                 System.out.println(trimmedGame.getCorrectAnswer());
 //                                System.out.println(currentRound);
@@ -214,6 +226,68 @@ public class GameCtrl {
             }
         });
         t1.start();
+    }
+
+
+    /**
+     * Loads the available emoji's (in reasources/reactions) into the dropdown menu
+     */
+    public void loadReactions() {
+        reactions.setValue(new ImageView());
+        File folder = new File("client/src/main/resources/reactions");
+        List<ImageView> ls = new ArrayList<>();
+        System.out.println(folder.listFiles()[0].toString());
+        ImageView img = new ImageView(new Image("reactions/701.png"));
+        img.setFitHeight(30);
+        img.setFitWidth(30);
+        reactions.setValue(img);
+//        reactions.setButtonCell(new ListCell<>());
+        for(File f : folder.listFiles()) {
+            ls.add(new ImageView(new Image("reactions/"+f.getName())));
+        }
+        reactions.setItems(FXCollections.observableArrayList(ls));
+        reactions.setCellFactory(param -> new ListCell<>() {
+            private void send(String emoji) {
+                try {
+                    URL url = new URL( mainCtrl.getLink()+ "reaction/" + mainCtrl.getCurrentID()
+                            + "/" + mainCtrl.getName() + "/" + emoji);
+                    HttpURLConnection http = (HttpURLConnection)url.openConnection();
+                    http.setRequestMethod("PUT");
+                    mainCtrl.httpToJSONString(http);
+                    http.disconnect();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+            @Override
+            protected void updateItem(ImageView item, boolean empty) {
+                super.updateItem(item, empty);
+                if (item == null || empty)
+                    setGraphic(null);
+                else {
+                    item.setFitHeight(40);
+                    item.setFitWidth(40);
+                    HBox hBox = new HBox(item);
+                    String sep = "/";
+                    setOnMousePressed(event -> {
+                        send(item.getImage().getUrl().split(Pattern.quote(sep))[item.getImage().getUrl().
+                                split(Pattern.quote(sep)).length-1]);
+                    });
+                    setGraphic(hBox);
+                }
+                setText("");
+            }
+        });
+        reactions.setButtonCell(new ListCell<>(){
+            @Override
+            protected void updateItem(ImageView item, boolean empty){
+                super.updateItem(item, empty);
+                if(item != null) {
+                    setGraphic(img);
+                    setText("");
+                }
+            }
+        });
     }
 
 
@@ -269,26 +343,6 @@ public class GameCtrl {
     }
 
     /**
-     * @param http this is a http connection that the response of which will be turned into a string
-     * @return The http response in JSON format
-     */
-    public static String httpToJSONString(HttpURLConnection http) {
-        StringBuilder textBuilder = new StringBuilder();
-        try (Reader reader = new BufferedReader(new InputStreamReader
-                (http.getInputStream(), Charset.forName(StandardCharsets.UTF_8.name())))) {
-            int c = 0;
-            while ((c = reader.read()) != -1) {
-                textBuilder.append((char) c);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        String jsonString = textBuilder.toString();
-        return jsonString;
-    }
-
-
-    /**
      * @param joker this is a string related to which joker is being passed to the server
      * @throws IOException
      */
@@ -300,7 +354,7 @@ public class GameCtrl {
         HttpURLConnection http = (HttpURLConnection)url.openConnection();
 //        http.setRequestMethod("PUT");
         //System.out.println(http.getResponseCode());
-        String response = httpToJSONString(http);
+        String response = mainCtrl.httpToJSONString(http);
         //System.out.println(response);
         http.disconnect();
     }
@@ -319,7 +373,8 @@ public class GameCtrl {
         HttpURLConnection http = (HttpURLConnection)url.openConnection();
         http.setRequestMethod("PUT");
         //System.out.println(http.getResponseCode());
-        String response = httpToJSONString(http);
+
+        String response = mainCtrl.httpToJSONString(http);
         //System.out.println(response);
         http.disconnect();
         haveYouVoted.setVisible(true);
@@ -391,7 +446,7 @@ public class GameCtrl {
         URL url = new URL(mainCtrl.getLink() + "leaderboard" );
         HttpURLConnection http = (HttpURLConnection) url.openConnection();
         Gson g = new Gson();
-        String jsonString = httpToJSONString(http);
+        String jsonString = mainCtrl.httpToJSONString(http);
         Type typeToken = new TypeToken<LinkedList<commons.LeaderboardEntry>>(){}.getType();
         //System.out.println(typeToken.getTypeName());
         LinkedList<commons.LeaderboardEntry> leaderboardList = g.fromJson(jsonString, typeToken);
@@ -511,6 +566,31 @@ public class GameCtrl {
         if(!(guessText.getText()==null) && this.checkCanAnswer()){
             sendAnswer(guessText.getText());
             lastRoundAnswered = currentRound;
+        }
+    }
+
+    /**
+     * Shows the reactions in the game UI
+     * @param reactions The reaction list to show
+     * @throws MalformedURLException If cannot find the reactions folder
+     */
+    public void showReaction(List<String[]> reactions) throws MalformedURLException {
+        reactionBox.getChildren().remove(0, reactionBox.getChildren().size());
+        for(String[] pair : reactions) {
+            Label lb = new Label();
+            lb.setPrefWidth(190);
+            lb.setPrefHeight(50);
+            lb.setAlignment(Pos.CENTER_LEFT);
+            lb.setContentDisplay(ContentDisplay.RIGHT);
+            lb.setId("reaction");
+            Image img = new Image((GameCtrl.class.getClassLoader().getResource("reactions/"+pair[1]).toString()));
+            ImageView imageView = new ImageView(img);
+            imageView.setFitHeight(30);
+            imageView.setFitWidth(30);
+            lb.setGraphic(imageView);
+            lb.setText(pair[0]+": ");
+            lb.setFont(new Font(18));
+            reactionBox.getChildren().add(lb);
         }
     }
 

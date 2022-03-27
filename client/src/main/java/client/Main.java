@@ -24,6 +24,7 @@ import client.scenes.MainCtrl;
 import client.scenes.GameCtrl;
 import client.scenes.PromptCtrl;
 import client.scenes.QuoteOverviewCtrl;
+import client.scenes.LobbyCtrl;
 import client.scenes.SplashCtrl;
 import client.scenes.LeaderboardCtrl;
 import com.google.inject.Injector;
@@ -58,9 +59,11 @@ public class Main extends Application {
 
         var leaderboard = FXML.load(LeaderboardCtrl.class, "client", "scenes", "Leaderboard.fxml");
 
+        var lobby = FXML.load(LobbyCtrl.class, "client", "scenes", "Lobby.fxml");
+
         var mainCtrl = INJECTOR.getInstance(MainCtrl.class);
 
-        mainCtrl.initialize(primaryStage, overview, add, splash, game, prompt, leaderboard);
+        mainCtrl.initialize(primaryStage, overview, add, splash, game, prompt, leaderboard, lobby);
         //mainCtrl.showLeaderboard();
     }
 }

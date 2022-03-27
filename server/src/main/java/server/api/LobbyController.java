@@ -5,19 +5,22 @@ import commons.TrimmedGame;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import server.Game;
 import server.LobbyService;
 import server.database.LeaderboardRepository;
-
 import java.util.LinkedList;
-
+import java.util.List;
 
 @RestController
 @RequestMapping("/")
 public class LobbyController {
     private LobbyService lobbyService;
+
+    private final int REACTION_DURATION = 3000;
 
     @Autowired
     private LeaderboardRepository lbRepo;
@@ -52,6 +55,15 @@ public class LobbyController {
     }
 
     /**
+     * Returns the id of the current lobby
+     * @return id of current lobby
+     */
+    @GetMapping("multiplayer/getLobbyId")
+    public int getLobbyId() {
+        return lobbyService.getIdCounter();
+    }
+
+    /**
      * Return game info object(now full game object sent just to check)
      * @param gameID - id of the game
      * @param player - name of the requesting player
@@ -78,6 +90,20 @@ public class LobbyController {
     }
 
     /**
+     * Removes a player with given name from the lobby
+     * @param name
+     * @return true if the player was removed, false otherwise
+     */
+    @DeleteMapping("/multiplayer/delete/{name}")
+    public boolean deleteUserMultiPlayer(@PathVariable String name) {
+        //System.out.println("DASDAS");
+        if(lobbyService.removePlayer(name)) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
      * PUT request to start game, that is currently in lobby
      * @return - return trimmed game object !!!(Game will be changed to TrimmedGame later)
      */
@@ -87,6 +113,15 @@ public class LobbyController {
             return lobbyService.getGameByID(lobbyService.getIdCounter() - 1).trim();
         }
         else return null;
+    }
+
+    /**
+     * Returns the names of the players, currently in the lobby
+     * @return - List of the players' names
+     */
+    @GetMapping("/pollLobby")
+    public List<String> pollLobby() {
+        return lobbyService.getNames();
     }
 
     /**
@@ -172,5 +207,28 @@ public class LobbyController {
     @GetMapping("/{gameID}/getMultiplayerLeaderBoard")
     public LinkedList<LeaderboardEntry> getMultiplayerLeaderboard(@PathVariable int gameID){
         return this.lobbyService.getGameByID(gameID).getMultiplayerLeaderboard();
+    }
+
+    /**
+     * Adds a reaction for the user of the given game
+     * @param gameID The id of the game
+     * @param player The player who sent the reaction
+     * @param reaction The reaction
+     */
+    @PutMapping("reaction/{gameID}/{player}/{reaction}")
+    public void reaction(@PathVariable int gameID, @PathVariable String player, @PathVariable String reaction) {
+        Game game = lobbyService.getGameByID(gameID);
+        String[] newReaction = new String[] {player, reaction};
+        game.getReactions().add(newReaction);
+        System.out.println("Success: " + newReaction);
+        Thread t = new Thread(()->{
+            try {
+                Thread.sleep(REACTION_DURATION);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            game.getReactions().remove(newReaction);
+        });
+        t.start();
     }
 }
