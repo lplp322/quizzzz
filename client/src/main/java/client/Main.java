@@ -21,11 +21,8 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 
 import client.scenes.AddQuoteCtrl;
-<<<<<<< client/src/main/java/client/Main.java
 import client.scenes.ChooseServerCtrl;
 import client.scenes.MainCtrl;
-=======
->>>>>>> client/src/main/java/client/Main.java
 import client.scenes.GameCtrl;
 import client.scenes.QuoteOverviewCtrl;
 import client.scenes.LobbyCtrl;
