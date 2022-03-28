@@ -182,7 +182,7 @@ public class MainCtrl {
         ll4, ll4, ll4, ll4, ll4, ll4, ll4, ll4, ll4, ll4, ll4, ll4, ll4, ll4, ll4, ll4),
          ll3);
         */
-
+        primaryStage.setScene(this.leaderboard);
         leaderboardCtrl.displayResults(results, myResult);
     }
 
@@ -288,5 +288,13 @@ public class MainCtrl {
      */
     public void setLink(String link) {
         this.link = link;
+    }
+
+    /**
+     * returns the user to the game screen (used after showing the leaderboard)
+     */
+    public void returnToGame() {
+        primaryStage.setTitle("Quizzz");
+        primaryStage.setScene(game);
     }
 }

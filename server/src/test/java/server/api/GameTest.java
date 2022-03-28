@@ -10,6 +10,7 @@ import server.Activity;
 import server.Game;
 import server.Player;
 import commons.TrimmedGame;
+import server.Round;
 import server.database.ActivityRepository;
 
 import java.util.ArrayList;
@@ -86,4 +87,6 @@ public class GameTest {
         TrimmedGame gameTrim = game.trim();
         assertEquals(trim, gameTrim);
     }
+
+
 }
