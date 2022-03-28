@@ -31,6 +31,6 @@
             <Font size="19.0" />
          </font>
       </Button>
-    <AnchorPane fx:id="scrollPanel" layoutX="200.0" layoutY="233.0" minHeight="0.0" minWidth="0.0" prefHeight="300.0" prefWidth="608.0" />
+    <AnchorPane fx:id="scrollPanel" layoutX="200.0" layoutY="252.0" minHeight="0.0" minWidth="0.0" prefHeight="300.0" prefWidth="608.0" />
    </children>
 </AnchorPane>

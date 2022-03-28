@@ -160,15 +160,32 @@ public class LobbyCtrl {
         double width = scrollPanel.getWidth();
         double y = 0, x = 0;
 
-        double ratio = 0.2;
-        int rotationStep = 0;
+        double ratio = 0.15; // ratio between the current element to the next element
+        int rotationStep = 0; // there are 4 steps that repeat in creating the sequence
+
+        double[] startColor = new double[]{255, 0, 0};
+        double[] endColor = new double[]{0, 0, 255};
+        double[] colorDiff = new double[] { // how much we have to change to reach the second color
+                endColor[0] - startColor[0],
+                endColor[1] - startColor[1],
+                endColor[2] - startColor[2]
+        };
 
         for(int i = 0; i < names.size(); i++) {
             Label tempLabel = new Label(names.get(i));
 
+            //tempLabel.setWrapText(true);
+
+            String hex = String.format("#%02x%02x%02x",
+                    (int)Math.ceil(startColor[0] + (colorDiff[0] * (i) / names.size())),
+                    (int)Math.ceil(startColor[1] + (colorDiff[1] * (i) / names.size())),
+                    (int)Math.ceil(startColor[2] + (colorDiff[2] * (i) / names.size())));
+
             tempLabel.setAlignment(Pos.CENTER);
             tempLabel.setStyle("-fx-border-color: black;" +
-                    "-fx-font-size: 14");
+                    "-fx-background-color: " + hex + ";" +
+                    "-fx-font-weight: bold;" +
+                    "-fx-font-size: " + Math.min(height, width)/20);
 
             if(i == names.size() - 1) { // last one
                 tempLabel.setPrefHeight(height);
