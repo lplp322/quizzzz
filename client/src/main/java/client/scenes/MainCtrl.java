@@ -48,6 +48,12 @@ public class MainCtrl {
     private LeaderboardCtrl leaderboardCtrl;
     private Scene leaderboard;
 
+    private ChooseServerCtrl chooseServerCtrl;
+    private Scene chooseServer;
+
+    private ActivityViewerCtrl activityViewerCtrl;
+    private Scene activityViewer;
+
     private LobbyCtrl lobbyCtrl;
     private Scene lobby;
 
@@ -60,13 +66,18 @@ public class MainCtrl {
      * @param gameCtrl
      * @param prompt
      * @param leaderboard
+     * @param chooseServer
      * @param lobby
+     * @param adminMenu
      */
 
     public void initialize(Stage primaryStage, Pair<SplashCtrl, Parent> splash,
                            Pair<GameCtrl, Parent> gameCtrl,
                            Pair<PromptCtrl, Parent> prompt, Pair<LeaderboardCtrl, Parent> leaderboard,
-                           Pair<LobbyCtrl, Parent> lobby) {
+                           Pair<ChooseServerCtrl, Parent> chooseServer,
+                           Pair<LobbyCtrl, Parent> lobby,
+                           Pair<ActivityViewerCtrl, Parent> adminMenu) {
+
         this.primaryStage = primaryStage;
 
         this.splashCtrl = splash.getKey();
@@ -86,7 +97,14 @@ public class MainCtrl {
         this.lobbyCtrl = lobby.getKey();
         this.lobby = new Scene(lobby.getValue());
 
-        showSplash();
+        this.activityViewerCtrl = adminMenu.getKey();
+        this.activityViewer = new Scene(adminMenu.getValue());
+
+        this.chooseServerCtrl = chooseServer.getKey();
+        this.chooseServer = new Scene(chooseServer.getValue());
+
+        //showSplash();
+        showChooseServer();
         primaryStage.show();
     }
 
@@ -141,7 +159,7 @@ public class MainCtrl {
         ll4, ll4, ll4, ll4, ll4, ll4, ll4, ll4, ll4, ll4, ll4, ll4, ll4, ll4, ll4, ll4),
          ll3);
         */
-
+        primaryStage.setScene(this.leaderboard);
         leaderboardCtrl.displayResults(results, myResult);
     }
 
@@ -174,6 +192,28 @@ public class MainCtrl {
         primaryStage.setScene(prompt);
     }
 
+    /**
+     * Starts ChooseServer.fxml
+     */
+    public void showChooseServer(){
+        if(primaryStage.getScene()!=null){
+            Scene currentScene = primaryStage.getScene();   //Gets current scene
+            chooseServerCtrl.setWindowSize(currentScene.getWidth(),currentScene.getHeight());
+        }
+        primaryStage.setTitle("Choose server");
+        primaryStage.setScene(chooseServer);
+    }
+    /**
+     * Changes current scene to the activity viewer
+     */
+    public void showActivityViewer() {
+        Scene currentScene = primaryStage.getScene();   //Gets current scene
+        primaryStage.setTitle("ActivityViewer");
+
+        //Resizes new scene by calling the setWindowSize method
+        activityViewerCtrl.setWindowSize(currentScene.getWidth(),currentScene.getHeight());
+        primaryStage.setScene(activityViewer);
+    }
     /**
      * @param http this is a http connection that the response of which will be turned into a string
      * @return The http response in JSON format
@@ -236,5 +276,13 @@ public class MainCtrl {
      */
     public void setLink(String link) {
         this.link = link;
+    }
+
+    /**
+     * returns the user to the game screen (used after showing the leaderboard)
+     */
+    public void returnToGame() {
+        primaryStage.setTitle("Quizzz");
+        primaryStage.setScene(game);
     }
 }

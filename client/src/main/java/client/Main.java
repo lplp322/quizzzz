@@ -23,9 +23,11 @@ import java.net.URISyntaxException;
 import client.scenes.MainCtrl;
 import client.scenes.GameCtrl;
 import client.scenes.PromptCtrl;
+import client.scenes.ChooseServerCtrl;
 import client.scenes.LobbyCtrl;
 import client.scenes.SplashCtrl;
 import client.scenes.LeaderboardCtrl;
+import client.scenes.ActivityViewerCtrl;
 import com.google.inject.Injector;
 import javafx.application.Application;
 import javafx.stage.Stage;
@@ -55,11 +57,16 @@ public class Main extends Application {
 
         var leaderboard = FXML.load(LeaderboardCtrl.class, "client", "scenes", "Leaderboard.fxml");
 
+        var chooseServer = FXML.load(ChooseServerCtrl.class, "client", "scenes", "ChooseServer.fxml");
+
+        var activityViewer = FXML.load(ActivityViewerCtrl.class, "client", "scenes", "AdminMenu.fxml");
+
         var lobby = FXML.load(LobbyCtrl.class, "client", "scenes", "Lobby.fxml");
 
         var mainCtrl = INJECTOR.getInstance(MainCtrl.class);
 
-        mainCtrl.initialize(primaryStage, splash, game, prompt, leaderboard, lobby);
+        mainCtrl.initialize(primaryStage, splash, game, prompt, leaderboard, chooseServer, lobby, activityViewer);
         //mainCtrl.showLeaderboard();
+
     }
 }

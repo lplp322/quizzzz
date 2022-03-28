@@ -26,7 +26,6 @@
                   <Font size="18.0" />
                </font>
             </Label>
-            <Button fx:id="startButton" layoutX="88.0" layoutY="505.0" mnemonicParsing="false" onAction="#tickGame" text="Start Game" />
          </children>
       </AnchorPane>
     <AnchorPane layoutX="255.0" minHeight="0.0" minWidth="0.0" prefHeight="610.0" prefWidth="756.0">
@@ -43,9 +42,13 @@
                   <ComboBox fx:id="reactions" prefHeight="47.0" prefWidth="54.0" />
                </items>
             </ToolBar>
-            <Button fx:id="halfTimeJokerButton" layoutX="152.0" layoutY="551.0" mnemonicParsing="false" onAction="#sendHalfJoker" prefHeight="28.0" prefWidth="128.0" text="Halve Time" />
-            <Button fx:id="doublePointsJokerButton" layoutX="354.0" layoutY="551.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="128.0" text="Double Points" />
-            <Button fx:id="eliminateWrongButton" layoutX="553.0" layoutY="551.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="128.0" text="Eliminate Answer" />
+
+            <Button fx:id="halfTimeJokerButton" layoutX="66.0" layoutY="551.0" mnemonicParsing="false" onAction="#sendHalfJoker" prefHeight="28.0" prefWidth="128.0" text="Halve Time" />
+            <Button fx:id="doublePointsJokerButton" layoutX="258.0" layoutY="552.0" mnemonicParsing="false" onAction="#sendDoublePoints" prefHeight="28.0" prefWidth="128.0" text="Double Points" />
+            <Button fx:id="eliminateWrongButton" layoutX="438.0" layoutY="551.0" mnemonicParsing="false" onAction="#eliminateWrongAnswer" prefHeight="29.0" prefWidth="128.0" text="Eliminate Wrong Answer">
+               <font>
+                  <Font size="10.0" />
+               </font></Button>
             <TextField fx:id="guessText" layoutX="337.0" layoutY="304.0" promptText="Enter Your Guess " />
             <Button fx:id="submitButton" layoutX="553.0" layoutY="305.0" mnemonicParsing="false" onAction="#submitAnswer" prefHeight="27.0" prefWidth="72.0" text="Submit" />
             <Label fx:id="questionLabel" layoutX="258.0" layoutY="174.0" prefHeight="109.0" prefWidth="448.0" text="Example Question" textAlignment="CENTER" wrapText="true">
@@ -54,12 +57,28 @@
                </font>
             </Label>
             <Label fx:id="answerLabel" alignment="CENTER" layoutX="254.0" layoutY="371.0" prefHeight="19.0" prefWidth="241.0" text="Your answer is" textAlignment="CENTER" wrapText="true" />
+            <Button fx:id="startButton" layoutX="617.0" layoutY="84.0" mnemonicParsing="false" onAction="#getMultiplayerLeaderboard" text="Start Game" />
             <Text fx:id="haveYouVoted" layoutX="300.0" layoutY="83.0" strokeType="OUTSIDE" strokeWidth="0.0" text="You have voted" textAlignment="CENTER" visible="false" wrappingWidth="137.6373197289131">
                <font>
                   <Font size="16.0" />
                </font>
             </Text>
             <VBox fx:id="reactionBox" layoutX="561.0" layoutY="66.0" prefHeight="266.0" prefWidth="185.0" />
+            <Label fx:id="scoreLabel" layoutX="24.0" layoutY="316.0" prefHeight="79.0" prefWidth="192.0" text="0">
+               <font>
+                  <Font size="34.0" />
+               </font>
+            </Label>
+            <Label layoutX="24.0" layoutY="295.0" prefHeight="42.0" prefWidth="97.0" text="Score">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+            <Button fx:id="guaranteeButton" layoutX="612.0" layoutY="554.0" mnemonicParsing="false" onAction="#sendCorrectAnswer" prefHeight="26.0" prefWidth="109.0" text="Guarantee correct answer">
+               <font>
+                  <Font size="8.0" />
+               </font>
+            </Button>
          </children>
       </AnchorPane>
    </children>
