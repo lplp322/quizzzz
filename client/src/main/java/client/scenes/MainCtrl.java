@@ -54,12 +54,14 @@ public class MainCtrl {
     private LeaderboardCtrl leaderboardCtrl;
     private Scene leaderboard;
 
+    private ChooseServerCtrl chooseServerCtrl;
+    private Scene chooseServer;
+
     private ActivityViewerCtrl activityViewerCtrl;
     private Scene activityViewer;
 
     private LobbyCtrl lobbyCtrl;
     private Scene lobby;
-
 
     private String name;
 
@@ -72,6 +74,7 @@ public class MainCtrl {
      * @param gameCtrl
      * @param prompt
      * @param leaderboard
+     * @param chooseServer
      * @param lobby
      * @param adminMenu
      */
@@ -80,8 +83,10 @@ public class MainCtrl {
                            Pair<AddQuoteCtrl, Parent> add, Pair<SplashCtrl, Parent> splash,
                            Pair<GameCtrl, Parent> gameCtrl,
                            Pair<PromptCtrl, Parent> prompt, Pair<LeaderboardCtrl, Parent> leaderboard,
+                           Pair<ChooseServerCtrl, Parent> chooseServer,
                            Pair<LobbyCtrl, Parent> lobby,
                            Pair<ActivityViewerCtrl, Parent> adminMenu) {
+
         this.primaryStage = primaryStage;
         this.overviewCtrl = overview.getKey();
         this.overview = new Scene(overview.getValue());
@@ -109,7 +114,11 @@ public class MainCtrl {
         this.activityViewerCtrl = adminMenu.getKey();
         this.activityViewer = new Scene(adminMenu.getValue());
 
-        showSplash();
+        this.chooseServerCtrl = chooseServer.getKey();
+        this.chooseServer = new Scene(chooseServer.getValue());
+
+        //showSplash();
+        showChooseServer();
         primaryStage.show();
     }
 
@@ -215,6 +224,17 @@ public class MainCtrl {
         primaryStage.setScene(prompt);
     }
 
+    /**
+     * Starts ChooseServer.fxml
+     */
+    public void showChooseServer(){
+        if(primaryStage.getScene()!=null){
+            Scene currentScene = primaryStage.getScene();   //Gets current scene
+            chooseServerCtrl.setWindowSize(currentScene.getWidth(),currentScene.getHeight());
+        }
+        primaryStage.setTitle("Choose server");
+        primaryStage.setScene(chooseServer);
+    }
     /**
      * Changes current scene to the activity viewer
      */

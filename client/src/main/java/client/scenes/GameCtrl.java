@@ -507,6 +507,7 @@ public class GameCtrl {
      * @param correctAnswer the string of the correct answer
      */
     public void showCorrectAnswer(String correctAnswer) {
+        System.out.println(correctAnswer);
         Button correctButton = this.findCorrectChoice(correctAnswer);
         System.out.println(correctButton.getText());
         correctButton.setStyle("-fx-background-color: #16b211");
