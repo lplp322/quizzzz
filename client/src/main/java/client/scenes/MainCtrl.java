@@ -197,7 +197,7 @@ public class MainCtrl {
     public void showChooseServer(){
         if(primaryStage.getScene()!=null){
             Scene currentScene = primaryStage.getScene();   //Gets current scene
-            splashCtrl.setWindowSize(currentScene.getWidth(),currentScene.getHeight());
+            chooseServerCtrl.setWindowSize(currentScene.getWidth(),currentScene.getHeight());
         }
         primaryStage.setTitle("Choose server");
         primaryStage.setScene(chooseServer);

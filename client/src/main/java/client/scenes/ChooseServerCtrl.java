@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Button;
+import javafx.scene.layout.AnchorPane;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -27,6 +28,9 @@ public class ChooseServerCtrl {
 
     @FXML
     private Button connect;
+
+    @FXML
+    private AnchorPane mainWindow;
     /**
      *
      * @param mainCtrl
@@ -37,7 +41,7 @@ public class ChooseServerCtrl {
     }
 
     /**
-     * Connecting to current server
+     * Used to connect to current server
      */
     public void connectToServer(){
         cantConnectLabel.setVisible(false);
@@ -71,5 +75,13 @@ public class ChooseServerCtrl {
         }
     }
 
-
+    /**
+     * Is changing the size of window to the preferred one
+     * @param w - width
+     * @param h - height
+     */
+    @FXML
+    public void setWindowSize(double w, double h){
+        mainWindow.setPrefSize(w,h);
+    }
 }
