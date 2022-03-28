@@ -48,4 +48,5 @@ public class SplashCtrl {
         mainWindow.setPrefSize(w,h);
     }
 
+    public void showActivityViewer(){this.mainCtrl.showActivityViewer();}
 }

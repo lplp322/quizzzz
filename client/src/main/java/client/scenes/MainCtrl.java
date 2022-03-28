@@ -54,8 +54,12 @@ public class MainCtrl {
     private LeaderboardCtrl leaderboardCtrl;
     private Scene leaderboard;
 
+    private ActivityViewerCtrl activityViewerCtrl;
+    private Scene activityViewer;
+
     private LobbyCtrl lobbyCtrl;
     private Scene lobby;
+
 
     private String name;
 
@@ -69,13 +73,15 @@ public class MainCtrl {
      * @param prompt
      * @param leaderboard
      * @param lobby
+     * @param adminMenu
      */
 
     public void initialize(Stage primaryStage, Pair<QuoteOverviewCtrl, Parent> overview,
                            Pair<AddQuoteCtrl, Parent> add, Pair<SplashCtrl, Parent> splash,
                            Pair<GameCtrl, Parent> gameCtrl,
                            Pair<PromptCtrl, Parent> prompt, Pair<LeaderboardCtrl, Parent> leaderboard,
-                           Pair<LobbyCtrl, Parent> lobby) {
+                           Pair<LobbyCtrl, Parent> lobby,
+                           Pair<ActivityViewerCtrl, Parent> adminMenu) {
         this.primaryStage = primaryStage;
         this.overviewCtrl = overview.getKey();
         this.overview = new Scene(overview.getValue());
@@ -99,6 +105,9 @@ public class MainCtrl {
 
         this.lobbyCtrl = lobby.getKey();
         this.lobby = new Scene(lobby.getValue());
+
+        this.activityViewerCtrl = adminMenu.getKey();
+        this.activityViewer = new Scene(adminMenu.getValue());
 
         showSplash();
         primaryStage.show();
@@ -206,6 +215,17 @@ public class MainCtrl {
         primaryStage.setScene(prompt);
     }
 
+    /**
+     * Changes current scene to the activity viewer
+     */
+    public void showActivityViewer() {
+        Scene currentScene = primaryStage.getScene();   //Gets current scene
+        primaryStage.setTitle("ActivityViewer");
+
+        //Resizes new scene by calling the setWindowSize method
+        activityViewerCtrl.setWindowSize(currentScene.getWidth(),currentScene.getHeight());
+        primaryStage.setScene(activityViewer);
+    }
     /**
      * @param http this is a http connection that the response of which will be turned into a string
      * @return The http response in JSON format
