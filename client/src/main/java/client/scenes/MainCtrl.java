@@ -21,7 +21,13 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.util.Pair;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.net.HttpURLConnection;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 public class MainCtrl {
@@ -51,6 +57,12 @@ public class MainCtrl {
     private ChooseServerCtrl chooseServerCtrl;
     private Scene chooseServer;
 
+    private ActivityViewerCtrl activityViewerCtrl;
+    private Scene activityViewer;
+
+    private LobbyCtrl lobbyCtrl;
+    private Scene lobby;
+
     private String name;
 
     /**
@@ -63,13 +75,18 @@ public class MainCtrl {
      * @param prompt
      * @param leaderboard
      * @param chooseServer
+     * @param lobby
+     * @param adminMenu
      */
 
     public void initialize(Stage primaryStage, Pair<QuoteOverviewCtrl, Parent> overview,
                            Pair<AddQuoteCtrl, Parent> add, Pair<SplashCtrl, Parent> splash,
                            Pair<GameCtrl, Parent> gameCtrl,
                            Pair<PromptCtrl, Parent> prompt, Pair<LeaderboardCtrl, Parent> leaderboard,
-                            Pair<ChooseServerCtrl, Parent> chooseServer) {
+                           Pair<ChooseServerCtrl, Parent> chooseServer,
+                           Pair<LobbyCtrl, Parent> lobby,
+                           Pair<ActivityViewerCtrl, Parent> adminMenu) {
+
         this.primaryStage = primaryStage;
         this.overviewCtrl = overview.getKey();
         this.overview = new Scene(overview.getValue());
@@ -82,12 +99,20 @@ public class MainCtrl {
 
         this.gameCtrl = gameCtrl.getKey();
         this.game = new Scene(gameCtrl.getValue());
+        this.game.getStylesheets().add(getClass().getResource("Game.css").toString());
 
         this.promptCtrl = prompt.getKey();
         this.prompt = new Scene(prompt.getValue());
 
         this.leaderboardCtrl = leaderboard.getKey();
         this.leaderboard = new Scene(leaderboard.getValue());
+        this.leaderboard.getStylesheets().add(getClass().getResource("LeaderboardStyle.css").toString());
+
+        this.lobbyCtrl = lobby.getKey();
+        this.lobby = new Scene(lobby.getValue());
+
+        this.activityViewerCtrl = adminMenu.getKey();
+        this.activityViewer = new Scene(adminMenu.getValue());
 
         this.chooseServerCtrl = chooseServer.getKey();
         this.chooseServer = new Scene(chooseServer.getValue());
@@ -127,6 +152,14 @@ public class MainCtrl {
         primaryStage.setScene(splash);
     }
 
+    /**
+     * Shows a waiting room before game begins
+     */
+    public void showWaitingRoom() {
+        primaryStage.setTitle("Waiting room");
+        lobbyCtrl.init();
+        primaryStage.setScene(lobby);
+    }
 
     /**
      * Changes the current scene to the questions screen
@@ -158,7 +191,7 @@ public class MainCtrl {
         ll4, ll4, ll4, ll4, ll4, ll4, ll4, ll4, ll4, ll4, ll4, ll4, ll4, ll4, ll4, ll4),
          ll3);
         */
-
+        primaryStage.setScene(this.leaderboard);
         leaderboardCtrl.displayResults(results, myResult);
     }
 
@@ -203,6 +236,36 @@ public class MainCtrl {
         primaryStage.setScene(chooseServer);
     }
     /**
+     * Changes current scene to the activity viewer
+     */
+    public void showActivityViewer() {
+        Scene currentScene = primaryStage.getScene();   //Gets current scene
+        primaryStage.setTitle("ActivityViewer");
+
+        //Resizes new scene by calling the setWindowSize method
+        activityViewerCtrl.setWindowSize(currentScene.getWidth(),currentScene.getHeight());
+        primaryStage.setScene(activityViewer);
+    }
+    /**
+     * @param http this is a http connection that the response of which will be turned into a string
+     * @return The http response in JSON format
+     */
+    public static String httpToJSONString(HttpURLConnection http) {
+        StringBuilder textBuilder = new StringBuilder();
+        try (Reader reader = new BufferedReader(new InputStreamReader
+                (http.getInputStream(), Charset.forName(StandardCharsets.UTF_8.name())))) {
+            int c = 0;
+            while ((c = reader.read()) != -1) {
+                textBuilder.append((char) c);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        String jsonString = textBuilder.toString();
+        return jsonString;
+    }
+
+    /**
      * A getter for the current gameID
      * @return gameID
      */
@@ -245,5 +308,13 @@ public class MainCtrl {
      */
     public void setLink(String link) {
         this.link = link;
+    }
+
+    /**
+     * returns the user to the game screen (used after showing the leaderboard)
+     */
+    public void returnToGame() {
+        primaryStage.setTitle("Quizzz");
+        primaryStage.setScene(game);
     }
 }
