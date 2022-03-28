@@ -236,7 +236,7 @@ public class GameCtrl {
         reactions.setValue(new ImageView());
         File folder = new File("client/src/main/resources/reactions");
         List<ImageView> ls = new ArrayList<>();
-        System.out.println(folder.listFiles()[0].toString());
+//        System.out.println(folder.listFiles()[0].toString());
         ImageView img = new ImageView(new Image("reactions/701.png"));
         img.setFitHeight(30);
         img.setFitWidth(30);
