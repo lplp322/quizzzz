@@ -13,7 +13,9 @@ public class Round {
     private boolean timeoutActive = false;
     private final int totalRounds = 20;
     private final int roundTimer = 20;
-    private Map<Object, Joker> gameChangingJokers;
+    //private Map<String, Joker> gameChangingJokers;
+
+    private HalveTimeJoker halveTimeJoker;
 
     /**
      * By default, first round is 0 and timer counts down from 20
@@ -21,7 +23,7 @@ public class Round {
     public Round() {
         this.round = 0;
         this.timer = roundTimer;
-        this.gameChangingJokers = new HashMap<>();
+        this.halveTimeJoker = null;
         this.gameStatus = 1;
     }
 
@@ -31,9 +33,8 @@ public class Round {
      */
     public void tickDown() {
         timer--;
-        if(gameChangingJokers.containsKey(HalveTimeJoker.class)) {
-            HalveTimeJoker tempJoker = (HalveTimeJoker) gameChangingJokers.get(HalveTimeJoker.class);
-            tempJoker.tickDown();
+        if(halveTimeJoker != null) {
+            halveTimeJoker.tickDown();
         }
 
         if (timer == 0){
@@ -46,11 +47,34 @@ public class Round {
             timeoutActive = false;
             timer = 20;
             round++;
-            gameChangingJokers.clear();
+            halveTimeJoker = null;
         }
         if(round == totalRounds-1) {
             gameStatus = 2;
         }
+    }
+
+    /**
+     * activates the halftime joker
+     * @param player
+     */
+    public void activateHalfTime(Player player) {
+        if(timer > 10) {
+            System.out.println("DAS");
+            halveTimeJoker = new HalveTimeJoker(player, timer / 2);
+        }
+    }
+
+    /**
+     * returns whether we are in a timeout
+     * @return are we in a timeout
+     */
+    public boolean isTimeoutActive() {
+        return timeoutActive;
+    }
+
+    public HalveTimeJoker getHalveTimeJoker() {
+        return halveTimeJoker;
     }
 
     /**

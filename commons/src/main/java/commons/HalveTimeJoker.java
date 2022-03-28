@@ -6,12 +6,11 @@ public class HalveTimeJoker extends Joker{
 
     /**
      * Constructor for the halve time joker
-     * @param jokerName
      * @param usersName
      * @param halvedTimer
      */
-    public HalveTimeJoker(String jokerName, Player usersName, int halvedTimer) {
-        super(jokerName);
+    public HalveTimeJoker(Player usersName, int halvedTimer) {
+        super("HALF");
         this.usersName = usersName;
         this.halvedTimer = halvedTimer;
     }
@@ -20,7 +19,7 @@ public class HalveTimeJoker extends Joker{
      * ticks the timer down
      */
     public void tickDown() {
-
+        halvedTimer--;
     }
 
     /**

@@ -105,6 +105,16 @@ public class LobbyController {
     }
 
     /**
+     * Removes a player with given name from the lobby
+     * @param name
+     * @param id
+     */
+    @DeleteMapping("/multiplayer/disconnect/{id}/{name}")
+    public void disconnectPlayer(@PathVariable int id, @PathVariable String name) {
+        lobbyService.getGameByID(id).disconnectPlayer(name);
+    }
+
+    /**
      * PUT request to start game, that is currently in lobby
      * @return - return trimmed game object !!!(Game will be changed to TrimmedGame later)
      */
@@ -151,16 +161,16 @@ public class LobbyController {
     /**
      * @param gameID The id of the game
      * @param name name of the player
-     * @param round round of the game
      * @param joker which joker was used (string)
      * @return returns a string hardcoded for now that says it has been received
      */
-    @GetMapping("/{gameID}/{name}/joker/{round}/{joker}")
+    @PutMapping("/{gameID}/{name}/joker/{joker}")
     //CHECKSTYLE:OFF
     public String receiveJoker(@PathVariable int gameID, @PathVariable String name,
-                               @PathVariable int round, @PathVariable String joker) {
+                               @PathVariable String joker) {
         //CHECKSTYLE:ON
-        System.out.println(joker);
+        //System.out.println(joker);
+        lobbyService.getGameByID(gameID).useJoker(joker, name);
 
         return "joker received";
     }

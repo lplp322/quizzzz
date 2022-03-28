@@ -1,5 +1,6 @@
 package server;
 
+import commons.HalveTimeJoker;
 import commons.Player;
 import commons.Round;
 import commons.TrimmedGame;
@@ -45,6 +46,10 @@ public class Game implements Runnable{
 
     }
 
+    public void disconnectPlayer(String name) {
+        players.get(name).setDisconnected(true);
+    }
+
     /**
      * method which handles simulating the game rounds
      */
@@ -59,6 +64,19 @@ public class Game implements Runnable{
         }
         catch (Exception e) {
             System.out.println(e.getStackTrace());
+        }
+    }
+
+    /**
+     * activates a joker
+     * @param joker
+     * @param playerName
+     */
+    public void useJoker(String joker, String playerName) {
+        if(round.getHalveTimeJoker() == null) {
+            if(joker.equals("HALF")) {
+                round.activateHalfTime(players.get(playerName));
+            }
         }
     }
 

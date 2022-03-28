@@ -18,4 +18,11 @@ public class Joker {
     public String getJokerName() {
         return jokerName;
     }
+
+    @Override
+    public String toString() {
+        return "Joker{" +
+                "jokerName='" + jokerName + '\'' +
+                '}';
+    }
 }
