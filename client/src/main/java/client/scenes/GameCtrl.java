@@ -169,54 +169,54 @@ public class GameCtrl {
 
             while(!stopGame) {
                 Platform.runLater(() -> {
-                            try {
-                                URL url = new URL(mainCtrl.getLink() + mainCtrl.getCurrentID()
-                                        +"/" + mainCtrl.getName() + "/getGameInfo");
-                                //for now all gameID's are set to 1,
-                                //but these need to be changed once the gameID is stored from the sever
-                                HttpURLConnection http = (HttpURLConnection) url.openConnection();
-                                Gson g = new Gson();
-                                String jsonString = mainCtrl.httpToJSONString(http);
-                                commons.TrimmedGame trimmedGame = g.fromJson(jsonString, commons.TrimmedGame.class);
-                                currentRound = trimmedGame.getRoundNum();
+                    try {
+                        URL url = new URL(mainCtrl.getLink() + mainCtrl.getCurrentID()
+                                +"/" + mainCtrl.getName() + "/getGameInfo");
+                        //for now all gameID's are set to 1,
+                        //but these need to be changed once the gameID is stored from the sever
+                        HttpURLConnection http = (HttpURLConnection) url.openConnection();
+                        Gson g = new Gson();
+                        String jsonString = mainCtrl.httpToJSONString(http);
+                        commons.TrimmedGame trimmedGame = g.fromJson(jsonString, commons.TrimmedGame.class);
+                        currentRound = trimmedGame.getRoundNum();
 
-                                showReaction(trimmedGame.getReactionHistory());
-                                this.currentTrimmedGame  = trimmedGame;
-                                System.out.println(trimmedGame.getCorrectAnswer());
+                        showReaction(trimmedGame.getReactionHistory());
+                        this.currentTrimmedGame  = trimmedGame;
+                        System.out.println(trimmedGame.getCorrectAnswer());
 //                                System.out.println(currentRound);
-                                if (currentRound == -1) {
-                                    sendAnswer("1");
-                                    this.stopGame = true;
-                                    this.showLeaderboard();
-                                }
+                        if (currentRound == -1) {
+                            sendAnswer("1");
+                            this.stopGame = true;
+                            this.showLeaderboard();
+                        }
 
-                                if (trimmedGame.getTimer() == 20 ||
-                                trimmedGame.getTimer() == 19) {
-                                    this.mainCtrl.returnToGame();
-                                    this.showRound(trimmedGame);
-                                }
-                                if (trimmedGame.getTimer() < 0) {//works for now, BUT NEEDS TO BE CHANGED IN TRIMMEDGAME
-                                    showTimeout(trimmedGame);
-                                    this.showCorrectAnswer(trimmedGame.getCorrectAnswer());
-                                    if (trimmedGame.getTimer() == -4) {
-                                        this.resetColors();
-                                        haveYouVoted.setVisible(false);
-                                    }
+                        if (trimmedGame.getTimer() == 20 ||
+                        trimmedGame.getTimer() == 19) {
+                            this.mainCtrl.returnToGame();
+                            this.showRound(trimmedGame);
+                        }
+                        if (trimmedGame.getTimer() < 0) {//works for now, BUT NEEDS TO BE CHANGED IN TRIMMEDGAME
+                            showTimeout(trimmedGame);
+                            this.showCorrectAnswer(trimmedGame.getCorrectAnswer());
+                            if (trimmedGame.getTimer() == -4) {
+                                this.resetColors();
+                                haveYouVoted.setVisible(false);
+                            }
 
-                                    if (trimmedGame.getTimer() == -2) {
-                                        this.getMultiplayerLeaderboard();
-                                    }
-                                }
-
-
-                                else {
-                                    updatePolling(trimmedGame);
-                                }
-                                http.disconnect();
-                            } catch (IOException e) {
-                                e.printStackTrace();
+                            if (trimmedGame.getTimer() == -2) {
+                                this.getMultiplayerLeaderboard();
                             }
                         }
+
+
+                        else {
+                            updatePolling(trimmedGame);
+                        }
+                        http.disconnect();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
                 );
                 try {
                     Thread.sleep(200);
@@ -225,6 +225,7 @@ public class GameCtrl {
                 }
             }
         });
+        t1.setDaemon(true); // stops thread after main thread stops
         t1.start();
     }
 
@@ -233,15 +234,15 @@ public class GameCtrl {
      * Loads the available emoji's (in reasources/reactions) into the dropdown menu
      */
     public void loadReactions() {
-        reactions.setValue(new ImageView());
         File folder = new File("client/src/main/resources/reactions");
+        System.out.println(folder);
+        // for the gradle run task
+        if (folder.listFiles() == null) {folder = new File("src/main/resources/reactions");}
         List<ImageView> ls = new ArrayList<>();
-//        System.out.println(folder.listFiles()[0].toString());
         ImageView img = new ImageView(new Image("reactions/701.png"));
         img.setFitHeight(30);
         img.setFitWidth(30);
         reactions.setValue(img);
-//        reactions.setButtonCell(new ListCell<>());
         for(File f : folder.listFiles()) {
             ls.add(new ImageView(new Image("reactions/"+f.getName())));
         }
