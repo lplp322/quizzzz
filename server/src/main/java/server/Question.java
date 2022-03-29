@@ -23,6 +23,7 @@ public class Question {
     private ActivityRepository dt;
     //Correct answer
     private String answer;
+    private String url;
 
     /**
      * Creates a new question
@@ -89,7 +90,9 @@ public class Question {
     private void generateTypeOne() {
         Activity act = activities.get(0);
 
-        question = String.format("Estimate the energy usage of %s", act.getTitle());
+        question = act.getTitle();
+
+        url = act.getImagePath();
 
         answers.add(act.getConsumption()+"");
         answer = act.getConsumption()+"";
@@ -105,7 +108,10 @@ public class Question {
         int wrongAnswer2;
         Random random = new Random();
         int questionIndex = random.nextInt(activities.size());
-        question = String.format("How much energy does %s use", activities.get(questionIndex).getTitle());
+        question = activities.get(questionIndex).getTitle();
+
+        url = activities.get(questionIndex).getImagePath();
+
         int answerInt = activities.get(questionIndex).getConsumption();
 
         int deviation = random.nextInt(activities.get(questionIndex).getConsumption());
@@ -134,7 +140,9 @@ public class Question {
      */
     private void generateTypeThree() {
         Collections.sort(activities);
-        question = String.format("Instead of %s you could use:", activities.get(1).getTitle());
+        question = activities.get(1).getTitle();
+
+        url = activities.get(1).getImagePath();
 
         answer = activities.get(0).getTitle();
 
@@ -190,7 +198,15 @@ public class Question {
      * @return trimmed question
      */
     public QuestionTrimmed getTrimmed() {
-        return new QuestionTrimmed(question, answers, type, answer);
+        return new QuestionTrimmed(question, answers, type, answer, url);
+    }
+
+    /**
+     * returns the path to the image
+     * @return path
+     */
+    public String getUrl() {
+        return url;
     }
 
     /**

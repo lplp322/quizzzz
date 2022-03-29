@@ -1,16 +1,14 @@
 package server.api;
 //CHECKSTYLE:OFF
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import server.Activity;
 import server.Game;
 import commons.Player;
-import commons.TrimmedGame;
-import server.Round;
 import server.database.ActivityRepository;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -76,15 +74,4 @@ public class GameTest {
             e.printStackTrace();
         }
     }
-
-    @Test
-    public void noJokerTrim() {
-        /*TrimmedGame trim = new TrimmedGame(1, game.getQuestions().get(0).getQuestion(), 20, 20,
-                game.getQuestions().get(0).getAnswers(), game.getQuestions().get(0).getType(),
-                game.getQuestions().get(0).getAnswer(), reactions);
-        TrimmedGame gameTrim = game.trim();
-        assertEquals(trim, gameTrim);*/
-    }
-
-
 }

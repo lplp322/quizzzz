@@ -6,7 +6,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class LeaderboardEntry {
+public class LeaderboardEntry implements Comparable{
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -57,5 +57,12 @@ public class LeaderboardEntry {
      */
     public void setScore(int score) {
         this.score = score;
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        boolean g = score < ((LeaderboardEntry)o).getScore();
+        if(g) return 1;
+        else return -1;
     }
 }

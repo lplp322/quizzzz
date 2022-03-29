@@ -76,7 +76,7 @@ public class Config {
     @Bean
     public void setup() {
         ObjectMapper mapper = new ObjectMapper();
-        File rootFolder = new File("./server/src/main/resources/activities");
+        File rootFolder = new File("commons/src/main/resources/activities");
         for (final File folder : rootFolder.listFiles()){
             for (final File file : folder.listFiles()) {
                 if ( file.getName().endsWith(".json") ) {

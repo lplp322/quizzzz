@@ -7,6 +7,7 @@ public class QuestionTrimmed {
     private List<String> answers;
     private int type;
     private String answer;
+    private String url;
 
     /**
      * 
@@ -14,12 +15,14 @@ public class QuestionTrimmed {
      * @param answers
      * @param type
      * @param answer
+     * @param url
      */
-    public QuestionTrimmed(String question, List<String> answers, int type, String answer) {
+    public QuestionTrimmed(String question, List<String> answers, int type, String answer, String url) {
         this.question = question;
         this.answers = answers;
         this.type = type;
         this.answer = answer;
+        this.url = url;
     }
 
     /**
@@ -52,5 +55,13 @@ public class QuestionTrimmed {
      */
     public String getAnswer() {
         return answer;
+    }
+
+    /**
+     * returns the url
+     * @return url
+     */
+    public String getUrl() {
+        return url;
     }
 }

@@ -1,8 +1,5 @@
 package commons;
 
-import java.util.HashMap;
-import java.util.Map;
-
 public class Round {
     // the number of the current round
     private int round;
@@ -74,6 +71,10 @@ public class Round {
         return timeoutActive;
     }
 
+    /**
+     * returns the halftimejoker
+     * @return the half time joker
+     */
     public HalveTimeJoker getHalveTimeJoker() {
         return halveTimeJoker;
     }

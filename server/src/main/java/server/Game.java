@@ -5,11 +5,12 @@ import commons.Round;
 import commons.LeaderboardEntry;
 import commons.TrimmedGame;
 import server.database.ActivityRepository;
+import java.util.Map;
+import java.util.List;
 import java.util.ArrayList;
 import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
 import java.util.Set;
+import java.util.Collections;
 
 
 public class Game implements Runnable{
@@ -171,11 +172,11 @@ public class Game implements Runnable{
      * @return True if answer was correct
      */
     public boolean checkPlayerAnswer(String name, int round, int answer) {
-        System.out.println("Round: "+ getRound().getRound());
-        System.out.println("Correct answer: "+ getQuestions().get(round).getAnswer());
+        //System.out.println("Round: "+ getRound().getRound());
+        //System.out.println("Correct answer: "+ getQuestions().get(round).getAnswer());
         if(getRound().getRound() == round){
             Question currQuestion = questions.get(getRound().getRound());
-            System.out.println("Question type " + currQuestion.getType());
+            //System.out.println("Question type " + currQuestion.getType());
             if(currQuestion.getType() == 0){
                 //TO BE IMPLEMENTED
                 int score = checkPlayerEstimation(name, round, answer+"");
@@ -189,7 +190,7 @@ public class Game implements Runnable{
                 for(int i=0; i<currQuestion.getAnswers().size(); i++){
                     if(currQuestion.getAnswers().get(i).equals(currQuestion.getAnswer())) correctAns = i;
                 }
-                System.out.println("Correct answer: "+ correctAns);
+                //System.out.println("Correct answer: "+ correctAns);
                 if(correctAns == -1) System.out.println("errrroororroror");
                 if (correctAns == answer){
                     updatePlayerScore(name, 5*getRound().getTimer());
@@ -257,6 +258,8 @@ public class Game implements Runnable{
             commons.LeaderboardEntry ldEntry = new LeaderboardEntry(player.getName(), player.getScore());
             leaderboardEntries.add(ldEntry);
         }
+
+        Collections.sort(leaderboardEntries);
 
         return leaderboardEntries;
     }

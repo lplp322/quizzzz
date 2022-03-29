@@ -106,7 +106,7 @@ public class LobbyCtrl {
      * Displays the list of names on the screen
      * @param names list of names
      */
-    public void displayNames(List<String> names) {
+    /*public void displayNames(List<String> names) {
         lobbyLabel.setText(String.format("%d player" +
                 (names.size() > 1? "s":"") +
                 " currently waiting in the room", names.size()));
@@ -143,12 +143,13 @@ public class LobbyCtrl {
             scrollPanel.getChildren().add(tmp);
         }
         scrollPanel.setPrefSize(Math.ceil(1.00*names.size() / perRow) * nameWidth, scrollPanel.getHeight());
-    }
+    }*/
 
     /**
      * displays the names in an interesting pattern
      * @param names
      */
+    //CHECKSTYLE:OFF
     public void displayNamesFibonacci(List<String> names) {
         lobbyLabel.setText(String.format("%d player" +
                 (names.size() > 1? "s":"") +
@@ -185,6 +186,7 @@ public class LobbyCtrl {
             tempLabel.setStyle("-fx-border-color: black;" +
                     "-fx-background-color: " + hex + ";" +
                     "-fx-font-weight: bold;" +
+                    "-fx-text-fill: white;" +
                     "-fx-font-size: " + Math.min(height, width)/20);
 
             if(i == names.size() - 1) { // last one
@@ -247,6 +249,7 @@ public class LobbyCtrl {
             scrollPanel.getChildren().add(tempLabel);
         }
     }
+    //CHECKSTYLE:ON
 
     /**
      * Exits the lobby and removes the player from it
