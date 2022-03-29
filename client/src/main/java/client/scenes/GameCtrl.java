@@ -233,6 +233,7 @@ public class GameCtrl {
             inTimeOut = false;
             updatePolling(trimmedGame, timeForCurrentPlayer);
         }
+
     }
 
     /**
@@ -281,22 +282,22 @@ public class GameCtrl {
         //playerList.getItems().add(this.mainCtrl.getName());
 
         Thread t1 = new Thread(()-> {
-
             while(!stopGame) {
                 Platform.runLater(() -> {
-                            TrimmedGame trimmedGame = pollGame(); // poll the game
-                            this.currentTrimmedGame  = trimmedGame;
-                            showPlayers(trimmedGame);
+                        TrimmedGame trimmedGame = pollGame(); // poll the game
+                        this.currentTrimmedGame  = trimmedGame;
+                        showPlayers(trimmedGame);
 
-                            try {
-                                showReaction(trimmedGame.getReactionHistory()); // display all the reactions
-                                displayScreen(trimmedGame); // show round or timeout
-                                //displayJokers(trimmedGame.getPlayers().get(mainCtrl.getName()).getJokerList());
-                            }
-                            catch (IOException e) {
-                                e.printStackTrace();
-                            }
+                        try {
+                            showReaction(trimmedGame.getReactionHistory()); // display all the reactions
+                            displayScreen(trimmedGame); // show round or timeout
+                            //displayJokers(trimmedGame.getPlayers().get(mainCtrl.getName()).getJokerList());
                         }
+                        catch (IOException e) {
+                            e.printStackTrace();
+
+                        }
+                }
                 );
                 try {
                     Thread.sleep(200);
@@ -305,6 +306,7 @@ public class GameCtrl {
                 }
             }
         });
+        t1.setDaemon(true); // stops thread after main thread stops
         t1.start();
     }
 
@@ -321,15 +323,16 @@ public class GameCtrl {
      * Loads the available emoji's (in resources/reactions) into the dropdown menu
      */
     public void loadReactions() {
-        reactions.setValue(new ImageView());
         File folder = new File("client/src/main/resources/reactions");
+        System.out.println(folder);
+        // for the gradle run task
+        if (folder.listFiles() == null) {folder = new File("src/main/resources/reactions");}
         List<ImageView> ls = new ArrayList<>();
-        //System.out.println(folder.listFiles()[0].toString());
+
         ImageView img = new ImageView(new Image("reactions/701.png"));
         img.setFitHeight(30);
         img.setFitWidth(30);
         reactions.setValue(img);
-//        reactions.setButtonCell(new ListCell<>());
         for(File f : folder.listFiles()) {
             ls.add(new ImageView(new Image("reactions/"+f.getName())));
         }
@@ -400,6 +403,7 @@ public class GameCtrl {
     /**
      * Showing the round screen
      * @param trimmedGame
+     * @param realTimer
      */
     private void showRound(TrimmedGame trimmedGame, int realTimer) {
         answerLabel.setVisible(false);

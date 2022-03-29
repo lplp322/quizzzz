@@ -239,7 +239,7 @@ public class LobbyController {
         Game game = lobbyService.getGameByID(gameID);
         String[] newReaction = new String[] {player, reaction};
         game.getReactions().add(newReaction);
-        System.out.println("Success: " + newReaction);
+//        System.out.println("Success: " + newReaction);
         Thread t = new Thread(()->{
             try {
                 Thread.sleep(REACTION_DURATION);

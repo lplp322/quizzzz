@@ -46,7 +46,7 @@ public class Round {
             round++;
             halveTimeJoker = null;
         }
-        System.out.println(round);
+//        System.out.println(round);
         if(round == totalRounds) {
             gameStatus = 2;
         }
