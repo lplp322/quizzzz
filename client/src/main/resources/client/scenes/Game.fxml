@@ -27,7 +27,7 @@
             </Label>
             <ScrollPane fx:id="scrollPanel" layoutY="85.0" prefHeight="457.0" prefWidth="260.0">
               <content>
-                <AnchorPane fx:id="playerList" minHeight="363.0" minWidth="258.0" prefHeight="363.0" prefWidth="258.0" />
+                <AnchorPane fx:id="playerList" minHeight="363.0" minWidth="258.0" prefHeight="454.0" prefWidth="258.0" />
               </content>
             </ScrollPane>
          </children>

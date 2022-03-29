@@ -408,8 +408,7 @@ public class GameCtrl {
         timerLabel.setText("Time: " + realTimer);
         questionLabel.setText(trimmedGame.getQuestion().getQuestion());
         questionImage.setImage(new Image(trimmedGame.getQuestion().getUrl().substring(26)));
-
-
+        
         switch (trimmedGame.getQuestion().getType()) {
             case 0:
             case 1:
