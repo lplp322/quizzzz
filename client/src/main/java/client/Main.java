@@ -20,17 +20,14 @@ import static com.google.inject.Guice.createInjector;
 import java.io.IOException;
 import java.net.URISyntaxException;
 
-import client.scenes.AddQuoteCtrl;
-import client.scenes.ChooseServerCtrl;
 import client.scenes.MainCtrl;
 import client.scenes.GameCtrl;
-import client.scenes.QuoteOverviewCtrl;
+import client.scenes.PromptCtrl;
+import client.scenes.ChooseServerCtrl;
 import client.scenes.LobbyCtrl;
 import client.scenes.SplashCtrl;
-import client.scenes.PromptCtrl;
 import client.scenes.LeaderboardCtrl;
 import client.scenes.ActivityViewerCtrl;
-import client.scenes.MainCtrl;
 import com.google.inject.Injector;
 import javafx.application.Application;
 import javafx.stage.Stage;
@@ -52,9 +49,6 @@ public class Main extends Application {
      */
     @Override
     public void start(Stage primaryStage) throws IOException {
-        var overview = FXML.load(QuoteOverviewCtrl.class, "client", "scenes",
-                "QuoteOverview.fxml");
-        var add = FXML.load(AddQuoteCtrl.class, "client", "scenes", "AddQuote.fxml");
 
         var splash = FXML.load(SplashCtrl.class, "client","scenes", "Splash.fxml");
         var game = FXML.load(GameCtrl.class, "client", "scenes",
@@ -71,8 +65,8 @@ public class Main extends Application {
 
         var mainCtrl = INJECTOR.getInstance(MainCtrl.class);
 
-        mainCtrl.initialize(primaryStage, overview, add, splash, game, prompt, leaderboard,
-                chooseServer, lobby, activityViewer);
-        
+        mainCtrl.initialize(primaryStage, splash, game, prompt, leaderboard, chooseServer, lobby, activityViewer);
+        //mainCtrl.showLeaderboard();
+
     }
 }

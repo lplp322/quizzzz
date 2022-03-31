@@ -1,4 +1,4 @@
-package server;
+package commons;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,7 +6,8 @@ import java.util.List;
 public class Player {
     private String name;
     private int score;
-    private List<Joker> jokerList;
+    private List<String> jokerList;
+    private boolean disconnected;
 
     /**
      * Default constructor
@@ -15,7 +16,10 @@ public class Player {
     public Player(String name) {
         this.name = name;
         this.score = 0;
+        String j = "HALF";
         this.jokerList = new ArrayList<>();
+        jokerList.add(j);
+        disconnected = false;
     }
 
     /**
@@ -23,10 +27,19 @@ public class Player {
      * @param name
      * @param jokerList
      */
-    public Player(String name, List<Joker> jokerList) {
+    public Player(String name, List<String> jokerList) {
         this.name = name;
         this.score = 0;
         this.jokerList = jokerList;
+        disconnected = false;
+    }
+
+    /**
+     * removes a joker for a player
+     * @param joker
+     */
+    public void useJoker(Joker joker) {
+        jokerList.remove(joker);
     }
 
     /**
@@ -49,8 +62,24 @@ public class Player {
      * returns a list of the jokes available to the player
      * @return the list of the jokers available to the player
      */
-    public List<Joker> getJokerList() {
+    public List<String> getJokerList() {
         return jokerList;
+    }
+
+    /**
+     * sets the player state
+     * @param disconnected
+     */
+    public void setDisconnected(boolean disconnected) {
+        this.disconnected = disconnected;
+    }
+
+    /**
+     * returns whether the player has disconneted
+     * @return is he ingame
+     */
+    public boolean isDisconnected() {
+        return disconnected;
     }
 
     /**
