@@ -272,7 +272,6 @@ public class GameCtrl {
         }
     }
 
-    //CHECKSTYLE:OFF
     /**
      * Getting game info in a new thread
      */
@@ -312,6 +311,7 @@ public class GameCtrl {
 
     /**
      * display available jokers
+     * @param jokers list of jokers
      */
     public void displayJokers(List<String> jokers) {
         for(String x : jokers) {
@@ -322,6 +322,7 @@ public class GameCtrl {
     /**
      * Loads the available emoji's (in resources/reactions) into the dropdown menu
      */
+    //CHECKSTYLE:OFF
     public void loadReactions() {
         File folder = new File("client/src/main/resources/reactions");
         System.out.println(folder);
@@ -380,7 +381,7 @@ public class GameCtrl {
             }
         });
     }
-
+    //CHECKSTYLE:ON
 
     /**
      * Showing the timeout
@@ -408,7 +409,7 @@ public class GameCtrl {
     private void showRound(TrimmedGame trimmedGame, int realTimer) {
         answerLabel.setVisible(false);
 
-        currentRoundLabel.setText("currentRound " + trimmedGame.getRound().getRound() + 1);
+        currentRoundLabel.setText("Current Round " + trimmedGame.getRound().getRound() + 1);
         timerLabel.setText("Time: " + realTimer);
         questionLabel.setText(trimmedGame.getQuestion().getQuestion());
         questionImage.setImage(new Image(trimmedGame.getQuestion().getUrl().substring(26)));
@@ -436,7 +437,7 @@ public class GameCtrl {
 
     private void updatePolling(TrimmedGame trimmedGame, int realTimer) {
         answerLabel.setVisible(false);
-        currentRoundLabel.setText("currentRound " + (trimmedGame.getRound().getRound()+1));
+        currentRoundLabel.setText("Current Round " + (trimmedGame.getRound().getRound()+1));
         timerLabel.setText("Time: " + realTimer);
         questionLabel.setText(trimmedGame.getQuestion().getQuestion());
 
@@ -450,22 +451,14 @@ public class GameCtrl {
 //        } else this.guessEnable();
     }
 
-    /**
-     * @param joker this is a string related to which joker is being passed to the server
-     * @throws IOException
-     */
+    /*
     public  void jokerMessage(String joker) throws IOException {
-
-//        URL url = new URL("http://localhost:8080/1/P1/checkAnswer/" + currentround + "/" + joker);
         URL url = new URL(mainCtrl.getLink() + this.mainCtrl.getCurrentID()
                 + "/" + this.mainCtrl.getName() + "/joker/" + currentTrimmedGame.getRound().getRound()  + "/" + joker);
         HttpURLConnection http = (HttpURLConnection)url.openConnection();
-//        http.setRequestMethod("PUT");
-        //System.out.println(http.getResponseCode());
         String response = mainCtrl.httpToJSONString(http);
-        //System.out.println(response);
         http.disconnect();
-    }
+    }*/
 
     /**
      * @param answer is a string related to which answer the user has chosen.
@@ -660,7 +653,8 @@ public class GameCtrl {
     }
 
     /**
-     * Exits the game
+     * Exits the game - sets the current player as disconnected and if the game is a multiplayer one,
+     * the other players see that this play has disconnected
      */
     public void exitGame() {
         try {
@@ -737,6 +731,10 @@ public class GameCtrl {
     }
 
 
+    /**
+     * Displays the all-time scores and your score from the game
+     * @throws IOException
+     */
     public void showLeaderboard() throws IOException {
         commons.LeaderboardEntry myEntry = new commons.LeaderboardEntry(this.mainCtrl.getName(), myScore);
         this.mainCtrl.showLeaderboard(this.getLeaderboard(), myEntry);
@@ -834,11 +832,11 @@ public class GameCtrl {
     }
 
     /**
-     * @return the list of entries in the leaderboard from the server
+     * Displays the leaderboard for multiplayer
      * @throws IOException if the link is not valid
      */
     public void getMultiplayerLeaderboard() throws IOException {
-        System.out.println("button was clicked");
+        //System.out.println("button was clicked");
         URL url = new URL(mainCtrl.getLink()  +  this.mainCtrl.getCurrentID() + "/getMultiplayerLeaderBoard" );
         HttpURLConnection http = (HttpURLConnection) url.openConnection();
         Gson g = new Gson();
@@ -847,7 +845,7 @@ public class GameCtrl {
         //System.out.println(typeToken.getTypeName());
         LinkedList<commons.LeaderboardEntry> leaderboardList = g.fromJson(jsonString, typeToken);
         http.disconnect();
-        System.out.println(leaderboardList);
+        //System.out.println(leaderboardList);
         LeaderboardEntry userEntry = new LeaderboardEntry(this.mainCtrl.getName(), this.myScore);
         this.mainCtrl.showLeaderboard(leaderboardList, userEntry);
 //        return leaderboardList;

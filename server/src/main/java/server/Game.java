@@ -46,11 +46,10 @@ public class Game implements Runnable{
 //        for (int i =0; i < players.size(); i ++) {
 //            this.playerScore.put(players.get(i).getName(), 0);
 //        }
-
     }
 
     /**
-     * sets a play as disconnected
+     * sets a player as disconnected
      * @param name
      */
     public void disconnectPlayer(String name) {

@@ -11,11 +11,11 @@ public class QuestionTrimmed {
 
     /**
      * 
-     * @param question
-     * @param answers
-     * @param type
-     * @param answer
-     * @param url
+     * @param question the actual answer for the round
+     * @param answers list of possible answers
+     * @param type the type of question
+     * @param answer the correct answer for the question
+     * @param url the url for the image
      */
     public QuestionTrimmed(String question, List<String> answers, int type, String answer, String url) {
         this.question = question;

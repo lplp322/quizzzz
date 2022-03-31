@@ -59,6 +59,11 @@ public class LeaderboardEntry implements Comparable{
         this.score = score;
     }
 
+    /**
+     * Compares the current leaderboard entry to another on their score
+     * @param o
+     * @return
+     */
     @Override
     public int compareTo(Object o) {
         boolean g = score < ((LeaderboardEntry)o).getScore();

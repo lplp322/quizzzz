@@ -160,8 +160,8 @@ public class LobbyController {
             {lbRepo.save(new LeaderboardEntry(name, playerScore));}
             return "correct. Your score is " + playerScore;
         }
-        System.out.println("eoe");
-        System.out.println(round);
+        //System.out.println("eoe");
+        //System.out.println(round);
         if(lobbyService.getGameByID(gameID).checkPlayerAnswer(name, round, answer)){
             int playerScore = lobbyService.getGameByID(gameID).getPlayers().get(name).getScore();
             if(round == 19) {lbRepo.save(new LeaderboardEntry(name, playerScore));}
