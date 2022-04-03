@@ -68,8 +68,8 @@ public class GameTest {
         tickThread.start();
         int currTimer = game.getRound().getTimer();
         try {
-            TimeUnit.SECONDS.sleep(1);
-            assertEquals(currTimer - 1, game.getRound().getTimer());
+            Thread.sleep(1050);
+            assertEquals(currTimer - 2, game.getRound().getTimer());
         } catch (Exception e) {
             e.printStackTrace();
         }
